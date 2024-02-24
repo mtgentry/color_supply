@@ -54,7 +54,4 @@ h1
 .v-divider
   margin: 27px 200px
 
-:deep(#password-messages)
-  color: var(--color1)!important
-
 </style>

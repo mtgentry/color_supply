@@ -6,7 +6,7 @@
       v-text-field(v-model="email" label="Email" required placeholder="sara.smith@gmail.com"  variant="outlined")
       v-text-field#password(v-model="password" label="Password" required placeholder="Colorfan19#"  variant="outlined" hint="At least 8 characters, with a number or symbol" )
       v-btn#submit(color="primary" text @click="signup") Create Free Account
-      div#desciption
+      div.text-center
         p By continuing you agree to our Terms of Service and Privacy Policy.
         v-divider
         p Already have an account? Log in
@@ -23,3 +23,9 @@ definePageMeta({
   layout: 'auth',
 })
 </script>
+
+<style scoped lang="sass">
+:deep(#password-messages)
+  color: var(--color1)!important
+</style>
+
