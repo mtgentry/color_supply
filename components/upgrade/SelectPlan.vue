@@ -1,18 +1,20 @@
 <template lang="pug">
-  v-card(flat @click="store.selectPlan(plan.id)" :class="{ selected: store.selectedPlan === plan.id }")
-    v-card-title
-      h3 {{plan.name}}
-      h3
-        sup $
-        span {{plan.price}}/month
-    v-card-text
-      p {{plan.description}}
+  h1 Select a plan
+  div
+    UpgradePlan(:plan="plan" v-for="plan in store.plans" :key="plan.id")
+    v-btn#submit(color="primary" text @click="next" :disabled="!store.selectedPlan") Continue
 </template>
 
 <script setup>
 const props = defineProps({
   plan: Object
 })
+
+const emit = defineEmits(['next'])
+
+const next = () => {
+  emit('next')
+}
 
 const store = usePlanStore()
 

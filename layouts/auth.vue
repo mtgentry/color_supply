@@ -22,7 +22,7 @@ html
   justify-content: center
 
   .v-col
-    height: 100vh
+    //height: 100vh
 
 .branding
   background-color: #DEDCE1
@@ -35,8 +35,8 @@ img
 // css for pages
 
 .form
-  max-width: 450px
-  min-width: 450px
+  max-width: 550px
+  min-width: 550px
 
 h1
   margin-bottom: 22px
@@ -54,4 +54,12 @@ h1
 .v-divider
   margin: 27px 200px
 
+.v-btn--disabled
+  background-color: var(--color4) !important
+  color: var(--color3)
+
+.centered
+  display: flex
+  align-items: center
+  justify-content: center
 </style>
