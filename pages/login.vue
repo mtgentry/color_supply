@@ -5,7 +5,7 @@
       v-text-field(v-model="email" label="Email" required placeholder="sara.smith@gmail.com"  variant="outlined")
       v-text-field#password(v-model="password" label="Password" type="password" required placeholder="Colorfan19#"
         variant="outlined")
-      v-btn#submit(color="primary" text @click="login") Continue
+      v-btn#submit(color="primary" @click="login") Continue
       div#description
         p Forgot password? Reset
         p Don’t have an account? Sign up

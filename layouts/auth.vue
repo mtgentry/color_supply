@@ -21,9 +21,6 @@ html
   align-items: center
   justify-content: center
 
-  .v-col
-    //height: 100vh
-
 .branding
   background-color: #DEDCE1
 
