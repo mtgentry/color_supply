@@ -13,7 +13,7 @@
 <style scoped lang="sass">
 #options
   background-color: var(--color7)
-  height: calc(100vh - 64px)
   margin: -12px
   padding: 20px
+  height: 100%
 </style>

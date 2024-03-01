@@ -29,4 +29,10 @@ h2
   font-size: 22px
   font-weight: 400
   letter-spacing: 0.44px
+
+.centered
+  display: flex
+  justify-content: center
+  align-items: center
+  flex-direction: column
 </style>
