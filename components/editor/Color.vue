@@ -2,14 +2,13 @@
   div.color.top-right.bottom-left(:style="{backgroundColor: color}")
     div.top-right
     div.bottom-left
-
-
 </template>
 
 <script setup>
 
 const props = defineProps({
   color: String,
+  dragging: Boolean
 })
 
 </script>
@@ -19,11 +18,12 @@ const props = defineProps({
   width: 115px
   height: 115px
   position: relative
-  transition: top 0.1s ease-in-out, left 0.2s ease-in-out, transform 2s
+  transition: top 0.1s ease-in-out, left 0.2s ease-in-out
   top: 0
   left: 0
+  cursor: pointer
 
-.sortable-chosen, .color:hover
+.sortable-chosen, .color-hover:hover
   border: 2px solid #4175DF
   top: -2px
   left: -2px
