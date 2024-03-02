@@ -22,12 +22,14 @@ const props = defineProps({
   top: 0
   left: 0
   cursor: pointer
+  background-color: #788092
 
 .sortable-chosen, .color-hover:hover
   border: 2px solid #4175DF
   top: -2px
   left: -2px
   z-index: 5
+  opacity: 1!important
 
   &::before, &::after, .top-right::before, .bottom-left::before
     content: ""

@@ -7,7 +7,8 @@ export default defineNuxtConfig({
     '@pinia/nuxt',
     '@nuxt/image',
     'vuetify-nuxt-module',
-    '@nuxtjs/google-fonts'
+    '@nuxtjs/google-fonts',
+    '@formkit/auto-animate/nuxt'
   ],
   googleFonts: {
     families: {
