@@ -1,8 +1,8 @@
 <template lang="pug">
   v-row#create
-    v-col.centered(cols="10")
+    v-col.centered(cols="9")
       Colors
-    v-col(cols="2")
+    v-col(cols="3")
       Options
 
 </template>

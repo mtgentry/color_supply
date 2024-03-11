@@ -1,10 +1,11 @@
 <template lang="pug">
-  div.color.top-right.bottom-left(:style="{backgroundColor: color}")
+  div.color.top-right.bottom-left(:style="{backgroundColor: color}" :class="{active: active}")
     div.top-right
     div.bottom-left
 </template>
 
 <script setup>
+
 
 const props = defineProps({
   color: String,

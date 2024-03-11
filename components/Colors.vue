@@ -3,7 +3,7 @@
     transition
       div.delete.centered(v-if="dragging")
         v-icon(color="white" size="large") mdi-delete
-    draggable(:list="colors" v-bind="dragOptions" @start="dragStart" @end="dragEnd" @change="change" :item-key="item => item")
+    draggable(:list="store.colors" v-bind="dragOptions" @start="dragStart" @end="dragEnd" @change="change" :item-key="item => item")
       template(#item="{element}")
         div.drag-item
           EditorColor(:key="element" :color="element" :dragging="dragging" :class="{ 'color-hover': !dragging }")
@@ -14,7 +14,9 @@
 
 <script setup>
 import draggable from 'vuedraggable'
-const colors = ref(['#FF0000', '#00FF00', '#0000FF', '#FFFF00', '#00FFFF', '#FF00FF'])
+
+const store = useColorStore()
+
 const dragOptions = {
   ghostClass: 'ghost',
   animation: 300,
