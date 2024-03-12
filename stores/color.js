@@ -1,45 +1,7 @@
 import { defineStore } from 'pinia'
 export const useColorStore = defineStore('plan', () =>{
   const selectedColor = ref(null)
-  const colors = ref([
-    {
-      h: 40,
-      s: 1,
-      l: 0.5,
-      a: 1
-    },
-    {
-      h: 80,
-      s: 1,
-      l: 0.5,
-      a: 1
-    },
-    {
-      h: 120,
-      s: 1,
-      l: 0.5,
-      a: 1
-    },
-    {
-      h: 160,
-      s: 1,
-      l: 0.5,
-      a: 1
-    },
-    {
-      h: 240,
-      s: 1,
-      l: 0.5,
-      a: 1
-    },
-    {
-      h: 320,
-      s: 1,
-      l: 0.5,
-      a: 1
-    },
-    ]
-  )
+  const colors = ref(['#FF0000', '#00FF00', '#0000FF', '#FFFF00', '#00FFFF', '#FF00FF'])
   const selectColor = (color) => {
     selectedColor.value = color
   }

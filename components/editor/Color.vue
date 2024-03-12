@@ -1,5 +1,5 @@
 <template lang="pug">
-  div.color.top-right.bottom-left(:style="{backgroundColor: hsla}"
+  div.color.top-right.bottom-left(:style="{backgroundColor:  color}"
     :class="{active: index === store.selectedColor}" @click="activate")
     div.top-right
     div.bottom-left
