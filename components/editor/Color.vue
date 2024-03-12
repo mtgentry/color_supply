@@ -1,15 +1,25 @@
 <template lang="pug">
-  div.color.top-right.bottom-left(:style="{backgroundColor: color}" :class="{active: active}")
+  div.color.top-right.bottom-left(:style="{backgroundColor: hsla}"
+    :class="{active: index === store.selectedColor}" @click="activate")
     div.top-right
     div.bottom-left
 </template>
 
 <script setup>
-
-
 const props = defineProps({
   color: String,
-  dragging: Boolean
+  dragging: Boolean,
+  index: Number
+})
+
+const store = useColorStore()
+
+const activate = () => {
+  store.selectColor(props.index)
+}
+
+const hsla = computed(() => {
+  return `hsla(${props.color.h},${props.color.s*100}%,${props.color.l*100}%, ${props.color.a})`
 })
 
 </script>
@@ -25,7 +35,7 @@ const props = defineProps({
   cursor: pointer
   background-color: #788092
 
-.sortable-chosen, .color-hover:hover
+.sortable-chosen, .active, .color-hover:hover
   border: 2px solid #4175DF
   top: -2px
   left: -2px
