@@ -37,6 +37,7 @@ const dragStart = (event) => {
 }
 const dragEnd = (event) => {
   dragging.value = false
+  store.selectColor(event.newIndex)
   if (event.originalEvent.offsetY < 0) {
     colors.value.splice(event.newIndex, 1)
     storeHistory()
