@@ -1,7 +1,7 @@
 <template lang="pug">
   h2 Palette
   div.d-flex.flex-row
-    EditorColor.color(v-for="(element, index) in store.colors" :key="index" :color="element" :index="index")
+    EditorColor.color(v-for="(element, index) in store.colors" :key="index" :color="element" disabled)
 
 
 </template>

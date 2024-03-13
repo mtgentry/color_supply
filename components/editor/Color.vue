@@ -1,6 +1,6 @@
 <template lang="pug">
   div.color.top-right.bottom-left(:style="{backgroundColor:  color}"
-    :class="{active: index === store.selectedColor}" @click="activate")
+    :class="{active: index === store.selectedColor, bright: hsla.l <= brigtness, darker: hsla.l > brigtness, disabled}" @click="activate")
     div.top-right
     div.bottom-left
 </template>
@@ -9,18 +9,21 @@
 const props = defineProps({
   color: String,
   dragging: Boolean,
-  index: Number
+  index: Number,
+  disabled: Boolean
 })
+const brigtness = 0.2
 
 const store = useColorStore()
+const hsla = computed(() => {
+  return hexToHSLA(props.color)
+})
 
 const activate = () => {
+  if (props.disabled) return
   store.selectColor(props.index)
 }
 
-const hsla = computed(() => {
-  return `hsla(${props.color.h},${props.color.s*100}%,${props.color.l*100}%, ${props.color.a})`
-})
 
 </script>
 
@@ -35,12 +38,17 @@ const hsla = computed(() => {
   cursor: pointer
   background-color: #788092
 
-.sortable-chosen, .active, .color-hover:hover
+  &:active
+    filter: brightness(1) !important
+
+  &.disabled
+    cursor: initial
+
+.active
   border: 2px solid #4175DF
   top: -2px
   left: -2px
-  z-index: 5
-  opacity: 1!important
+  z-index: 10
 
   &::before, &::after, .top-right::before, .bottom-left::before
     content: ""
@@ -74,6 +82,10 @@ const hsla = computed(() => {
 .no-move
   transition: transform 0s
 
+.color-hover.bright:hover:not(.active):not(.disabled)
+  filter: brightness(3)
 
+.color-hover.darker:hover:not(.active):not(.disabled)
+  filter: brightness(0.5)
 
 </style>

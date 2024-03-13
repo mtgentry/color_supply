@@ -32,28 +32,30 @@ const storeHistory = () => {
   preDeletionColors.value.push([...startOrder.value])
 }
 const dragStart = (event) => {
-  startOrder.value = [...colors.value]
+  startOrder.value = [...store.colors]
   dragging.value = true
 }
 const dragEnd = (event) => {
   dragging.value = false
   store.selectColor(event.newIndex)
   if (event.originalEvent.offsetY < 0) {
-    colors.value.splice(event.newIndex, 1)
+    store.colors.splice(event.newIndex, 1)
     storeHistory()
   }
 }
 
 const change = (event) => {
-  if (startOrder.value !== colors.value) {
+  if (startOrder.value !== store.colors) {
     storeHistory()
   }
 }
 
 const revertDelete = () => {
-  colors.value = [...preDeletionColors.value[preDeletionColors.value.length - 1]]
+  store.colors = [...preDeletionColors.value[preDeletionColors.value.length - 1]]
   preDeletionColors.value.pop()
 }
+
+
 </script>
 
 <style scoped lang="sass">
@@ -67,7 +69,7 @@ $transition-time: 0.8s
 
 .drag-item
   margin: 150px 0
-  z-index: 2
+
   position: relative
 
 .ghost
