@@ -59,4 +59,7 @@ h1
   display: flex
   align-items: center
   justify-content: center
+
+.v-input__details
+  padding-bottom: 5px
 </style>
