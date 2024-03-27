@@ -8,7 +8,7 @@
 
 <style lang="sass">
 html
-  overflow: hidden
+  overflow: auto
   font-family: "IBM Plex Sans", sans-serif!important
 
 .v-application
