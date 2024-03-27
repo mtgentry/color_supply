@@ -2,7 +2,10 @@
 export default defineNuxtConfig({
   devtools: { enabled: true },
   ssr: false,
-  css: ['~/assets/css/main.css'],
+  css: [
+    '~/assets/css/main.css',
+    '~/assets/css/custom.sass',
+  ],
   runtimeConfig: {
     public: {
       BASE_URL: process.env.BASE_URL,
