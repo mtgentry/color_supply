@@ -7,9 +7,6 @@
 </template>
 
 <style lang="sass">
-html
-  overflow: auto
-  font-family: "IBM Plex Sans", sans-serif!important
 
 .v-application
   background-color: var(--color6)

@@ -12,7 +12,6 @@
 <style lang="sass">
 html
   overflow: hidden
-  font-family: "IBM Plex Sans", sans-serif!important
 
 #auth
   margin: -16px
