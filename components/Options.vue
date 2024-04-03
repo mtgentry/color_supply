@@ -1,7 +1,7 @@
 <template lang="pug">
   #options
     OptionsPalette
-    v-divider.my-5
+    v-divider
     OptionsAdjust
 
 </template>
@@ -14,8 +14,12 @@
 #options
   background-color: var(--color7)
   margin: -12px
-  padding: 20px
-  height: 100%
+  padding: 32px 24px
+  height: calc(100vh - 64px)
 
+  :deep(h2)
+    padding-bottom: 20px
 
+  .v-divider
+    margin: 32px 0 26px 0
 </style>

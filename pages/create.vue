@@ -4,7 +4,6 @@
       Colors
     v-col(cols="3")
       Options
-
 </template>
 
 <script setup>
