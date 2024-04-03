@@ -22,11 +22,6 @@ const styles = ['Flat', 'Gradient', '3D', 'Realism']
 </script>
 
 <style scoped lang="sass">
-:deep(.v-expansion-panel-text__wrapper)
-  padding: 8px!important
-.v-input--density-default
-  --v-input-control-height: 25px
-  --v-input-padding-top: 0px
 
 :deep(.v-slider-thumb__label)
     top: calc(var(--v-slider-thumb-size) * 1.4)!important
@@ -36,21 +31,6 @@ const styles = ['Flat', 'Gradient', '3D', 'Realism']
   border-bottom: 6px solid currentColor!important
   border-top: 0!important
   top: -6px!important
-
-:deep(.v-expansion-panel-title--active)
-  min-height: unset!important
-
-:deep(.v-expansion-panel-title)
-  color: var(--color3)
-  font-size: 12px
-  font-style: normal
-  font-weight: 700
-  line-height: 136.5%
-  letter-spacing: 0.6px
-  text-transform: uppercase
-
-:deep(.v-expansion-panel-title__overlay)
-  background-color: unset
 
 :deep(.mdi-radiobox-marked), :deep(.mdi-close-box-outline)
   color: var(--color1)
