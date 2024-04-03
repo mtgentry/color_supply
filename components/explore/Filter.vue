@@ -1,23 +1,17 @@
 <template lang="pug">
   v-expansion-panels(multiple static variant="accordion")
-    v-expansion-panel(title="Mode" expand-icon="mdi-chevron-right" collapse-icon="mdi-chevron-down" elevation="0")
-      template(v-slot:text)
-        v-radio-group(v-model="mode")
-          v-radio(v-for="m in modes" :key="m" :label="m" :value="m")
-    v-expansion-panel(title="Style" expand-icon="mdi-chevron-right" collapse-icon="mdi-chevron-down" elevation="0")
-      template(v-slot:text)
-        v-checkbox(v-for="t in styles" :key="t" :label="t" :value="t" hide-details true-icon="mdi-close-box-outline")
-    v-expansion-panel(title="QTY" expand-icon="mdi-chevron-right" collapse-icon="mdi-chevron-down" elevation="0")
-      template(v-slot:text)
-        v-range-slider(:max="7" :min="1" :step="1" thumb-label="always" show-ticks="always")
-    v-expansion-panel(title="Harmony" expand-icon="mdi-chevron-right" collapse-icon="mdi-chevron-down" elevation="0")
-      template(v-slot:text)
-        ExploreHarmony
-    v-expansion-panel(title="Color Picker" expand-icon="mdi-chevron-right" collapse-icon="mdi-chevron-down" elevation="0")
-      template(v-slot:text)
-        v-color-picker(hide-inputs width="100%" elevation="0" )
-    v-expansion-panel(title="Preview" expand-icon="mdi-chevron-right" collapse-icon="mdi-chevron-down" elevation="0")
-      template(v-slot:text)
+    ExploreExpansionPanel(title="Mode")
+      v-radio-group(v-model="mode")
+        v-radio(v-for="m in modes" :key="m" :label="m" :value="m")
+    ExploreExpansionPanel(title="Style")
+      v-checkbox(v-for="t in styles" :key="t" :label="t" :value="t" hide-details true-icon="mdi-close-box-outline")
+    ExploreExpansionPanel(title="QTY")
+      v-range-slider(:max="7" :min="1" :step="1" thumb-label="always" show-ticks="always")
+    ExploreExpansionPanel(title="Harmony")
+      ExploreHarmony
+    ExploreExpansionPanel(title="Color Picker")
+      v-color-picker(hide-inputs width="100%" elevation="0" )
+    ExploreExpansionPanel(title="Preview")
 </template>
 
 <script setup>
