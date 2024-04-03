@@ -38,7 +38,7 @@ const dragStart = (event) => {
 const dragEnd = (event) => {
   dragging.value = false
   store.selectColor(event.newIndex)
-  if (event.originalEvent.offsetY < 0) {
+  if (event.originalEvent.offsetY < -100) {
     store.colors.splice(event.newIndex, 1)
     storeHistory()
   }
@@ -68,8 +68,6 @@ $transition-time: 0.8s
     display: flex
 
 .drag-item
-  margin: 150px 0
-
   position: relative
 
 .ghost
@@ -91,7 +89,7 @@ $transition-time: 0.8s
 .delete
   background-color: red
   position: absolute
-  top: 0
+  top: -150px
   left: 0
   height: 50px
   z-index: 0
