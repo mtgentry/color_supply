@@ -21,14 +21,8 @@ export default defineNuxtConfig({
     '@sidebase/nuxt-auth',
     '@nuxt/image',
     'vuetify-nuxt-module',
-    '@nuxtjs/google-fonts',
     '@formkit/auto-animate/nuxt'
   ],
-  googleFonts: {
-    families: {
-      'IBM Plex Sans': true,
-    }
-  },
   auth: {
     globalAppMiddleware: {
       isEnabled: false,

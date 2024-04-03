@@ -3,7 +3,6 @@
     v-col(cols="2")
       ExploreFilter
     v-col(cols="6")
-
 </template>
 
 <script setup>
