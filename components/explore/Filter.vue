@@ -2,9 +2,9 @@
   v-expansion-panels#panels(multiple static variant="accordion")
     ExploreExpansionPanel(title="Mode")
       v-radio-group(v-model="mode")
-        v-radio(v-for="m in modes" :key="m" :label="m" :value="m")
+        v-radio(v-for="m in modes" :key="m" :label="m" :value="m" v-model="mode")
     ExploreExpansionPanel(title="Style")
-      v-checkbox(v-for="t in styles" :key="t" :label="t" :value="t" hide-details true-icon="mdi-close-box-outline")
+      v-checkbox(v-for="t in styles" v-model="selectedStyle" :key="t" :label="t" :value="t" hide-details true-icon="mdi-close-box-outline")
     ExploreExpansionPanel(title="QTY")
       v-range-slider(:max="7" :min="1" :step="1" thumb-label="always" show-ticks="always")
     ExploreExpansionPanel(title="Harmony")
@@ -17,8 +17,8 @@
 <script setup>
 const mode = ref('Illustration')
 const modes = ['Illustration', 'Brand', 'UI', 'Visual Design']
-const stype = ref('Flat')
-const styles = ['Flat', 'Gradient', '3D', 'Realism']
+const selectedStyle = ref([])
+const styles = ['Fresh', 'Manga', 'Nature', 'Painters', 'Rich']
 </script>
 
 <style scoped lang="sass">
@@ -48,4 +48,7 @@ const styles = ['Flat', 'Gradient', '3D', 'Realism']
 
 #panels
   width: 300px
+
+.v-input--density-default
+  --v-input-control-height: 40px
 </style>
