@@ -9,8 +9,8 @@
       v-range-slider(:max="7" :min="1" :step="1" thumb-label="always" show-ticks="always")
     ExploreExpansionPanel(title="Harmony")
       ExploreHarmony
-    ExploreExpansionPanel(title="Color Picker")
-      v-color-picker(hide-inputs width="100%" elevation="0" )
+    //ExploreExpansionPanel(title="Color Picker")
+    //  v-color-picker(hide-inputs width="100%" elevation="0" )
     ExploreExpansionPanel(title="Preview")
 </template>
 
