@@ -13,5 +13,5 @@
   padding: 0
   background-color: var(--color7)
   height: calc(100vh - 64px)
-  overflow-y: scroll
+  overflow-y: auto
 </style>

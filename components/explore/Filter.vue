@@ -1,5 +1,5 @@
 <template lang="pug">
-  v-expansion-panels(multiple static variant="accordion")
+  v-expansion-panels#panels(multiple static variant="accordion")
     ExploreExpansionPanel(title="Mode")
       v-radio-group(v-model="mode")
         v-radio(v-for="m in modes" :key="m" :label="m" :value="m")
@@ -45,4 +45,7 @@ const styles = ['Flat', 'Gradient', '3D', 'Realism']
   font-weight: 400
   line-height: normal
   letter-spacing: 0.28px
+
+#panels
+  width: 300px
 </style>
