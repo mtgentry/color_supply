@@ -3,6 +3,7 @@
     v-col#filter(cols="2")
       ExploreFilter
     v-col(cols="6")
+      ExplorePalettes
 </template>
 
 <script setup>

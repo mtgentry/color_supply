@@ -1,5 +1,5 @@
 <template lang="pug">
-  v-expansion-panels#panels(static variant="accordion")
+  v-expansion-panels#panels(static variant="accordion" v-model="activePanel")
     ExploreExpansionPanel(title="Mode")
       v-radio-group(v-model="mode" hide-details)
         div(v-for="m in modes" :key="m")
@@ -7,23 +7,25 @@
           v-divider(v-if="m !== modes[modes.length - 1]")
     ExploreExpansionPanel(title="Style")
       div(v-for="t in styles" :key="t")
-        v-checkbox.px-5(v-model="selectedStyle"  :label="t" :value="t" hide-details true-icon="mdi-close-box-outline")
+        v-checkbox.px-5(v-model="style"  :label="t" :value="t" hide-details true-icon="mdi-close-box-outline")
         v-divider(v-if="t !== styles[styles.length - 1]")
     ExploreExpansionPanel#slider(title="QTY")
-      v-range-slider.px-5.pb-5(:max="7" :min="2" v-model="qty" :step="1" thumb-label="always" show-ticks="always" hide-details)
+      v-range-slider.px-5.pb-5(:min="2" :max="7" v-model="qty" :step="1" thumb-label="always" show-ticks="always" hide-details)
     ExploreExpansionPanel(title="Harmony")
-      ExploreHarmony.px-5
+      ExploreHarmony(v-model="harmony").px-5
     //ExploreExpansionPanel(title="Color Picker")
     //  v-color-picker(hide-inputs width="100%" elevation="0" )
     ExploreExpansionPanel(title="Preview")
 </template>
 
 <script setup>
-const mode = ref('Illustration')
+const filterStore = useFilterStore()
+const { mode, style, qty, harmony } = storeToRefs(filterStore)
+const activePanel = ref(0)
+
 const modes = ['Illustration', 'Brand', 'UI', 'Visual Design']
-const selectedStyle = ref([])
 const styles = ['Fresh', 'Manga', 'Nature', 'Painters', 'Rich']
-const qty = ref([2,4])
+
 </script>
 
 <style scoped lang="sass">
@@ -61,8 +63,6 @@ const qty = ref([2,4])
 .v-input--density-default
   --v-input-control-height: 40px
 
-html
-  --v-slider-track-size: 20px!important
 
 :deep(.v-slider-thumb)
   color: var(--color1)!important
@@ -79,8 +79,8 @@ html
 :deep(.v-slider-track__tick--filled)
   background-color: var(--color1)!important
 :deep(.v-slider-track)
-  --v-slider-track-size: 4px!important
-  --v-slider-tick-size: 4px !important
+  --v-slider-track-size: 5px!important
+  --v-slider-tick-size: 5px !important
 
 :deep(.v-slider-thumb__label)
   color: var(--color2)!important
