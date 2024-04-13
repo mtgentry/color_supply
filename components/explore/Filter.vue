@@ -31,6 +31,7 @@ const modes = [
   { value: '', title: 'Other' },
 ]
 const styles = [
+  { value: 'all', title: 'All'},
   { value: 'fresh', title: 'Fresh'},
   { value: 'manga', title: 'Manga'},
   { value: 'nature', title: 'Nature'},
@@ -38,6 +39,19 @@ const styles = [
   { value: 'rich', title: 'Rich'},
   { value: '', title: 'Other' },
 ]
+
+watch(style, (value, oldValue) => {
+  if (value.length === 1 && value[0] === 'all') {
+    return
+  }
+  if (oldValue.length === 1 && oldValue[0] === 'all') {
+    value = value.filter(v => v !== 'all')
+    filterStore.changeFilter(style, value)
+  }
+  if (value.includes('all')) {
+    filterStore.changeFilter(style, ['all'])
+  }
+}, { deep: true })
 </script>
 
 <style scoped lang="sass">
