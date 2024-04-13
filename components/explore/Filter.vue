@@ -28,6 +28,7 @@ const modes = [
   { value: 'brand', title: 'Brand'},
   { value: 'ui', title: 'UI'},
   { value: 'visual_design', title: 'Visual Design'},
+  { value: '', title: 'Other' },
 ]
 const styles = [
   { value: 'fresh', title: 'Fresh'},
@@ -35,6 +36,7 @@ const styles = [
   { value: 'nature', title: 'Nature'},
   { value: 'painters', title: 'Painters'},
   { value: 'rich', title: 'Rich'},
+  { value: '', title: 'Other' },
 ]
 </script>
 

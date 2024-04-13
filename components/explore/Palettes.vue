@@ -1,9 +1,12 @@
 <template lang="pug">
   v-container(fluid)
-    v-row
+    v-row(v-if="pending")
+      v-col(cols="4" v-for='index in [1,2,3]' :key='index')
+        v-skeleton-loader(:loading="true"  type="heading")
+    v-row(v-else)
       v-col(md="4" v-for='(palette, index) in data' :key='index')
         v-container(fluid)
-          v-row
+          v-row()
             v-col.pa-0(cols="12")
               ColorsDisplay(:colors='palette.colors')
             v-col.pa-0(cols="12")
