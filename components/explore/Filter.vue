@@ -3,11 +3,11 @@
     ExploreExpansionPanel(title="Mode")
       v-radio-group(v-model="mode" hide-details)
         div(v-for="m in modes" :key="m")
-          v-radio.px-5(:key="m" :label="m" :value="m" v-model="mode")
+          v-radio.px-5(:key="m" :label="m.title" :value="m.value" v-model="mode")
           v-divider(v-if="m !== modes[modes.length - 1]")
     ExploreExpansionPanel(title="Style")
       div(v-for="t in styles" :key="t")
-        v-checkbox.px-5(v-model="style"  :label="t" :value="t" hide-details true-icon="mdi-close-box-outline")
+        v-checkbox.px-5(v-model="style"  :label="t.title" :value="t.value" hide-details true-icon="mdi-close-box-outline")
         v-divider(v-if="t !== styles[styles.length - 1]")
     ExploreExpansionPanel#slider(title="QTY")
       v-range-slider.px-5.pb-5(:min="2" :max="7" v-model="qty" :step="1" thumb-label="always" show-ticks="always" hide-details)
@@ -23,9 +23,19 @@ const filterStore = useFilterStore()
 const { mode, style, qty, harmony } = storeToRefs(filterStore)
 const activePanel = ref(0)
 
-const modes = ['Illustration', 'Brand', 'UI', 'Visual Design']
-const styles = ['Fresh', 'Manga', 'Nature', 'Painters', 'Rich']
-
+const modes = [
+  { value: 'illustration', title: 'Illustration'},
+  { value: 'brand', title: 'Brand'},
+  { value: 'ui', title: 'UI'},
+  { value: 'visual_design', title: 'Visual Design'},
+]
+const styles = [
+  { value: 'fresh', title: 'Fresh'},
+  { value: 'manga', title: 'Manga'},
+  { value: 'nature', title: 'Nature'},
+  { value: 'painters', title: 'Painters'},
+  { value: 'rich', title: 'Rich'},
+]
 </script>
 
 <style scoped lang="sass">

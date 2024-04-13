@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia'
 export const useFilterStore = defineStore('filter', () =>{
-  const mode = ref('Illustration')
+  const mode = ref('illustration')
   const style = ref([])
   const qty = ref([2, 4])
   const harmony = ref()
