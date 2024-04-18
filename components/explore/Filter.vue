@@ -15,13 +15,14 @@
       ExploreHarmony(v-model="harmony").px-5
     //ExploreExpansionPanel(title="Color Picker")
     //  v-color-picker(hide-inputs width="100%" elevation="0" )
-    ExploreExpansionPanel(title="Preview")
+    ExploreExpansionPanel#preview.centered(title="Preview")
+      ExplorePreviews
 </template>
 
 <script setup>
 const filterStore = useFilterStore()
 const { mode, style, qty, harmony } = storeToRefs(filterStore)
-const activePanel = ref(0)
+const activePanel = ref(4)
 
 const modes = [
   { value: 'illustration', title: 'Illustration'},
@@ -112,4 +113,5 @@ watch(style, (value, oldValue) => {
   color: var(--color2)!important
   background: none!important
   top: 22px!important
+
 </style>

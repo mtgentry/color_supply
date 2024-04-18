@@ -1,4 +1,5 @@
 <template lang="pug">
+  ExporePreviewBox
   v-container(fluid)
     v-row(v-if="pending")
       v-col(cols="4" v-for='index in [1,2,3]' :key='index')
@@ -14,8 +15,6 @@
                 img(src='/img/icons/favorite.svg')
                 div.pl-1 {{ palette.favorites || 8 }}k
                 img(src='/img/icons/dots.svg')
-
-
 </template>
 
 <script setup>
