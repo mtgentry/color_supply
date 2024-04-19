@@ -4,6 +4,7 @@
       ExploreFilter
     v-col#palettes(cols="10")
       ExplorePalettes
+    ExplorePreviewBox
 </template>
 
 <script setup>
