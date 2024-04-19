@@ -9,7 +9,7 @@
         v-container(fluid)
           v-row()
             v-col.pa-0(cols="12")
-              ColorsDisplay(:colors='palette.colors')
+              ColorsDisplay(:palette='palette')
             v-col.pa-0(cols="12")
               .info
                 img(src='/img/icons/favorite.svg')

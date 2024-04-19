@@ -1,13 +1,23 @@
 <template lang="pug">
-  .color-row
-    .color-box(v-for='(color, index) in colors' :key='index' :style='{backgroundColor: color}')
+  .color-row(@click='selectPalette' :class='{clickable: !props.readonly}')
+    .color-box(v-for='(color, index) in palette.colors' :key='index' :style='{backgroundColor: color}')
 
 </template>
 
 <script setup>
 const props = defineProps({
-  colors: Array
+  palette: Array,
+  readonly: {
+    type: Boolean,
+    default: false,
+  },
 })
+const store = useColorStore()
+
+const selectPalette = () => {
+  if (props.readonly) return
+  store.selectPalette(props.palette)
+}
 
 </script>
 
@@ -15,6 +25,7 @@ const props = defineProps({
 .color-row
   display: flex
   width: 100%
+
 
 .color-box
   flex: 1 1 0

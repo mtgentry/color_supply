@@ -4,7 +4,7 @@ export const useFilterStore = defineStore('filter', () =>{
   const style = ref(['all'])
   const qty = ref([2, 4])
   const harmony = ref()
-  const preview = ref(2)
+  const preview = ref(0)
 
   const changeFilter = (ref, value) => {
     ref.value = value
