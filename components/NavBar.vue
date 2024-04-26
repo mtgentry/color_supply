@@ -12,8 +12,8 @@
             img.clickable(src="/img/icons/user.svg" height="40" v-bind="props")
           v-card#popup
             v-card-text
-              div.profile Mason
-              div.profile#email email@@sdf.com
+              div.profile {{data.name }}
+              div.profile#email {{data.email }}
               v-btn#plan(color="primary" variant="outlined" to="/upgrade") Basic Plan
               v-divider
               v-list
@@ -32,7 +32,7 @@
 </template>
 
 <script setup>
-const { status, signOut } = useAuth()
+const { status, signOut, data } = useAuth()
 
 </script>
 
