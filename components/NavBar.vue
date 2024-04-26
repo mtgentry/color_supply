@@ -1,22 +1,43 @@
 <template lang="pug">
   v-app-bar(elevation="0" app)
     template(v-slot:prepend)
-      img(src="/img/rainbow.svg" height="40" contain)
+      img#logo(src="/img/rainbow.svg" height="40" contain)
     template(v-slot:append)
-      v-btn#login(to="/login") Login
-      v-btn#signup.ml-3(to="/signup"  color="primary") Sign Up
+      div(v-if="status === 'unauthenticated'")
+        v-btn#login(to="/login") Login
+        v-btn#signup.ml-3(to="/signup"  color="primary" ) Sign Up
+      div.centered(v-else)
+        v-menu(open-on-hover)
+          template(v-slot:activator="{ props }")
+            img.clickable(src="/img/icons/user.svg" height="40" v-bind="props")
+          v-card#popup
+            v-card-text
+              div.profile Mason
+              div.profile#email email@@sdf.com
+              v-btn#plan(color="primary" variant="outlined" to="/upgrade") Basic Plan
+              v-divider
+              v-list
+                v-list-item Manage account
+                v-list-item
+                  .d-flex.align-center
+                    img.mr-1.mb-1(src="/img/icons/favorite.svg" height="15" contain)
+                    span My Likes
+                v-list-item Bug report & feedback
+                v-list-item(@click="signOut") Log Out
+
     v-toolbar-title
       nuxt-link(to="/explore") Explore
       nuxt-link(to="/create") Create
-      //nuxt-link(to="/visualize") Visualize
+      nuxt-link(to="") Visualize
 </template>
 
 <script setup>
+const { status, signOut } = useAuth()
 
 </script>
 
 <style scoped lang="sass">
-  img
+  #logo
     height: 26px
     padding: 0 20px
   .v-toolbar
@@ -43,4 +64,24 @@
         &:hover
           color: var(--color1)
           border-bottom: var(--color1) 1px solid
+
+  #popup
+    font-size: 14px
+    .v-card-text
+      padding: 25px
+    #email
+      color: var(--color3)
+    #plan
+      width: 100%
+      margin-top: 16px
+    .v-divider
+      margin: 26px 0 8px 0
+
+    .v-list
+      padding: 0
+      .v-list-item
+        padding: 0
+      .v-list-item--density-default.v-list-item--one-line
+        min-height: 36px
+
 </style>

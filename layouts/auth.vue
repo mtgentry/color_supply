@@ -5,7 +5,7 @@
         v-col.d-flex.justify-center.align-center(cols="6")
           slot
         v-col.pa-0.branding.d-flex.justify-center.align-center(cols="6")
-          img(src="/img/branding.png")
+          img#cover(src="/img/branding.png")
 
 </template>
 
@@ -23,7 +23,7 @@ html
 .branding
   background-color: #DEDCE1
 
-img
+#cover
   width: 100%
   height: auto
   margin: 0 auto
@@ -53,11 +53,6 @@ h1
 .v-btn--disabled
   background-color: var(--color4) !important
   color: var(--color3)
-
-.centered
-  display: flex
-  align-items: center
-  justify-content: center
 
 .v-input__details
   padding-bottom: 5px

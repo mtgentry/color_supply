@@ -20,8 +20,8 @@ import { required, email, helpers } from '@vuelidate/validators'
 const { signIn, token, data, status } = useAuth()
 const error_message = ref('')
 const initialState = {
-  email: 'slava.khromyak@gmail.com',
-  password: 'Lolki890',
+  email: '',
+  password: '',
 }
 
 const state = reactive({
@@ -45,9 +45,8 @@ const rules = {
 const v$ = useVuelidate(rules, state)
 const login = async () => {
   try {
-    await signIn({ email: state.email, password: state.password }, {callbackUrl: '/'})
+    await signIn({ email: state.email, password: state.password }, {callbackUrl: '/explore'})
   } catch (error) {
-    debugger
     error_message.value = error.data.detail
     // console.error(error)
   }
