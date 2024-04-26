@@ -1,13 +1,13 @@
 <template lang="pug">
   div.form
     h1 Log in
-    v-form
+    v-form(@submit.prevent="login")
       v-text-field(v-model="state.email" label="Email" required email="sara.smith@gmail.com"  variant="outlined"
-      :error-messages="v$.email.$errors.map(e => e.$message)" @blur="v$.email.$touch")
+        :error-messages="v$.email.$errors.map(e => e.$message)" @blur="v$.email.$touch")
       v-text-field#password(v-model="state.password" label="Password" :type="showPassword ? 'text' : 'password'" required placeholder="Colorfan19#"
         variant="outlined" :append-inner-icon="showPassword ? 'mdi-eye-off' : 'mdi-eye'"  @click:append-inner="showPassword = !showPassword"
         :error-messages="v$.password.$errors.map(e => e.$message)" @blur="v$.password.$touch")
-      v-btn#submit(color="primary" @click="login") Continue
+      v-btn#submit(color="primary" type="submit") Continue
       div#description
         p Forgot password? Reset
         p Don’t have an account? !{` `}
@@ -17,10 +17,11 @@
 <script setup>
 import { useVuelidate } from '@vuelidate/core'
 import { required, email, helpers } from '@vuelidate/validators'
-
+const { signIn, token, data, status } = useAuth()
+const error_message = ref('')
 const initialState = {
-  email: '',
-  password: null,
+  email: 'slava.khromyak@gmail.com',
+  password: 'Lolki890',
 }
 
 const state = reactive({
@@ -36,11 +37,20 @@ const rules = {
   },
   password: {
     required: helpers.withMessage('Password is required', required),
+    server_error: helpers.withMessage(() =>`${error_message.value}`, (value) => {
+      return !error_message.value.length
+    }),
   },
 }
 const v$ = useVuelidate(rules, state)
-const login = () => {
-  console.log('Signing up...')
+const login = async () => {
+  try {
+    await signIn({ email: state.email, password: state.password }, {callbackUrl: '/'})
+  } catch (error) {
+    debugger
+    error_message.value = error.data.detail
+    // console.error(error)
+  }
 }
 definePageMeta({
   layout: 'auth',
