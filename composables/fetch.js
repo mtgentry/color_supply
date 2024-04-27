@@ -1,5 +1,5 @@
 
-export const useApi = (path, query, method='get') => {
+export const fetch = (path, body, method='patch') => {
   const auth = useCookie('auth.token')
   const headers = {
     'Authorization': 'Bearer ' + auth.value,
@@ -10,12 +10,10 @@ export const useApi = (path, query, method='get') => {
     baseURL: config.public.BASE_URL,
     headers,
     method,
-    query,
+    body,
     credentials: 'include',
   };
-  const {data, pending, error, execute, refresh} = useFetch(
+  return $fetch(
     path, options
-  );
-
-  return {data, pending, error, execute, refresh}
+  )
 }

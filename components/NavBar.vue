@@ -7,7 +7,7 @@
         v-btn#login(to="/login") Login
         v-btn#signup.ml-3(to="/signup"  color="primary" ) Sign Up
       div.centered(v-else)
-        v-menu(open-on-hover)
+        v-menu(open-on-hover open-delay="0")
           template(v-slot:activator="{ props }")
             img.clickable(src="/img/icons/user.svg" height="40" v-bind="props")
           v-card#popup
@@ -17,7 +17,7 @@
               v-btn#plan(color="primary" variant="outlined" to="/upgrade") Basic Plan
               v-divider
               v-list
-                v-list-item Manage account
+                v-list-item(to="/manage/general") Manage account
                 v-list-item
                   .d-flex.align-center
                     img.mr-1.mb-1(src="/img/icons/favorite.svg" height="15" contain)

@@ -4,6 +4,7 @@
     v-main
       v-container(fluid)
         slot
+    NuxtSnackbar
 </template>
 
 <style lang="sass">

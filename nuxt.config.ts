@@ -23,7 +23,8 @@ export default defineNuxtConfig({
     '@sidebase/nuxt-auth',
     '@nuxt/image',
     'vuetify-nuxt-module',
-    '@formkit/auto-animate/nuxt'
+    '@formkit/auto-animate/nuxt',
+    'nuxt-snackbar'
   ],
   auth: {
     globalAppMiddleware: {
@@ -45,5 +46,10 @@ export default defineNuxtConfig({
         maxAgeInSeconds: 60 * 60 * 24 * 7,
       }
     },
+  },
+  snackbar: {
+    bottom: true,
+    right: true,
+    duration: 5000
   }
 })
