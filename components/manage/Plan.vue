@@ -25,8 +25,10 @@ const {data} = useAuth()
 
 const price = computed(() => parseInt(props.plan.cycles.find(c => c.period === props.cycle).price))
 const active = computed(() => {
-  return data.value.subscription.plan === props.plan.name
-})
+  if (data.value.subscription.plan === props.plan.name) {
+    if (props.plan.name === 'Basic') return true
+    return data.value.subscription.cycle === props.cycle
+  }})
 </script>
 
 <style scoped lang="sass">

@@ -1,11 +1,13 @@
 <template lang="pug">
   ManageLayout
-    v-row
-      v-col#toggle.centered(md="12")
-        v-btn-toggle(v-model="cycle" color="primary" mandatory)
-          v-btn( v-for="cycle in cycles" :key="cycle" :value="cycle") {{capitalized(cycle)}}
-      v-col.centered(md="3" v-for="plan in plans" :key="plan.name")
-        ManagePlan(:plan="plan" :cycle="cycle")
+    v-container
+      v-row.plans
+        v-col#toggle.centered.flex-row(md="12")
+          v-btn(v-for="cycle in cycles" :key="cycle" flat :variant="selected_cycle === cycle ? undefined : 'outlined'"
+            :color="selected_cycle === cycle ? 'primary': 'gray'"
+          @click="selected_cycle=cycle") {{capitalized(cycle)}}
+        v-col.centered(md="3" v-for="plan in plans" :key="plan.name")
+          ManagePlan(:plan="plan" :cycle="selected_cycle")
 
 </template>
 
@@ -13,10 +15,15 @@
 const planStore = usePlanStore()
 const {plans} = storeToRefs(planStore)
 const cycles = ['monthly', 'yearly']
-const cycle = ref('monthly')
+const selected_cycle = ref('monthly')
 </script>
 
 <style scoped lang="sass">
 #toggle
   margin: 128px 0 64px 0
+  .v-btn
+    margin-right: 12px
+    width: 120px
+.plans
+  padding: 0 220px
 </style>

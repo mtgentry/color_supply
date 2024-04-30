@@ -74,6 +74,9 @@ const { status, signOut, data } = useAuth()
     #plan
       width: 100%
       margin-top: 16px
+      :deep(.v-btn__overlay)
+        // disable active page color
+        opacity: 0
     .v-divider
       margin: 26px 0 8px 0
 
