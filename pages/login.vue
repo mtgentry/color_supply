@@ -17,7 +17,15 @@
 <script setup>
 import { useVuelidate } from '@vuelidate/core'
 import { required, email, helpers } from '@vuelidate/validators'
+
+definePageMeta({
+  middleware: ['auth'],
+  auth: { unauthenticatedOnly: true, navigateAuthenticatedTo: '/explore' },
+  layout: 'auth',
+})
+
 const { signIn, token, data, status } = useAuth()
+
 const error_message = ref('')
 const initialState = {
   email: '',
@@ -51,7 +59,4 @@ const login = async () => {
     // console.error(error)
   }
 }
-definePageMeta({
-  layout: 'auth',
-})
 </script>

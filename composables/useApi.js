@@ -2,8 +2,10 @@
 export const useApi = (path, query, method='get') => {
   const auth = useCookie('auth.token')
   const headers = {
-    'Authorization': 'Bearer ' + auth.value,
     'Content-Type': 'application/json'
+  }
+  if (auth.value) {
+    headers['Authorization'] = 'Bearer ' + auth.value
   }
   const config = useRuntimeConfig()
   const options = {

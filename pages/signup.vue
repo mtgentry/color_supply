@@ -5,12 +5,12 @@
       v-text-field(v-model="state.name" label="Name" required placeholder="Sara" variant="outlined" :counter="10"
         :error-messages="v$.name.$errors.map(e => e.$message)" @blur="v$.name.$touch" @input="v$.name.$touch")
       v-text-field(v-model="state.email" label="Email" required placeholder="sara.smith@gmail.com"  variant="outlined"
-        :error-messages="v$.email.$errors.map(e => e.$message)"  @blur="v$.email.$touch")
+        :error-messages="emailError || v$.email.$errors.map(e => e.$message)"  @blur="v$.email.$touch")
       v-text-field#password(v-model="state.password" label="Password" :type="showPassword ? 'text' : 'password'" required
       placeholder="Colorfan19#" :hint="!v$.password.$invalid ? '' : 'At least 8 characters, with a number or symbol'"  :error-messages="v$.password.$errors.map(e => e.$message)"
-      variant="outlined" :append-inner-icon="showPassword ? 'mdi-eye-off' : 'mdi-eye'"  @click:append-inner="showPassword = !showPassword"
-       @blur="v$.password.$touch")
-      v-btn#submit(color="primary" text @click="signup") Create Free Account
+        variant="outlined" :append-inner-icon="showPassword ? 'mdi-eye-off' : 'mdi-eye'"  @click:append-inner="showPassword = !showPassword"
+        @blur="v$.password.$touch")
+      v-btn#submit(color="primary" text @click="signup" :disabled="pending") Create Free Account
       div.text-center
         p By continuing you agree to our Terms of Service and Privacy Policy.
         v-divider
@@ -18,9 +18,22 @@
           nuxt-link(to="/login") Log in
 </template>
 <script setup>
-import { useVuelidate } from '@vuelidate/core'
-import { email, required, minLength, helpers } from '@vuelidate/validators'
+import {useVuelidate} from '@vuelidate/core'
+import {email, helpers, minLength, required} from '@vuelidate/validators'
 
+definePageMeta({
+  middleware: ['auth'],
+  auth: { unauthenticatedOnly: true, navigateAuthenticatedTo: '/explore' },
+  layout: 'auth',
+})
+
+const {data} = useAuth()
+if (data.value) {
+  navigateTo('/explore')
+}
+
+const pending = ref(false)
+const { signUp } = useAuth()
 const initialState = {
   name: '',
   email: '',
@@ -30,9 +43,11 @@ const initialState = {
 const state = reactive({
   ...initialState,
 })
+const emailError = ref(null)
 const showPassword = ref(false)
 const symbol = helpers.regex(/[^a-zA-Z0-9\s]/)
 const number = helpers.regex(/[0-9]/)
+
 const rules = {
   name: {
     required: helpers.withMessage('Name is required', required),
@@ -51,12 +66,17 @@ const rules = {
 
 const v$ = useVuelidate(rules, state)
 
-const signup = () => {
-  console.log('Signing up...')
+const signup = async () => {
+  emailError.value = null
+  pending.value = true
+  await signUp(state, {callbackUrl: '/explore'}).catch((e) => {
+    if (e.data.email) {
+      emailError.value = 'Email already in use.'
+    }
+  })
+  pending.value = false
 }
-definePageMeta({
-  layout: 'auth',
-})
+
 </script>
 
 <style scoped lang="sass">

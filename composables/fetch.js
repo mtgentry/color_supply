@@ -2,8 +2,10 @@
 export const fetch = (path, method='get', body) => {
   const auth = useCookie('auth.token')
   const headers = {
-    'Authorization': 'Bearer ' + auth.value,
     'Content-Type': 'application/json'
+  }
+  if (auth.value) {
+    headers['Authorization'] = 'Bearer ' + auth.value
   }
   const config = useRuntimeConfig()
   const options = {
