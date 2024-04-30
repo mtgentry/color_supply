@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia'
-export const useColorStore = defineStore('plan', () =>{
+export const useColorStore = defineStore('color', () =>{
   const selectedColor = ref(null)
   const colors = ref({
     colors: ['#FF0000', '#00FF00', '#0000FF', '#FFFF00', '#00FFFF', '#1A1A1A']
