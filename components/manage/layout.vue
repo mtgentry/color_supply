@@ -5,8 +5,6 @@
         v-list-item
           nuxt-link(to="general") General
         v-list-item
-          nuxt-link(to="") Password
-        v-list-item
           nuxt-link(to="plan") Plan
         v-list-item
           nuxt-link(to="") Billing
