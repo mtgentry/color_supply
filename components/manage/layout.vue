@@ -3,11 +3,11 @@
     v-col#nav.pa-0(cols="2")
       v-list
         v-list-item
-          nuxt-link(to="/manage/general") General
+          nuxt-link(to="general") General
         v-list-item
           nuxt-link(to="") Password
         v-list-item
-          nuxt-link(to="") Plan
+          nuxt-link(to="plan") Plan
         v-list-item
           nuxt-link(to="") Billing
       div.pa-5.centered

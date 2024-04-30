@@ -2,9 +2,10 @@
   v-card(flat @click="store.selectPlan(plan)" :class="{ selected: store.selectedPlan === plan }")
     v-card-title
       h3 {{plan.name}}
-      h3
+      h3(v-if="parseFloat(price) > 0")
         sup $
-        span {{plan.price.monthly}}/month
+        span {{price}}/month
+      h3(v-else) Free
     v-card-text
       p {{plan.description}}
 </template>
@@ -13,8 +14,9 @@
 const props = defineProps({
   plan: Object
 })
-
 const store = usePlanStore()
+
+const price = computed(() => parseInt(props.plan.cycles.find(c => c.period === "monthly").price))
 
 </script>
 

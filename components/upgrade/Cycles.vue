@@ -1,19 +1,15 @@
 <template lang="pug">
   v-row#cycles
-    v-col(cols=6 v-for="cycle in ['monthly', 'yearly']" :key="cycle" @click="store.selectCycle(cycle)" )
-      v-card(flat @click="store.selectPlan(plan.id)" :class="{ selected: store.selectedCycle === cycle }" )
+    v-col(cols=6 v-for="cycle in store.selectedPlan.cycles")
+      v-card(flat @click="store.selectCycle(cycle.period)" :class="{ selected: store.selectedCycle === cycle.period }" )
         v-card-title
-          h3 {{cycle.charAt(0).toUpperCase() + cycle.slice(1)}}
-          v-btn#discount(color="primary" flat v-if="cycle==='yearly'") Save {{store.selectedPlan.price.discount}}%
+          h3 {{cycle.period.charAt(0).toUpperCase() + cycle.period.slice(1)}}
+          v-btn#discount(color="primary" flat v-if="cycle.period === 'yearly'") Save {{parseInt(cycle.discount)}}%
         v-card-text
-          span ${{store.selectedPlan.price[cycle]}} per month
+          span ${{cycle.price}} per month
 </template>
 
 <script setup>
-const props = defineProps({
-  plan: Object
-})
-
 const store = usePlanStore()
 
 </script>
@@ -29,7 +25,7 @@ const store = usePlanStore()
   &.selected
     border: 2px solid var(--color1)
     padding: 0
-    background-color: #F6F8FE
+    background-color: var(--color8)
 
     h3
       color: var(--color1)

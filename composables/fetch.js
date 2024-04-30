@@ -1,5 +1,5 @@
 
-export const fetch = (path, body, method='patch') => {
+export const fetch = (path, method='get', body) => {
   const auth = useCookie('auth.token')
   const headers = {
     'Authorization': 'Bearer ' + auth.value,

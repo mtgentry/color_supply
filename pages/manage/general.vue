@@ -42,7 +42,7 @@ const saveChanges = async () => {
     return
   }
   // Save changes
-  await fetch('/users/update/', JSON.stringify(state))
+  await fetch('/users/update/', 'patch', JSON.stringify(state))
   snackbar.add({
     type: 'success',
     text: 'Changes saved!'

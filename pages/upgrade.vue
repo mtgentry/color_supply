@@ -9,7 +9,9 @@
 
 <script setup>
 const tab = ref('plan')
+const planStore = usePlanStore()
 
+planStore.fetchPlans()
 definePageMeta({
   layout: 'auth',
 })

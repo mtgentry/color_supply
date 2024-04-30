@@ -7,6 +7,18 @@
     NuxtSnackbar
 </template>
 
+<script setup>
+useHead({
+  titleTemplate: (titleChunk) => {
+    return titleChunk ? `${titleChunk} - Color Supply` : 'Color Supply';
+  }
+})
+
+const planStore = usePlanStore()
+
+planStore.fetchPlans()
+</script>
+
 <style lang="sass">
 
 .v-application

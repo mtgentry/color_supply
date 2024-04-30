@@ -5,18 +5,18 @@
     span {{store.selectedPlan.name}}
   h1 Billing cycle
   UpgradeCycles
-  h1 Card Info
-  v-divider
-  v-row#total(justify="center" align="center")
-    v-col(cols="6")
-      h1.pa-0 Total due:
-    v-col.d-flex.align-center.justify-end(cols=6)
-      span.price ${{store.selectedPlan.price[store.selectedCycle]}}
-      span per year
-  v-btn#submit(color="primary" @click="next" :disabled="!store.selectedPlan" size="large" ) Purchase
-  div.secure
-    span Secure Checkout
-    img#lock(src="/img/lock.svg" alt="lock")
+  //h1 Card Info
+  //v-divider
+  //v-row#total(justify="center" align="center")
+  //  v-col(cols="6")
+  //    h1.pa-0 Total due:
+  //  v-col.d-flex.align-center.justify-end(cols=6)
+  //    span.price ${{store.selectedPlan.price[store.selectedCycle]}}
+  //    span per year
+  //v-btn#submit(color="primary" @click="next" :disabled="!store.selectedPlan" size="large" ) Purchase
+  //div.secure
+  //  span Secure Checkout
+  //  img#lock(src="/img/lock.svg" alt="lock")
 </template>
 
 <script setup>

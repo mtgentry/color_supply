@@ -1,7 +1,7 @@
 <template lang="pug">
   h1 Select a plan
   div
-    UpgradePlan(:plan="plan" v-for="plan in store.plans" :key="plan.id")
+    UpgradePlan(:plan="plan" v-for="plan in store.plans" :key="plan.name")
     v-btn#submit(color="primary" text @click="next" :disabled="!store.selectedPlan") Continue
 </template>
 
