@@ -12,7 +12,7 @@
               ColorsDisplay(:palette='palette')
             v-col.pa-0(cols="12")
               .info
-                img(src='/img/icons/favorite.svg')
+                IconsHeart
                 div.pl-1 {{ palette.favorites || 8 }}k
                 img(src='/img/icons/dots.svg')
 </template>
