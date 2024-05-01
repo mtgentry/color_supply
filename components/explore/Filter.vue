@@ -10,7 +10,7 @@
         v-checkbox.px-5(v-model="style"  :label="t.title" :value="t.value" hide-details true-icon="mdi-close-box-outline")
         v-divider(v-if="t !== styles[styles.length - 1]")
     ExploreExpansionPanel#slider(title="QTY")
-      v-range-slider.px-5.pb-5(:min="2" :max="7" v-model="qty" :step="1" thumb-label="always" show-ticks="always" hide-details)
+      v-range-slider.px-5.pb-5(:min="2" :max="7" v-model="qtyLocal" :step="1" @end="changeQty" thumb-label="always" show-ticks="always" hide-details)
     ExploreExpansionPanel(title="Harmony")
       ExploreHarmony(v-model="harmony").px-5
     //ExploreExpansionPanel(title="Color Picker")
@@ -23,6 +23,7 @@
 const filterStore = useFilterStore()
 const { mode, style, qty, harmony } = storeToRefs(filterStore)
 const activePanel = ref(4)
+const qtyLocal = ref(qty.value)
 
 const modes = [
   { value: 'illustration', title: 'Illustration'},
@@ -40,6 +41,11 @@ const styles = [
   { value: 'rich', title: 'Rich'},
   { value: '', title: 'Other' },
 ]
+
+const changeQty = value => {
+  // make the qty slider only execute when user releases the click
+  filterStore.changeFilter(qty, value)
+}
 
 watch(style, (value, oldValue) => {
   if (value.length === 1 && value[0] === 'all') {

@@ -1,5 +1,5 @@
 
-export const fetch = (path, method='get', body) => {
+export const fetch = async (path, method='get', query) => {
   const auth = useCookie('auth.token')
   const headers = {
     'Content-Type': 'application/json'
@@ -12,7 +12,7 @@ export const fetch = (path, method='get', body) => {
     baseURL: config.public.BASE_URL,
     headers,
     method,
-    body,
+    query,
     credentials: 'include',
   };
   return $fetch(
