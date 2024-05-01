@@ -20,7 +20,7 @@
                 v-list-item(to="/manage/general") Manage account
                 v-list-item
                   .d-flex.align-center
-                    img.mr-1.mb-1(src="/img/icons/favorite.svg" height="15" contain)
+                    IconsHeart.mr-1.mb-1
                     span My Likes
                 v-list-item Bug report & feedback
                 v-list-item(@click="signOut") Log Out
