@@ -5,14 +5,14 @@
       v-btn#current(color="primary" size="small" disabled v-if="active") Current Plan
     v-card-text#space
       div
-        p(v-if="price")
+        p(v-if="price?.value")
           sup $
-          span#price {{price}}
+          span#price {{price.value}}
           span /{{interval}}
         p#priceRow(v-else) Free
         p#description {{plan.description}}
         p · Save up to {{plan.metadata.favorites}} favorites
-      v-btn#select(width="100%" variant="outlined" v-if="!active") Select Plan
+      v-btn#select(width="100%" variant="outlined" v-if="!active" @click="createCheckout") Select Plan
 </template>
 
 <script setup>
@@ -20,15 +20,21 @@ const props = defineProps({
   plan: Object,
   interval: String,
 })
-
 const {data} = useAuth()
 
-const price = computed(() => parseInt(props.plan.prices.find(c => c.interval === props.interval)?.value))
+const price = computed(() => props.plan.prices.find(c => c.interval === props.interval))
 const active = computed(() => {
   if (data.value.subscription.plan === props.plan.name) {
     if (props.plan.name === 'Basic') return true
     return data.value.subscription.interval === props.interval
   }})
+
+const createCheckout = async () => {
+  const checkout = await fetch('/plans/checkout/', 'post', {
+    price_id: price.value.id,
+  })
+  await navigateTo(checkout.url, {external: true})
+}
 </script>
 
 <style scoped lang="sass">

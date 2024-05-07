@@ -8,13 +8,18 @@ export const fetch = async (path, method='get', query) => {
     headers['Authorization'] = 'Bearer ' + auth.value
   }
   const config = useRuntimeConfig()
+
   const options = {
     baseURL: config.public.BASE_URL,
     headers,
     method,
-    query,
     credentials: 'include',
-  };
+  }
+  if (method === 'post') {
+    options.body = query
+  } else if (method === 'get') {
+    options.query = query
+  }
   return $fetch(
     path, options
   )
