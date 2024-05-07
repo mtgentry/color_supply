@@ -8,26 +8,26 @@
         p(v-if="price")
           sup $
           span#price {{price}}
-          span /{{cycle.slice(0, cycle.length - 2)}}
+          span /{{interval}}
         p#priceRow(v-else) Free
         p#description {{plan.description}}
-        p · Save up to {{plan.max_favorites}} favorites
+        p · Save up to {{plan.metadata.favorites}} favorites
       v-btn#select(width="100%" variant="outlined" v-if="!active") Select Plan
 </template>
 
 <script setup>
 const props = defineProps({
   plan: Object,
-  cycle: String,
+  interval: String,
 })
 
 const {data} = useAuth()
 
-const price = computed(() => parseInt(props.plan.cycles.find(c => c.period === props.cycle).price))
+const price = computed(() => parseInt(props.plan.prices.find(c => c.interval === props.interval)?.value))
 const active = computed(() => {
   if (data.value.subscription.plan === props.plan.name) {
     if (props.plan.name === 'Basic') return true
-    return data.value.subscription.cycle === props.cycle
+    return data.value.subscription.interval === props.interval
   }})
 </script>
 

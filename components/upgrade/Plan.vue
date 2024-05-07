@@ -16,7 +16,7 @@ const props = defineProps({
 })
 const store = usePlanStore()
 
-const price = computed(() => parseInt(props.plan.cycles.find(c => c.period === "monthly").price))
+const price = computed(() => parseInt(props.plan.prices.find(c => c.interval === 'month')?.value))
 
 </script>
 
