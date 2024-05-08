@@ -1,5 +1,5 @@
 <template lang="pug">
-  .color-row(@click='selectPalette' :class='{clickable: !props.readonly}')
+  .color-row(@click='selectPalette' :class='{clickable: !props.readonly, active: isSelected}')
     .color-box(v-for='(color, index) in palette.colors' :key='index' :style='{backgroundColor: color}')
 
 </template>
@@ -19,6 +19,8 @@ const selectPalette = () => {
   store.selectPalette(props.palette)
 }
 
+const isSelected = computed(() => store.palette === props.palette)
+
 </script>
 
 <style scoped lang="sass">
@@ -26,6 +28,9 @@ const selectPalette = () => {
   display: flex
   width: 100%
 
+.active
+  outline: 4px solid var(--color1)
+  outline-offset: -4px
 
 .color-box
   flex: 1 1 0
