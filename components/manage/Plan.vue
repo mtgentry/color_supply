@@ -24,9 +24,9 @@ const {data} = useAuth()
 
 const price = computed(() => props.plan.prices.find(c => c.interval === props.interval))
 const active = computed(() => {
-  if (data.value.subscription.plan === props.plan.name) {
+  if (data.value.plan.name === props.plan.name) {
     if (props.plan.name === 'Basic') return true
-    return data.value.subscription.interval === props.interval
+    return data.value.plan.interval === props.interval
   }})
 
 const createCheckout = async () => {

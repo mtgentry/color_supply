@@ -14,7 +14,7 @@
             v-card-text
               div.profile {{data.name }}
               div.profile#email {{data.email }}
-              v-btn#plan(color="primary" variant="outlined" to="/manage/plan") {{ data.subscription.plan }} Plan
+              v-btn#plan(color="primary" variant="outlined" to="/manage/plan") {{ data.plan.name }} Plan
               v-divider
               v-list
                 v-list-item(to="/manage/general") Manage account
