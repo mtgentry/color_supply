@@ -26,6 +26,19 @@ export default defineNuxtConfig({
     '@formkit/auto-animate/nuxt',
     'nuxt-snackbar'
   ],
+  vuetify: {
+    vuetifyOptions: {
+      theme: {
+        themes: {
+          light: {
+            colors: {
+              info: '#4175DF',
+            }
+          },
+        },
+      },
+    }
+  },
   auth: {
     globalAppMiddleware: {
       isEnabled: false,
