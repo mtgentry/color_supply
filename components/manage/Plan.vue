@@ -42,6 +42,7 @@ const createCheckout = async () => {
   color: var(--color2)
   border: 1px solid var(--color4)
   max-width: 244px
+  height: 100%
 
   font-size: 16px!important
   min-height: 284px
@@ -66,7 +67,6 @@ const createCheckout = async () => {
   .v-card-text
     font-size: 16px!important
     padding: 0 24px
-
 
 h3
   color: var(--color2)
@@ -101,10 +101,9 @@ sup
 
 #space
   display: flex
-
   flex-direction: column
-  height: 100%
 
 #select
   margin-top: 40px
+  margin-bottom: 10px
 </style>

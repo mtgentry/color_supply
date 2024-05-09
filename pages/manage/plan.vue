@@ -1,15 +1,15 @@
 <template lang="pug">
   ManageLayout
-    v-container
+    v-container(fluid)
       v-row(v-if="status")
-        v-col(md="12")
+        v-col(cols="12")
           v-alert(:text="alertMessage" type='info' closable v-if="status === 'success'" icon="mdi-check-circle" )
       v-row.plans
-        v-col#toggle.centered.flex-row(md="12")
+        v-col#toggle.centered.flex-row(cols="12")
           v-btn(v-for="interval in intervals" :key="interval" flat :variant="selected_interval === interval ? undefined : 'outlined'"
             :color="selected_interval === interval ? 'primary': 'gray'"
           @click="selected_interval=interval") {{capitalized(interval)}}ly
-        v-col.centered(md="3" v-for="plan in plans" :key="plan.name")
+        v-col.centered(md="3" sm="6" sx="12" cols="12" v-for="plan in plans" :key="plan.name")
           ManagePlan(:plan="plan" :interval="selected_interval")
 
 </template>
@@ -36,5 +36,6 @@ const alertMessage = computed(() => {
     margin-right: 12px
     width: 120px
 .plans
-  padding: 0 220px
+  @media (min-width: 1904px)
+    padding: 0 220px
 </style>
