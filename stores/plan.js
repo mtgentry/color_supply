@@ -6,7 +6,7 @@ export const usePlanStore = defineStore('plan', () =>{
   const selectPlan = (plan) => {
     selectedPlan.value = plan
   }
-  const selectedCycle = ref('monthly')
+  const selectedCycle = ref('month')
   const selectCycle = (cycle) => {
     selectedCycle.value = cycle
   }

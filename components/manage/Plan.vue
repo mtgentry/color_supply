@@ -1,5 +1,5 @@
 <template lang="pug">
-  v-card#plan(:class="{selected: active}" flat)
+  v-card#plan(:class="{selected: active || selected}" flat)
     v-card-title
       p {{plan.name}}
       v-btn#current(color="primary" size="small" disabled v-if="active") Current Plan
@@ -12,7 +12,9 @@
         p#priceRow(v-else) Free
         p#description {{plan.description}}
         p · Save up to {{plan.metadata.favorites}} favorites
-      v-btn#select(width="100%" variant="outlined" v-if="!active" @click="createCheckout") Select Plan
+      v-btn#select(width="100%" variant="outlined" v-if="!active && !selected" @click="selectPlan(plan)") Select Plan
+  v-btn#upgrade(variant="outlined" width="100%" :class="{hide: active|| !selected}"
+    @click="createCheckout" :disabled="pending") Upgrade to {{plan.name}}
 </template>
 
 <script setup>
@@ -20,7 +22,11 @@ const props = defineProps({
   plan: Object,
   interval: String,
 })
-const {data} = useAuth()
+const {data, getSession} = useAuth()
+const planStore = usePlanStore()
+const {selectPlan} = planStore
+const {selectedPlan, selectedCycle} = storeToRefs(planStore)
+const pending = ref(false)
 
 const price = computed(() => props.plan.prices.find(c => c.interval === props.interval))
 const active = computed(() => {
@@ -28,12 +34,22 @@ const active = computed(() => {
     if (props.plan.name === 'Basic') return true
     return data.value.plan.interval === props.interval
   }})
-
+const selected = computed(() => {
+  return selectedPlan.value?.name === props.plan.name && selectedCycle.value === props.interval
+})
 const createCheckout = async () => {
+  pending.value = true
   const checkout = await fetch('/plans/checkout/', 'post', {
     price_id: price.value.id,
   })
-  await navigateTo(checkout.url, {external: true})
+  if (checkout.url) {
+    await navigateTo(checkout.url, {external: true})
+  } else {
+    await getSession()
+  }
+  pending.value = false
+  selectedPlan.value = null
+
 }
 </script>
 
@@ -41,7 +57,6 @@ const createCheckout = async () => {
 .v-card
   color: var(--color2)
   border: 1px solid var(--color4)
-  max-width: 244px
   height: 100%
 
   font-size: 16px!important
@@ -49,12 +64,12 @@ const createCheckout = async () => {
   font-weight: 500
 
   &.selected
-    border: 2px solid var(--color1)
+    outline: 2px solid var(--color1)
+    outline-offset: -2px
     padding: 0 0 20px 0
     background-color: var(--color8)
     h3
       color: var(--color2)
-
     p
       color: var(--color2)
 
@@ -106,4 +121,10 @@ sup
 #select
   margin-top: 40px
   margin-bottom: 10px
+
+#upgrade
+  margin-top: 24px
+
+.hide
+  visibility: hidden!important
 </style>
