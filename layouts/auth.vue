@@ -20,22 +20,32 @@ html
   align-items: center
   justify-content: center
 
-.branding
-  background-color: #DEDCE1
+  h1
+    margin-bottom: 22px
+
+  .branding
+    background-color: #DEDCE1
+
+  .form
+    max-width: 550px
+    min-width: 550px
+
+  .v-divider
+    margin: 27px 200px
+
+  .v-btn--disabled
+    background-color: var(--color4) !important
+    color: var(--color3)
+
+  .v-input__details
+    padding-bottom: 5px
+
 
 #cover
   width: 100%
   height: auto
   margin: 0 auto
 
-// css for pages
-
-.form
-  max-width: 550px
-  min-width: 550px
-
-h1
-  margin-bottom: 22px
 
 #submit
   width: 100%
@@ -47,13 +57,5 @@ h1
 #description
   text-align: center
 
-.v-divider
-  margin: 27px 200px
 
-.v-btn--disabled
-  background-color: var(--color4) !important
-  color: var(--color3)
-
-.v-input__details
-  padding-bottom: 5px
 </style>
