@@ -28,7 +28,7 @@
     v-toolbar-title
       nuxt-link(to="/explore") Explore
       nuxt-link(to="/create") Create
-      nuxt-link(to="") Visualize
+      nuxt-link(to="/visualize") Visualize
 </template>
 
 <script setup>
