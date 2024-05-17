@@ -27,8 +27,9 @@ const dot5 = ref("white")
 
 const colorStore = useColorStore()
 const {palette} = storeToRefs(colorStore)
-
-
+onMounted(() => {
+  changeColors(palette.value.colors)
+})
 watch(palette, (palette) => {
   changeColors(palette.colors)
 })
@@ -81,7 +82,7 @@ const changeColors = (colors) => {
   } else if (colors.length === 6) {
     background.value = colors[0]
     dot1.value = colors[1]
-    pear.value = colors[5]
+    pear.value = colors[2]
     dot2.value = colors[3]
     dot3.value = colors[4]
     smudge.value = colors[5]
@@ -125,12 +126,12 @@ const changeColors = (colors) => {
   } else if (colors.length === 2) {
     background.value = colors[0]
     dot1.value = colors[1]
-    pear.value = colors[1]
+    pear.value = 'transparent'
     dot2.value = colors[1]
     dot3.value = colors[1]
     smudge.value = colors[1]
     dot4.value = colors[1]
-    orange.value = colors[1]
+    orange.value = 'transparent'
     apple.value = colors[1]
     dot5.value = colors[1]
   }

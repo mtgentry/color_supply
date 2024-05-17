@@ -6,20 +6,24 @@
 
 <script setup>
 const props = defineProps({
-  palette: Array,
+  palette: Object,
   readonly: {
     type: Boolean,
     default: false,
   },
 })
 const store = useColorStore()
+const {palette: storePalette} = storeToRefs(store)
 
 const selectPalette = () => {
   if (props.readonly) return
   store.selectPalette(props.palette)
 }
 
-const isSelected = computed(() => store.palette === props.palette)
+const isSelected = computed(() => {
+  return storePalette.value.id === props.palette.id
+})
+
 
 </script>
 
