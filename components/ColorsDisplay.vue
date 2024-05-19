@@ -1,5 +1,5 @@
 <template lang="pug">
-  .color-row(@click='selectPalette' :class='{clickable: !props.readonly, active: isSelected}')
+  .color-row(@click='selectPalette' :class='{clickable: !props.readonly, active: isSelected, round: props.rounded}')
     .color-box(v-for='(color, index) in palette.colors' :key='index' :style='{backgroundColor: color}')
 
 </template>
@@ -7,6 +7,10 @@
 <script setup>
 const props = defineProps({
   palette: Object,
+  rounded: {
+    type: Boolean,
+    default: false,
+  },
   readonly: {
     type: Boolean,
     default: false,
@@ -21,7 +25,7 @@ const selectPalette = () => {
 }
 
 const isSelected = computed(() => {
-  return storePalette.value.id === props.palette.id
+  return storePalette.value?.id === props.palette.id
 })
 
 
@@ -32,6 +36,10 @@ const isSelected = computed(() => {
   display: flex
   width: 100%
 
+  .round:hover
+    transform: scale(1.03)
+    transition: transform 0.1s ease-in-out
+
 .active
   outline: 4px solid var(--color1)
   outline-offset: -4px
@@ -39,4 +47,23 @@ const isSelected = computed(() => {
 .color-box
   flex: 1 1 0
   height: 50px
+
+.round
+  &.active
+    box-shadow: 0 0 0 2px var(--color1)
+    border-radius: 5px
+    outline: none
+
+  &.color-row:hover
+    transform: scale(1.03)
+    transition: transform 0.1s ease-in-out
+
+  .color-box
+    height: 24px
+    &:first-child
+      border-top-left-radius: 5px
+      border-bottom-left-radius: 5px
+    &:last-child
+      border-top-right-radius: 5px
+      border-bottom-right-radius: 5px
 </style>

@@ -13,4 +13,5 @@
 #palettes
   height: calc(100vh - 64px)
   overflow: auto
+  padding: 0
 </style>
