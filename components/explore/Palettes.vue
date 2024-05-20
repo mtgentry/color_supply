@@ -9,7 +9,7 @@
               ColorsDisplay(:palette='palette')
             v-col.pa-0(cols="12")
               .info
-                IconsHeart
+                IconsHeart.clickable(@click="favorite(palette.id)" :fill="palette.favorite ? 'var(--color9)' : 'var(--color8)'")
                 div.pl-1 {{ palette.favorites || 8 }}k
                 img(src='/img/icons/dots.svg')
       InfiniteLoading(@infinite="load")
@@ -46,6 +46,19 @@ watch([mode, style, qty, harmony], () => {
   palettes.value = []
   load({ complete: () => {} })
 })
+
+const favorite = async (id) => {
+  const palette = palettes.value.find(p => p.id === id)
+  if (palette.favorite) {
+    await fetch(`favorites/${id}/`,  'delete')
+  } else {
+    await fetch(`favorites/`, 'post', {
+      palette: id
+    })
+  }
+
+  palette.favorite = !palette.favorite
+}
 
 </script>
 
