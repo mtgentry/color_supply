@@ -22,7 +22,6 @@
 .v-btn
   border: 1px solid var(--color4)
   color: var(--color4)
-  font-family: "ABCDiatypeRounded"
   font-size: 13px
   letter-spacing: 0.26px
 </style>

@@ -6,9 +6,9 @@ export const usePlanStore = defineStore('plan', () =>{
   const selectPlan = (plan) => {
     selectedPlan.value = plan
   }
-  const selectedCycle = ref('month')
-  const selectCycle = (cycle) => {
-    selectedCycle.value = cycle
+  const selectedInterval = ref('month')
+  const selectInterval = (cycle) => {
+    selectedInterval.value = cycle
   }
   const fetchPlans = async () => {
     plans.value = await fetch('/plans/')
@@ -18,8 +18,8 @@ export const usePlanStore = defineStore('plan', () =>{
     plans,
     selectedPlan,
     selectPlan,
-    selectedCycle,
-    selectCycle,
+    selectedInterval,
+    selectInterval,
     fetchPlans
   }
 })

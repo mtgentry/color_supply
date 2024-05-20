@@ -8,34 +8,44 @@
         p(v-if="price?.value")
           sup $
           span#price {{price.value}}
-          span /{{interval}}
+          span /{{selectedInterval}}
         p#priceRow(v-else) Free
         p#description {{plan.description}}
         p · Save up to {{plan.metadata.favorites}} favorites
-      v-btn#select(width="100%" variant="outlined" v-if="!active && !selected" @click="selectPlan(plan)") Select Plan
+      v-btn#select(width="100%" variant="outlined" v-if="active && price.value" @click="createCheckout" :disabled="pending") Manage
+      v-btn#select(width="100%" variant="outlined" v-if="!active && !selected" @click="selectPlan(price.id)") Select Plan
   v-btn#upgrade(variant="outlined" width="100%" :class="{hide: active|| !selected}"
-    @click="createCheckout" :disabled="pending") Upgrade to {{plan.name}}
+    @click="createCheckout" :disabled="pending") {{action}} to {{plan.name}}
 </template>
 
 <script setup>
 const props = defineProps({
   plan: Object,
-  interval: String,
 })
 const {data, getSession} = useAuth()
 const planStore = usePlanStore()
 const {selectPlan} = planStore
-const {selectedPlan, selectedCycle} = storeToRefs(planStore)
+const {selectedPlan, selectedInterval} = storeToRefs(planStore)
 const pending = ref(false)
 
-const price = computed(() => props.plan.prices.find(c => c.interval === props.interval))
+const price = computed(() => {
+  if (props.plan.prices.length < 2) return props.plan.prices[0]
+  return props.plan.prices.find(c => c.interval === selectedInterval.value)
+})
 const active = computed(() => {
   if (data.value.plan.name === props.plan.name) {
     if (props.plan.name === 'Basic') return true
-    return data.value.plan.interval === props.interval
+    return data.value.plan.interval === selectedInterval.value
   }})
 const selected = computed(() => {
-  return selectedPlan.value?.name === props.plan.name && selectedCycle.value === props.interval
+  return selectedPlan.value === price.value.id
+})
+const action = computed(() => {
+  if (price.value.value > parseFloat(data.value.plan.amount)) {
+    return 'Upgrade'
+  } else {
+    return 'Downgrade'
+  }
 })
 const createCheckout = async () => {
   pending.value = true
@@ -49,7 +59,6 @@ const createCheckout = async () => {
   }
   pending.value = false
   selectedPlan.value = null
-
 }
 </script>
 

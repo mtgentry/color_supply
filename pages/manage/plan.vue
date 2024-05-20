@@ -6,11 +6,11 @@
           v-alert(:text="alertMessage" type='info' closable v-if="status === 'success'" icon="mdi-check-circle" )
       v-row.plans
         v-col#toggle.centered.flex-row(cols="12")
-          v-btn(v-for="interval in intervals" :key="interval" flat :variant="selected_interval === interval ? undefined : 'outlined'"
-            :color="selected_interval === interval ? 'primary': 'gray'"
-          @click="selected_interval=interval") {{capitalized(interval)}}ly
+          v-btn(v-for="interval in intervals" :key="interval" flat :variant="selectedInterval === interval ? undefined : 'outlined'"
+            :color="selectedInterval === interval ? 'primary': 'gray'"
+          @click="selectInterval(interval)") {{capitalized(interval)}}ly
         v-col.centered(md="3" sm="6" sx="12" cols="12" v-for="plan in plans" :key="plan.name")
-          ManagePlan(:plan="plan" :interval="selected_interval")
+          ManagePlan(:plan="plan")
 
 </template>
 
@@ -18,9 +18,9 @@
 const { data } = useAuth()
 const route = useRoute()
 const planStore = usePlanStore()
-const {plans} = storeToRefs(planStore)
+const {selectInterval} = planStore
+const { plans, selectedInterval } = storeToRefs(planStore)
 const intervals = ['month', 'year']
-const selected_interval = ref('month')
 const status = computed(() => route.query.status)
 const alertMessage = computed(() => {
   if (status.value === 'success') {
