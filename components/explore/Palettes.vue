@@ -10,7 +10,7 @@
             v-col.pa-0(cols="12")
               .info
                 IconsHeart.clickable(@click="favorite(palette.id)" :fill="palette.favorite ? 'var(--color9)' : 'var(--color8)'")
-                div.pl-1 {{ palette.favorites || 8 }}k
+                div.pl-1 {{ palette.favorite_count }}
                 img(src='/img/icons/dots.svg')
       InfiniteLoading(@infinite="load")
         template(#spinner)
@@ -58,6 +58,7 @@ const favorite = async (id) => {
   }
 
   palette.favorite = !palette.favorite
+  palette.favorite_count += palette.favorite ? 1 : -1
 }
 
 </script>
