@@ -9,7 +9,9 @@
               ColorsDisplay(:palette='palette')
             v-col.pa-0(cols="12")
               .info
-                IconsHeart.clickable(@click="favorite(palette.id)" :fill="palette.favorite ? 'var(--color9)' : 'var(--color8)'")
+                IconsHeart(
+                  @click="favorite(palette.id)" :fill="palette.favorite ? 'var(--color9)' : 'var(--color8)'"
+                  :class="{ 'clickable': status === 'authenticated' }")
                 div.pl-1 {{ palette.favorite_count }}
                 img(src='/img/icons/dots.svg')
       InfiniteLoading(@infinite="load")
@@ -22,6 +24,7 @@
 <script setup>
 import InfiniteLoading from "v3-infinite-loading"
 import "v3-infinite-loading/lib/style.css"
+const { status } = useAuth()
 const filterStore = useFilterStore()
 const { mode, style, qty, harmony } = storeToRefs(filterStore)
 const next = ref('palettes/list/')
@@ -48,17 +51,22 @@ watch([mode, style, qty, harmony], () => {
 })
 
 const favorite = async (id) => {
+  if (status.value === 'unauthenticated') {
+    return
+  }
   const palette = palettes.value.find(p => p.id === id)
+
   if (palette.favorite) {
+    palette.favorite_count -= 1
+    palette.favorite = !palette.favorite
     await fetch(`favorites/${id}/`,  'delete')
   } else {
+    palette.favorite_count += 1
+    palette.favorite = !palette.favorite
     await fetch(`favorites/`, 'post', {
       palette: id
     })
   }
-
-  palette.favorite = !palette.favorite
-  palette.favorite_count += palette.favorite ? 1 : -1
 }
 
 </script>

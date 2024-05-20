@@ -2,28 +2,31 @@
   v-container#paletteResults(fluid)
     v-row#toggleRow
       v-col(md="12")
-        v-btn-toggle(variant="text" rounded="0" mandatory v-model="filter")
+        v-btn-toggle(variant="text" rounded="0" mandatory v-model="toggle")
           v-btn(value="recent").mr-5 Recent
           v-btn(value="favorites") Favorites
-      v-col(md="12" v-for='(palette, index) in palettes' :key='index')
+      v-col.centered(md="12" v-if="pending")
+        v-progress-circular(indeterminate)
+      v-col(md="12" v-for='(palette, index) in palettes?.results' :key='index' v-else)
         ColorsDisplay(:palette='palette' rounded)
 </template>
 
 <script setup>
 const colorStore = useColorStore()
-const next = ref('palettes/list/')
-const palettes = ref([])
-const filter = ref('recent')
+const toggle = ref('recent')
+const {data: palettes, pending, refresh} = useApi('palettes/list/',  {
+  toggle: toggle
+}, 'get')
 
-const response = await fetch(next.value, 'get')
-palettes.value = [...palettes.value, ...response.results]
-if (!colorStore.palette) {
-  colorStore.selectPalette(palettes.value[0])
-}
+watch(palettes, () => {
+  colorStore.selectPalette(palettes.value.results[0])
+})
+
 </script>
 
 <style scoped lang="sass">
 #paletteResults
+
   .v-col
     padding: 6px 24px
 

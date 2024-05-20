@@ -27,9 +27,7 @@ const dot5 = ref("white")
 
 const colorStore = useColorStore()
 const {palette} = storeToRefs(colorStore)
-onMounted(() => {
-  changeColors(palette.value.colors)
-})
+
 watch(palette, (palette) => {
   changeColors(palette.colors)
 })

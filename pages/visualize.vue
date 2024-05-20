@@ -10,6 +10,8 @@
 </script>
 
 <style scoped lang="sass">
+#visualize
+  background-color: var(--color7)
 #palettes
   height: calc(100vh - 64px)
   overflow: auto
