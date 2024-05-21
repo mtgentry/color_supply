@@ -10,9 +10,11 @@
             v-col.pa-0(cols="12")
               .info
                 IconsHeart(
-                  @click="favorite(palette.id)" :fill="palette.favorite ? 'var(--color9)' : 'var(--color8)'"
+                  :fill="palette.favorite ? 'var(--color9)' : 'transparent'",
+                  :stroke="palette.favorite ? 'var(--color9)' : 'var(--color3)'",
+                  @click="favorite(palette.id)"
                   :class="{ 'clickable': status === 'authenticated' }")
-                div.pl-1 {{ palette.favorite_count }}
+                div#count.pl-2 {{ palette.favorite_count }}
                 img(src='/img/icons/dots.svg')
       InfiniteLoading(@infinite="load")
         template(#spinner)
@@ -72,22 +74,26 @@ const favorite = async (id) => {
 </script>
 
 <style scoped lang="sass">
-.info
-  padding-top: 5px
-  display: flex
-  align-items: center
-  justify-content: flex-end
-  color: var(--color3)
-
-  div
-    line-height: 1px
-    padding-top: 1px
-
 #paletteResults
-  height: calc(100vh - 88px)
-  overflow-y: auto
+  .info
+    padding-top: 5px
+    display: flex
+    align-items: center
+    justify-content: flex-end
+    color: var(--color3)
 
-#loading
-  width: calc(100vw - 350px)
-  overflow: hidden
+    div
+      line-height: 1px
+      padding-top: 1px
+
+  #paletteResults
+    height: calc(100vh - 88px)
+    overflow-y: auto
+
+  #loading
+    width: calc(100vw - 350px)
+    overflow: hidden
+
+  #count
+    min-width: 20px
 </style>
