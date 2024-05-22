@@ -2,11 +2,11 @@
   ManageLayout
     #form
       v-form(@submit.prevent="saveChanges")
-        v-text-field(v-model="state.name" label="Name" required placeholder="Sara" variant="outlined"
+        v-text-field(v-model="state.name" label="Name" required placeholder="Sara" variant="outlined" name="name"
           :error-messages="v$.name.$errors.map(e => e.$message)" @blur="v$.name.$touch" @input="v$.name.$touch")
-        v-text-field(v-model="state.email" label="Email" required placeholder="sara.smith@gmail.com"  variant="outlined"
+        v-text-field(v-model="state.email" label="Email" required placeholder="sara.smith@gmail.com"  variant="outlined" name="email"
           :error-messages="v$.email.$errors.map(e => e.$message)"  @blur="v$.email.$touch")
-        v-text-field#password(v-model="state.password" label="New Password" :type="showPassword ? 'text' : 'password'" required
+        v-text-field#password(v-model="state.password" label="New Password" :type="showPassword ? 'text' : 'password'" required name="password"
         placeholder="Colorfan19#" :hint="!v$.password.$invalid ? '' : 'At least 8 characters, with a number or symbol'"
           :error-messages="v$.password.$errors.map(e => e.$message)"
           variant="outlined" :append-inner-icon="showPassword ? 'mdi-eye-off' : 'mdi-eye'"  @click:append-inner="showPassword = !showPassword"
@@ -17,7 +17,7 @@
 <script setup>
 import { useVuelidate } from '@vuelidate/core'
 import {email, required, helpers, minLength} from '@vuelidate/validators'
-const snackbar = useSnackbar();
+const snackbar = useSnackbar()
 const showPassword = ref(false)
 const symbol = helpers.regex(/[^a-zA-Z0-9\s]/)
 const number = helpers.regex(/[0-9]/)
@@ -55,8 +55,9 @@ const saveChanges = async () => {
     v$.value.$touch()
     return
   }
+  debugger
   // Save changes
-  await fetch('/users/update/', 'patch', JSON.stringify(state))
+  await fetch('/users/update/', 'patch', state)
   state.password = null
   snackbar.add({
     type: 'success',

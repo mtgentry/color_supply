@@ -19,6 +19,12 @@ export const fetch = async (path, method='get', query) => {
     options.body = query
   } else if (method === 'get') {
     options.query = query
+  } else if (method === 'delete') {
+    options.query = query
+  } else if (method === 'put') {
+    options.body = query
+  } else if (method === 'patch') {
+    options.body = query
   }
   return $fetch(
     path, options

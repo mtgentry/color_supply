@@ -6,8 +6,16 @@
           slot
         v-col.pa-0.branding.d-flex.justify-center.align-center(cols="6")
           img#cover(src="/img/branding.png")
-
+    NuxtSnackbar
 </template>
+
+<script setup>
+useHead({
+  titleTemplate: (titleChunk) => {
+    return titleChunk ? `${titleChunk} - Color Supply` : 'Color Supply';
+  }
+})
+</script>
 
 <style lang="sass">
 html

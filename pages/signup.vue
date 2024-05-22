@@ -26,6 +26,9 @@ definePageMeta({
   auth: { unauthenticatedOnly: true, navigateAuthenticatedTo: '/explore' },
   layout: 'auth',
 })
+useHead({
+  title: 'Sign up',
+})
 
 const {data} = useAuth()
 if (data.value) {
