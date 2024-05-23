@@ -9,11 +9,10 @@
               ColorsDisplay(:palette='palette')
             v-col.pa-0(cols="12")
               .info
-                IconsHeart(
+                IconsHeart.clickable(
                   :fill="palette.favorite ? 'var(--color9)' : 'transparent'",
                   :stroke="palette.favorite ? 'var(--color9)' : 'var(--color3)'",
-                  @click="favorite(palette.id)"
-                  :class="{ 'clickable': status === 'authenticated' }")
+                  @click="favoriteClick(palette.id)")
                 div#count.pl-2 {{ palette.favorite_count }}
                 img(src='/img/icons/dots.svg')
       InfiniteLoading(@infinite="load")
@@ -31,6 +30,8 @@ const filterStore = useFilterStore()
 const { mode, style, qty, harmony } = storeToRefs(filterStore)
 const next = ref('palettes/list/')
 const palettes = ref([])
+const dialogStore = useDialogStore()
+const {changeSignUpForm} = dialogStore
 const load = async $state => {
   const response = await fetch(next.value, 'get', {
     mode: mode.value,
@@ -53,9 +54,6 @@ watch([mode, style, qty, harmony], () => {
 })
 
 const favorite = async (id) => {
-  if (status.value === 'unauthenticated') {
-    return
-  }
   const palette = palettes.value.find(p => p.id === id)
 
   if (palette.favorite) {
@@ -70,6 +68,15 @@ const favorite = async (id) => {
     })
   }
 }
+
+const favoriteClick = async (id) => {
+  if (status.value === 'unauthenticated') {
+    changeSignUpForm(true)
+    return
+  }
+  await favorite(id)
+}
+
 
 </script>
 

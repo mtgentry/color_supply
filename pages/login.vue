@@ -28,7 +28,8 @@ definePageMeta({
 useHead({
   title: 'Sign in',
 })
-
+const dialogStore = useDialogStore()
+const {changeSignUpForm} = dialogStore
 const { signIn } = useAuth()
 
 const error_message = ref('')
@@ -56,6 +57,7 @@ const rules = {
   },
 }
 const v$ = useVuelidate(rules, state)
+
 const login = async () => {
   try {
     await signIn({ email: state.email, password: state.password }, {callbackUrl: '/explore'})
@@ -63,5 +65,6 @@ const login = async () => {
     error_message.value = error.data.detail
     // console.error(error)
   }
+  changeSignUpForm(false)
 }
 </script>
