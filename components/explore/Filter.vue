@@ -48,14 +48,17 @@ const changeQty = value => {
 }
 
 watch(style, (value, oldValue) => {
-  if (value.length === 1 && value[0] === 'all') {
-    return
+  if (value.length === 0) {
+    filterStore.changeFilter(style, ['all'])
   }
-  if (oldValue.length === 1 && oldValue[0] === 'all') {
+  else if (value.length === 1 && value[0] === 'all') {
+
+  }
+  else if (oldValue.length === 1 && oldValue[0] === 'all') {
     value = value.filter(v => v !== 'all')
     filterStore.changeFilter(style, value)
   }
-  if (value.includes('all')) {
+  else if (value.includes('all')) {
     filterStore.changeFilter(style, ['all'])
   }
 }, { deep: true })
