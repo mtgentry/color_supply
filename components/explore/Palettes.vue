@@ -39,6 +39,9 @@ const load = async $state => {
     qty: qty.value,
     harmony: harmony.value,
   })
+  if (!response) {
+    return
+  }
   palettes.value = [...palettes.value, ...response.results]
   if (!response.next) {
     $state.complete()

@@ -1,5 +1,7 @@
 
 export const fetch = async (path, method='get', query) => {
+  const dialogStore = useDialogStore()
+  const {changeSignUpForm} = dialogStore
   const auth = useCookie('auth.token')
   const headers = {
     'Content-Type': 'application/json'
@@ -26,7 +28,12 @@ export const fetch = async (path, method='get', query) => {
   } else if (method === 'patch') {
     options.body = query
   }
-  return $fetch(
+  const resp =  $fetch(
     path, options
-  )
+  ).catch((error) => {
+    if (error.data === 'Access limited') {
+      changeSignUpForm(true, true)
+    }
+  })
+  return resp
 }

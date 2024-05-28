@@ -12,7 +12,9 @@ export const usePlanStore = defineStore('plan', () =>{
   }
   const fetchPlans = async () => {
     plans.value = await fetch('/plans/')
-    plans.value.sort((a, b) => a.metadata.order - b.metadata.order)
+    if (plans.value) {
+      plans.value.sort((a, b) => a.metadata.order - b.metadata.order)
+    }
   }
   return {
     plans,
