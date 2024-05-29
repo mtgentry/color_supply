@@ -10,7 +10,7 @@
             template(#footer)
               div#signupFooter.text-center
                 p Already have an account?  !{` `}
-                  nuxt-link(to="/login") Log in
+                  a(@click="login") Log in
                 p#terms By continuing you agree to our Terms of Service and Privacy Policy.
 </template>
 
@@ -25,4 +25,16 @@ if (status.value === 'unauthenticated') {
     dialogStore.changeSignUpForm(true, true)
   }
 }
+
+const login = () => {
+  dialogStore.changeSignUpForm(false)
+  dialogStore.changeLoginForm(true)
+}
 </script>
+
+<style lang="sass" scoped>
+a
+  color: var(--color1)
+  cursor: pointer
+  text-decoration: underline
+</style>

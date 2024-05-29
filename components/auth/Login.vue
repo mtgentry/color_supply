@@ -8,7 +8,7 @@
       v-text-field#password(v-model="state.password" label="Password" :type="showPassword ? 'text' : 'password'" required placeholder="Colorfan19#"
         variant="outlined" :append-inner-icon="showPassword ? 'mdi-eye-off' : 'mdi-eye'"  @click:append-inner="showPassword = !showPassword"
         :error-messages="v$.password.$errors.map(e => e.$message)" @blur="v$.password.$touch")
-      v-btn#submit(color="primary" type="submit") Continue
+      v-btn#submit(color="primary" type="submit" :disabled="pending") Continue
       slot(name="footer")
         div#description
           p Forgot password? !{` `}
@@ -19,7 +19,7 @@
 <script setup>
 import {email, helpers, required} from "@vuelidate/validators";
 import {useVuelidate} from "@vuelidate/core";
-
+const pending = ref(false)
 const props = defineProps({
   source: {
     type: String,
@@ -58,6 +58,7 @@ const v$ = useVuelidate(rules, state)
 
 const login = async () => {
   try {
+    pending.value = true
     await signIn({ email: state.email, password: state.password }, {callbackUrl: '/explore'})
     const was_logged = useCookie('was_logged')
     was_logged.value = true
@@ -71,6 +72,7 @@ const login = async () => {
     error_message.value = error.data.detail
     // console.error(error)
   }
+  pending.value = false
 }
 </script>
 
@@ -86,6 +88,8 @@ const login = async () => {
     font-weight: 300
     line-height: normal
     letter-spacing: 0.32px
+    width: 100%
+    margin: 14px 0
 
   &.explore
     padding: 0 40px

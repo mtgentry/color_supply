@@ -10,7 +10,7 @@
             template(#footer)
               div#signupFooter.text-center
                 p Don’t have an account?  !{` `}
-                  nuxt-link(to="/signup") Create an account
+                  a(@click="signUp") Create an account
                 p#terms By continuing you agree to our Terms of Service and Privacy Policy.
 </template>
 
@@ -24,4 +24,17 @@ if (status.value === 'unauthenticated') {
     dialogStore.changeLoginForm(true)
   }
 }
+
+const signUp = () => {
+  dialogStore.changeLoginForm(false)
+  dialogStore.changeSignUpForm(true)
+}
 </script>
+
+<style lang="sass" scoped>
+a
+  color: var(--color1)
+  cursor: pointer
+  text-decoration: underline
+</style>
+

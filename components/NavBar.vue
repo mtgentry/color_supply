@@ -5,7 +5,7 @@
     template(v-slot:append)
       div(v-if="status === 'unauthenticated'")
         v-btn#login(@click="login") Login
-        v-btn#signup.ml-3(to="/signup"  color="primary" ) Sign Up
+        v-btn#signup.ml-3(@click="signUp" color="primary" ) Sign Up
       div.centered(v-else)
         v-menu(open-on-hover open-delay="0")
           template(v-slot:activator="{ props }")
@@ -38,6 +38,9 @@ const {changeLoginForm} = dialogStore
 const snackbar = useSnackbar()
 const login = () => {
   changeLoginForm(true)
+}
+const signUp = () => {
+  dialogStore.changeSignUpForm(true)
 }
 const logout = () => {
   signOut()

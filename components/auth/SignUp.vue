@@ -101,6 +101,8 @@ const signup = async () => {
     font-weight: 300
     line-height: normal
     letter-spacing: 0.32px
+    width: 100%
+    margin: 14px 0
 
   &.explore
     padding: 0 40px
