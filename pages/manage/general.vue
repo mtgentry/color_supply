@@ -55,7 +55,6 @@ const saveChanges = async () => {
     v$.value.$touch()
     return
   }
-  debugger
   // Save changes
   await fetch('/users/update/', 'patch', state)
   state.password = null

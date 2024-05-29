@@ -4,7 +4,7 @@
       img#logo(src="/img/rainbow.svg" height="40" contain)
     template(v-slot:append)
       div(v-if="status === 'unauthenticated'")
-        v-btn#login(to="/login") Login
+        v-btn#login(@click="login") Login
         v-btn#signup.ml-3(to="/signup"  color="primary" ) Sign Up
       div.centered(v-else)
         v-menu(open-on-hover open-delay="0")
@@ -23,7 +23,7 @@
                     IconsHeart.mr-1.mb-1
                     span My Likes
                 v-list-item Bug report & feedback
-                v-list-item(@click="signOut") Log Out
+                v-list-item(@click="logout") Log Out
 
     v-toolbar-title
       nuxt-link(to="/explore") Explore
@@ -33,7 +33,19 @@
 
 <script setup>
 const { status, signOut, data } = useAuth()
-
+const dialogStore = useDialogStore()
+const {changeLoginForm} = dialogStore
+const snackbar = useSnackbar()
+const login = () => {
+  changeLoginForm(true)
+}
+const logout = () => {
+  signOut()
+  snackbar.add({
+    type: 'success',
+    text: 'Logged out successfully',
+  })
+}
 </script>
 
 <style scoped lang="sass">
