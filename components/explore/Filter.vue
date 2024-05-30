@@ -22,7 +22,7 @@
 <script setup>
 const filterStore = useFilterStore()
 const { mode, style, qty, harmony } = storeToRefs(filterStore)
-const activePanel = ref(4)
+const activePanel = ref(3)
 const qtyLocal = ref(qty.value)
 
 const modes = [
