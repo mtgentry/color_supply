@@ -5,18 +5,22 @@
           AuthLogin(source="explore")
             template(#header)
               div.text-center
-                h1 Log in to Save Favorites
-                h2 Log in now to save and access your favorite color palettes anytime.
+                h1(v-if="source === 'favorite'") Log in to Save Favorites
+                h2(v-if="source === 'favorite'") Log in now to save and access your favorite color palettes anytime.
+                h1(v-if="source === 'login'") Log In to Your Account
+                h2(v-if="source === 'login'") Welcome back! Access your saved palettes and continue creating.
             template(#footer)
               div#signupFooter.text-center
                 p Don’t have an account?  !{` `}
                   a(@click="signUp") Create an account
+                p Forgot password? !{` `}
+                  nuxt-link(to="/reset") Reset
                 p#terms By continuing you agree to our Terms of Service and Privacy Policy.
 </template>
 
 <script setup>
 const dialogStore = useDialogStore()
-const { loginForm } = storeToRefs(dialogStore)
+const { loginForm, source } = storeToRefs(dialogStore)
 const { status } = useAuth()
 if (status.value === 'unauthenticated') {
   const was_logged = useCookie('was_logged')

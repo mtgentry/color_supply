@@ -74,6 +74,7 @@ const favorite = async (id) => {
 
 const favoriteClick = async (id) => {
   if (status.value === 'unauthenticated') {
+    dialogStore.changeSource('favorite')
     changeSignUpForm(true)
     return
   }
