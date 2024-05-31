@@ -14,8 +14,8 @@
       path(d='M91.4604 91.4604L172.115 69.8491C175.909 84.0069 175.909 98.914 172.115 113.072L91.4604 91.4604Z' fill='#E3EE00' @mousedown="selectColor(3)")
       path(d='M91.4604 91.4604L172.115 113.072C168.322 127.23 160.868 140.14 150.504 150.504L91.4604 91.4604Z' fill='#74CA4B' @mousedown="selectColor(4)")
       path(d='M82.4005 125.268C101.072 130.271 120.264 119.19 125.267 100.519C130.27 81.8477 119.189 62.6559 100.518 57.6529C81.8465 52.6499 62.6547 63.7303 57.6518 82.4016C52.6488 101.073 63.7292 120.265 82.4005 125.268Z' fill='white')
-      ExploreHarmonyCircle(:selectedColor="selectedColor")
-  v-carousel(hide-delimiters height="50px" )
+      ExploreHarmonyCircle(:selectedColor="selectedColor" :harmony="harmonies[harmony]")
+  v-carousel(hide-delimiters height="50px" v-model="harmony")
     v-carousel-item(v-for="h in harmonies" :key="h")
       div.centered.h-100 {{ capitalized(h) }}
 
@@ -23,6 +23,7 @@
 
 <script setup>
 const harmonies = ['complimentary', 'split-complimentary', 'analogous', 'triad', 'square']
+const harmony = ref('complimentary')
 const positions = computed(() => {
   const positions = [];
   const angleStep = (2 * Math.PI) / 12;
