@@ -11,7 +11,7 @@
         v-divider(v-if="t !== styles[styles.length - 1]")
     ExploreExpansionPanel#slider(title="QTY")
       v-range-slider.px-5.pb-5(:min="2" :max="10" v-model="qtyLocal" :step="1" @end="changeQty" thumb-label="always" show-ticks="always" hide-details)
-    ExploreExpansionPanel(title="Harmony")
+    ExploreExpansionPanel(title="Harmony" eager)
       ExploreHarmony(v-model="harmony").px-5
     //ExploreExpansionPanel(title="Color Picker")
     //  v-color-picker(hide-inputs width="100%" elevation="0" )
