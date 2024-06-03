@@ -12,7 +12,7 @@
     ExploreExpansionPanel#slider(title="QTY")
       v-range-slider.px-5.pb-5(:min="2" :max="10" v-model="qtyLocal" :step="1" @end="changeQty" thumb-label="always" show-ticks="always" hide-details)
     ExploreExpansionPanel#harmony(title="Color" eager)
-      v-tabs(v-model='colorTab' dense v-if="activePanel === 3")
+      v-tabs(v-model='colorTab' dense v-if="activePanel === 3"  align-tabs="center" )
         v-tab(value='color')
           svg(width='23' height='24' viewbox='0 0 23 24' fill='none' xmlns='http://www.w3.org/2000/svg')
             g
@@ -35,13 +35,12 @@
               path(id='Ellipse 135' d='M16.75 8.625C16.75 8.96829 16.4277 9.24694 16.0287 9.24997L6.72785 9.25C6.32587 9.25 6 8.97018 6 8.625C6 8.27982 6.32587 8 6.72785 8L16.0274 8.00002C16.427 8.00245 16.75 8.28133 16.75 8.625Z' fill='#788092')
               path(id='Ellipse 136' d='M16.75 14.125C16.75 14.4683 16.4277 14.7469 16.0287 14.75L6.72785 14.75C6.32587 14.75 6 14.4702 6 14.125C6 13.7798 6.32587 13.5 6.72785 13.5L16.0274 13.5C16.427 13.5025 16.75 13.7813 16.75 14.125Z' fill='#788092')
               path(id='Ellipse 137' d='M16.75 11.375C16.75 11.7183 16.4277 11.9969 16.0287 12L6.72785 12C6.32587 12 6 11.7202 6 11.375C6 11.0298 6.32587 10.75 6.72785 10.75L16.0274 10.75C16.427 10.7525 16.75 11.0313 16.75 11.375Z' fill='#788092')
-
       v-window(v-model='colorTab')
-        v-window-item(value='color')
+        v-window-item(value='color' transition="none" reverse-transition="none")
           ExploreHarmonyColors
-        v-window-item(value='wheel')
+        v-window-item(value='wheel' transition="none" reverse-transition="none")
           ExploreHarmony(v-model="harmony").px-5
-        v-window-item(value='list')
+        v-window-item(value='list'  transition="none" reverse-transition="none")
           ExploreHarmonyList
     //ExploreExpansionPanel(title="Color Picker")
     //  v-color-picker(hide-inputs width="100%" elevation="0" )
@@ -123,7 +122,7 @@ watch(style, (value, oldValue) => {
 
 :deep(.v-expansion-panel-text__wrapper)
   padding: 0!important
-  min-height: 230px
+  min-height: 235px
 
 //#panels
 //  width: 300px
