@@ -18,6 +18,7 @@
 const { data } = useAuth()
 const route = useRoute()
 const planStore = usePlanStore()
+planStore.fetchPlans()
 const {selectInterval} = planStore
 const { plans, selectedInterval } = storeToRefs(planStore)
 const intervals = ['month', 'year']
