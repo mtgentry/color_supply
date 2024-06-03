@@ -45,7 +45,7 @@ const activate = () => {
     cursor: initial
 
 .active
-  border: 2px solid #4175DF
+  border: 2px solid var(--color1)
   top: -2px
   left: -2px
   z-index: 10
@@ -57,7 +57,7 @@ const activate = () => {
     height: 10px
     background-color: white
     border-radius: 50%
-    border: 2px solid #4175DF
+    border: 2px solid var(--color1)
 
   &::before
     top: -5px

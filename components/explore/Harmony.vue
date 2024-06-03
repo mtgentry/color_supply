@@ -1,5 +1,5 @@
 <template lang="pug">
-  div.relative.centered
+  div#harmony.relative.centered
     svg(width='182' height='182' viewbox='0 0 182 182' fill='none' xmlns='http://www.w3.org/2000/svg')
       path(d='M91.4604 91.4604L150.504 150.504C140.14 160.868 127.23 168.322 113.072 172.115L91.4604 91.4604Z' fill='#50B78B'  @mousedown="selectColor(5)")
       path(d='M91.4604 91.4604L113.072 172.115C98.914 175.909 84.0069 175.909 69.8491 172.115L91.4604 91.4604Z' fill='#319A90' @mousedown="selectColor(6)")
@@ -46,6 +46,7 @@ const selectColor = (i) => {
 </script>
 
 <style scoped lang="sass">
+
 :deep(.v-window__controls)
   padding: 0
 
