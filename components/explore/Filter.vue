@@ -123,6 +123,7 @@ watch(style, (value, oldValue) => {
 
 :deep(.v-expansion-panel-text__wrapper)
   padding: 0!important
+  min-height: 230px
 
 //#panels
 //  width: 300px
