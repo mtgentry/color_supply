@@ -160,8 +160,8 @@ watch(style, (value, oldValue) => {
 
 :deep(.v-tabs)
   position: absolute
-  top: 35px
-  right: 10px
+  top: 10px
+  left: 80px
   z-index: 1
 
 :deep(.v-slide-group-item--active)
@@ -184,4 +184,7 @@ watch(style, (value, oldValue) => {
 
 :deep(.v-btn--size-default)
   padding: 0!important
+
+#harmony
+  position: relative
 </style>
