@@ -42,8 +42,6 @@
           ExploreHarmony(v-model="harmony").px-5
         v-window-item(value='list'  transition="none" reverse-transition="none")
           ExploreHarmonyList
-    //ExploreExpansionPanel(title="Color Picker")
-    //  v-color-picker(hide-inputs width="100%" elevation="0" )
     ExploreExpansionPanel#preview.centered(title="Preview")
       ExplorePreviews
 </template>

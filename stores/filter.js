@@ -5,9 +5,18 @@ export const useFilterStore = defineStore('filter', () =>{
   const qty = ref([2, 10])
   const harmony = ref()
   const preview = ref(0)
+  const color = ref([])
 
   const changeFilter = (ref, value) => {
     ref.value = value
+  }
+  const toggleColor = (value) => {
+    const index = color.value.indexOf(value)
+    if (index === -1) {
+      color.value.push(value)
+    } else {
+      color.value.splice(index, 1)
+    }
   }
 
   return {
@@ -16,6 +25,8 @@ export const useFilterStore = defineStore('filter', () =>{
     qty,
     harmony,
     preview,
-    changeFilter
+    changeFilter,
+    toggleColor,
+    color
   }
 })

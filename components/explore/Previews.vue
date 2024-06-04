@@ -15,7 +15,7 @@
 
 <script setup>
 const store = useFilterStore()
-const selected = ref(2)
+const selected = ref(0)
 const {preview} = storeToRefs(store)
 let element = document.documentElement
 let style = getComputedStyle(element)
