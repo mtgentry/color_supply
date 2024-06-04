@@ -2,7 +2,7 @@
   v-container.pt-5
     v-row.px-5.py-1
       v-col.pa-1(cols="3" v-for="(color, name) in colors")
-        ExploreHarmonyColor(:key="color" :colorProp="color" :title="name" :selectedColor="selectedColor")
+        ExploreHarmonyColor(:key="color" :color="color" :title="name")
 
 </template>
 

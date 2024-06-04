@@ -27,7 +27,7 @@ import InfiniteLoading from "v3-infinite-loading"
 import "v3-infinite-loading/lib/style.css"
 const { status } = useAuth()
 const filterStore = useFilterStore()
-const { mode, style, qty, harmony } = storeToRefs(filterStore)
+const { mode, style, qty, harmony, colors } = storeToRefs(filterStore)
 const next = ref('palettes/list/')
 const palettes = ref([])
 const dialogStore = useDialogStore()
