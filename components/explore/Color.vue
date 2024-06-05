@@ -35,12 +35,17 @@
 <script setup>
 const colorTab = defineModel()
 const filterStore = useFilterStore()
-const { harmony } = storeToRefs(filterStore)
+const { harmony, colors } = storeToRefs(filterStore)
 
 watch(colorTab, (value, oldValue) => {
-  debugger
   if (oldValue === 'list') {
-    filterStore.changeFilter(harmony, null)
+    if (harmony.value) {
+      filterStore.changeFilter(harmony, null)
+    }
+  } else if (oldValue === 'color') {
+    if (colors.value.length > 0) {
+      filterStore.changeFilter(colors, [])
+    }
   }
 })
 </script>

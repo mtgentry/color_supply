@@ -32,28 +32,42 @@ const next = ref('palettes/list/')
 const palettes = ref([])
 const dialogStore = useDialogStore()
 const {changeSignUpForm} = dialogStore
-const load = async $state => {
+const state = ref()
+const load = async ($state) => {
+  if (!state.value) {
+    state.value = $state
+  }
+  if (next.value === 'palettes/list/') {
+    palettes.value = []
+  }
   const response = await fetch(next.value, 'get', {
     mode: mode.value,
     style: style.value,
     qty: qty.value,
     harmony: harmony.value,
+    colors: colors.value
   })
   if (!response) {
     return
   }
-  palettes.value = [...palettes.value, ...response.results]
+  if (next.value === 'palettes/list/') {
+    palettes.value = response.results
+  } else {
+    palettes.value = [...palettes.value, ...response.results]
+  }
+
   if (!response.next) {
     $state.complete()
   } else {
     next.value = response.next
+    $state.loaded()
   }
 }
 
-watch([mode, style, qty, harmony], () => {
+watch([mode, style, qty, harmony, colors], () => {
   next.value = 'palettes/list/'
-  palettes.value = []
-  load({ complete: () => {} })
+  state.value.loading()
+  load(state.value)
 })
 
 const favorite = async (id) => {

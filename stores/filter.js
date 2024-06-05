@@ -12,11 +12,13 @@ export const useFilterStore = defineStore('filter', () =>{
   }
   const toggleColor = (value) => {
     const index = colors.value.indexOf(value)
+    let newColors
     if (index === -1) {
-      colors.value.push(value)
+      newColors = [...colors.value, value]
     } else {
-      colors.value.splice(index, 1)
+      newColors = colors.value.filter((color) => color !== value)
     }
+    colors.value = newColors
   }
 
   return {
