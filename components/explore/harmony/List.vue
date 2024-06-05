@@ -6,8 +6,10 @@
 </template>
 
 <script setup>
-const harmony = ref('complimentary')
+const filterStore = useFilterStore()
+const { harmony } = storeToRefs(filterStore)
 const harmonies = ['complimentary', 'split-complimentary', 'analogous', 'triad', 'square']
+
 </script>
 
 <style scoped lang="sass">

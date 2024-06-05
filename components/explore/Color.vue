@@ -23,12 +23,12 @@
           path(id='Ellipse 136' d='M16.75 14.125C16.75 14.4683 16.4277 14.7469 16.0287 14.75L6.72785 14.75C6.32587 14.75 6 14.4702 6 14.125C6 13.7798 6.32587 13.5 6.72785 13.5L16.0274 13.5C16.427 13.5025 16.75 13.7813 16.75 14.125Z' fill='#788092')
           path(id='Ellipse 137' d='M16.75 11.375C16.75 11.7183 16.4277 11.9969 16.0287 12L6.72785 12C6.32587 12 6 11.7202 6 11.375C6 11.0298 6.32587 10.75 6.72785 10.75L16.0274 10.75C16.427 10.7525 16.75 11.0313 16.75 11.375Z' fill='#788092')
   v-window(v-model='colorTab')
-      v-window-item(value='color' transition="none" reverse-transition="none")
-        ExploreHarmonyColors
-      v-window-item(value='wheel' transition="none" reverse-transition="none")
-        ExploreHarmony(v-model="harmony").px-5
-      v-window-item(value='list'  transition="none" reverse-transition="none")
-        ExploreHarmonyList
+    v-window-item(value='color' transition="none" reverse-transition="none")
+      ExploreHarmonyColors
+    v-window-item(value='wheel' transition="none" reverse-transition="none")
+      ExploreHarmony(v-model="harmony").px-5
+    v-window-item(value='list'  transition="none" reverse-transition="none")
+      ExploreHarmonyList
 
 </template>
 
@@ -36,6 +36,13 @@
 const colorTab = defineModel()
 const filterStore = useFilterStore()
 const { harmony } = storeToRefs(filterStore)
+
+watch(colorTab, (value, oldValue) => {
+  debugger
+  if (oldValue === 'list') {
+    filterStore.changeFilter(harmony, null)
+  }
+})
 </script>
 
 <style scoped lang="sass">
