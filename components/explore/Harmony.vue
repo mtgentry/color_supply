@@ -14,34 +14,21 @@
       path.scale(d='M91.4604 91.4604L172.115 69.8491C175.909 84.0069 175.909 98.914 172.115 113.072L91.4604 91.4604Z' fill='#E3EE00' @mousedown="selectColor(3)")
       path.scale(d='M91.4604 91.4604L172.115 113.072C168.322 127.23 160.868 140.14 150.504 150.504L91.4604 91.4604Z' fill='#74CA4B' @mousedown="selectColor(4)")
       path(d='M82.4005 125.268C101.072 130.271 120.264 119.19 125.267 100.519C130.27 81.8477 119.189 62.6559 100.518 57.6529C81.8465 52.6499 62.6547 63.7303 57.6518 82.4016C52.6488 101.073 63.7292 120.265 82.4005 125.268Z' fill='white')
-      ExploreHarmonyCircle(:selectedColor="selectedColor" :harmony="harmonies[harmony]")
+      ExploreHarmonyCircle(:selectedColor="selectedColor" :harmony="harmony")
   v-carousel(hide-delimiters height="50px" v-model="harmony")
-    v-carousel-item(v-for="h in harmonies" :key="h")
+    v-carousel-item(v-for="h in harmonies" :key="h" :value="h")
       div.centered.h-100 {{ capitalized(h) }}
 
 </template>
 
 <script setup>
-const harmonies = ['complimentary', 'split-complimentary', 'analogous', 'triad', 'square']
-const harmony = ref('complimentary')
-const positions = computed(() => {
-  const positions = [];
-  const angleStep = (2 * Math.PI) / 12;
-  const distance = 80; // distance from the center to a dot
-  const center = 18
-  for (let i = 0; i < 12; i++) {
-    const angle = angleStep * i;
-    const x = distance + distance * Math.cos(angle);
-    const y = distance + distance * Math.sin(angle);
-
-    positions.push({ x: x+center, y: y+center });
-  }
-  return positions;
-})
-const visible = ref([])
+const wheel_colors = ['#F03872', '#F68745', '#F0B800', '#E3EE00', '#74CA4B', '#50B78B', '#319A90', '#3E808C', '#366F99', '#4A3D88', '#9C46AA', '#DD56B1']
+const filterStore = useFilterStore()
+const { harmony, harmonies, wheel_color } = storeToRefs(filterStore)
 const selectedColor = ref(0)
 const selectColor = (i) => {
   selectedColor.value = i
+  wheel_color.value = wheel_colors[i]
 }
 </script>
 
@@ -55,7 +42,6 @@ const selectColor = (i) => {
 :deep(.v-btn--icon.v-btn--density-default)
   width: 30px
   height: 30px
-
 
 .dot
   position: absolute

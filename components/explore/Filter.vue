@@ -12,17 +12,16 @@
     ExploreExpansionPanel#slider(title="QTY")
       v-range-slider.px-5.pb-5(:min="2" :max="10" v-model="qtyLocal" :step="1" @end="changeQty" thumb-label="always" show-ticks="always" hide-details)
     ExploreExpansionPanel#harmony(title="Color" eager)
-      ExploreColor(v-model="colorTab" :harmony="harmony")
+      ExploreColor
     ExploreExpansionPanel#preview.centered(title="Preview")
       ExplorePreviews
 </template>
 
 <script setup>
 const filterStore = useFilterStore()
-const { mode, style, qty, harmony } = storeToRefs(filterStore)
+const { mode, style, qty } = storeToRefs(filterStore)
 const activePanel = ref(3)
 const qtyLocal = ref(qty.value)
-const colorTab = ref('color')
 
 const modes = [
   { value: 'illustration', title: 'Illustration'},

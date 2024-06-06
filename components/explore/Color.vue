@@ -26,28 +26,17 @@
     v-window-item(value='color' transition="none" reverse-transition="none")
       ExploreHarmonyColors
     v-window-item(value='wheel' transition="none" reverse-transition="none")
-      ExploreHarmony(v-model="harmony").px-5
+      ExploreHarmony.px-5
     v-window-item(value='list'  transition="none" reverse-transition="none")
       ExploreHarmonyList
 
 </template>
 
 <script setup>
-const colorTab = defineModel()
 const filterStore = useFilterStore()
-const { harmony, colors } = storeToRefs(filterStore)
+const { colorTab } = storeToRefs(filterStore)
 
-watch(colorTab, (value, oldValue) => {
-  if (oldValue === 'list') {
-    if (harmony.value) {
-      filterStore.changeFilter(harmony, null)
-    }
-  } else if (oldValue === 'color') {
-    if (colors.value.length > 0) {
-      filterStore.changeFilter(colors, [])
-    }
-  }
-})
+
 </script>
 
 <style scoped lang="sass">

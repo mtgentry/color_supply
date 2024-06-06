@@ -3,9 +3,12 @@ export const useFilterStore = defineStore('filter', () =>{
   const mode = ref('illustration')
   const style = ref(['all'])
   const qty = ref([2, 10])
-  const harmony = ref()
+  const harmonies = ref(['complimentary', 'split-complimentary', 'analogous', 'triad', 'square'])
+  const harmony = ref('complimentary')
   const preview = ref(0)
   const colors = ref([])
+  const wheel_color = ref('#CC3333')
+  const colorTab = ref('color')
 
   const changeFilter = (ref, value) => {
     ref.value = value
@@ -29,6 +32,9 @@ export const useFilterStore = defineStore('filter', () =>{
     preview,
     changeFilter,
     toggleColor,
-    colors
+    colors,
+    harmonies,
+    wheel_color,
+    colorTab
   }
 })

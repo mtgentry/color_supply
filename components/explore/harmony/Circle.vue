@@ -38,15 +38,12 @@
 <script setup>
 import gsap from "gsap"
 import Draggable from "gsap/Draggable"
-import {onBeforeUpdate} from "vue";
-import General from "~/pages/manage/general.vue";
-
 const props = defineProps({
   selectedColor: Number,
   harmony: String
 })
+
 const circle_svg = ref(null)
-const circle_position = ref({x: 92, y: 30})
 const drag = ref(null)
 watch(() => props.selectedColor, (value) => {
   gsap.to(circle_svg.value, {rotation: `${value * 30}_short`})

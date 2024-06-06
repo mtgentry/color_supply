@@ -27,7 +27,7 @@ import InfiniteLoading from "v3-infinite-loading"
 import "v3-infinite-loading/lib/style.css"
 const { status } = useAuth()
 const filterStore = useFilterStore()
-const { mode, style, qty, harmony, colors } = storeToRefs(filterStore)
+const { mode, style, qty, harmony, colors, wheel_color, colorTab } = storeToRefs(filterStore)
 const next = ref('palettes/list/')
 const palettes = ref([])
 const dialogStore = useDialogStore()
@@ -40,12 +40,26 @@ const load = async ($state) => {
   if (next.value === 'palettes/list/') {
     palettes.value = []
   }
+  let color_arg = undefined
+  let harmony_arg = undefined
+  if (colorTab.value === 'color') {
+    color_arg = colors.value
+  }
+  if (colorTab.value === 'wheel'){
+    color_arg = [wheel_color.value]
+    harmony_arg = harmony.value
+  }
+
+  if (colorTab.value === 'list') {
+     harmony_arg = harmony.value
+  }
+
   const response = await fetch(next.value, 'get', {
     mode: mode.value,
     style: style.value,
     qty: qty.value,
-    harmony: harmony.value,
-    colors: colors.value
+    harmony: harmony_arg,
+    colors: color_arg
   })
   if (!response) {
     return
@@ -64,7 +78,7 @@ const load = async ($state) => {
   }
 }
 
-watch([mode, style, qty, harmony, colors], () => {
+watch([mode, style, qty, harmony, colors, wheel_color, colorTab], () => {
   next.value = 'palettes/list/'
   state.value.loading()
   load(state.value)
