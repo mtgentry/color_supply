@@ -15,7 +15,7 @@
                   @click="favoriteClick(palette.id)")
                 div#count.pl-2 {{ palette.favorite_count }}
                 img(src='/img/icons/dots.svg')
-      InfiniteLoading(@infinite="load")
+      InfiniteLoading(@infinite="load" :key="renderKey")
         template(#spinner)
           v-row#loading
             v-col(cols="4" v-for='index in [1,2,3]' :key='index')
@@ -25,6 +25,7 @@
 <script setup>
 import InfiniteLoading from "v3-infinite-loading"
 import "v3-infinite-loading/lib/style.css"
+const renderKey = ref(0)
 const { status } = useAuth()
 const filterStore = useFilterStore()
 const { mode, style, qty, harmony, colors, wheel_color, colorTab } = storeToRefs(filterStore)
@@ -33,9 +34,15 @@ const palettes = ref([])
 const dialogStore = useDialogStore()
 const {changeSignUpForm} = dialogStore
 const state = ref()
+const last_next = ref()
 const load = async ($state) => {
-  if (!state.value) {
+  if (last_next.value === next.value) {
+    return
+  }
+  if ($state) {
     state.value = $state
+  } else {
+    $state = state.value
   }
   if (next.value === 'palettes/list/') {
     palettes.value = []
@@ -53,7 +60,7 @@ const load = async ($state) => {
   if (colorTab.value === 'list') {
      harmony_arg = harmony.value
   }
-
+  last_next.value =  next.value === 'palettes/list/' ? null : next.value
   const response = await fetch(next.value, 'get', {
     mode: mode.value,
     style: style.value,
@@ -80,8 +87,8 @@ const load = async ($state) => {
 
 watch([mode, style, qty, harmony, colors, wheel_color, colorTab], () => {
   next.value = 'palettes/list/'
-  state.value.loading()
-  load(state.value)
+  renderKey.value += 1
+  palettes.value = []
 })
 
 const favorite = async (id) => {
