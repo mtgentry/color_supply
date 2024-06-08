@@ -3,11 +3,11 @@ export const useFilterStore = defineStore('filter', () =>{
   const mode = ref('illustration')
   const style = ref(['all'])
   const qty = ref([2, 10])
-  const harmonies = ref(['complimentary', 'split-complimentary', 'analogous', 'triad', 'square'])
-  const harmony = ref('complimentary')
+  const harmonies = ref(['complementary', 'split-complementary', 'analogous', 'triad', 'square'])
+  const harmony = ref('complementary')
   const preview = ref(0)
   const colors = ref([])
-  const wheel_color = ref('#CC3333')
+  const wheel_color = ref('#F03872')
   const colorTab = ref('color')
 
   const changeFilter = (ref, value) => {

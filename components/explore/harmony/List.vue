@@ -8,7 +8,7 @@
 <script setup>
 const filterStore = useFilterStore()
 const { harmony } = storeToRefs(filterStore)
-const harmonies = ['complimentary', 'split-complimentary', 'analogous', 'triad', 'square']
+const harmonies = ['complementary', 'split-complementary', 'analogous', 'triad', 'square']
 
 </script>
 
