@@ -2,7 +2,7 @@
   div#actions.centered
     v-btn(flat)
       IconsHeart
-    v-btn(flat) Info
+    v-btn(flat @click="toggleInfo" :disabled="!palette" :active="info") Info
     v-btn(flat @click="selectRandomPalette")
       svg.mr-1(width='13' height='12' viewbox='0 0 13 12' fill='none' xmlns='http://www.w3.org/2000/svg')
         path(d='M0.963379 10.0742L1.82243 7.35995' stroke='#A4A7B1')
@@ -16,7 +16,8 @@
 
 <script setup>
 const colorStore = useColorStore()
-const { selectRandomPalette } = colorStore
+const { selectRandomPalette, toggleInfo } = colorStore
+const { palette, info } = storeToRefs(colorStore)
 </script>
 
 <style scoped lang="sass">
@@ -30,4 +31,8 @@ const { selectRandomPalette } = colorStore
   color: var(--color4)
   font-size: 13px
   letter-spacing: 0.26px
+
+  &.v-btn--disabled
+    color: var(--color6)
+
 </style>

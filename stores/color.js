@@ -6,6 +6,7 @@ export const useColorStore = defineStore('color', () =>{
   })
   const palette = ref()
   const palettes = ref([])
+  const info = ref(false)
   const selectColor = (index) => {
     selectedColor.value = index
   }
@@ -22,6 +23,10 @@ export const useColorStore = defineStore('color', () =>{
     palette.value = palettes.value[randomIndex]
   }
 
+  const toggleInfo = () => {
+    info.value = !info.value
+  }
+
   return {
     selectedColor,
     selectColor,
@@ -30,6 +35,8 @@ export const useColorStore = defineStore('color', () =>{
     palette,
     selectPalette,
     palettes,
-    selectRandomPalette
+    selectRandomPalette,
+    info,
+    toggleInfo
   }
 })
