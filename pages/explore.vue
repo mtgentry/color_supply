@@ -21,4 +21,6 @@
   overflow-y: auto
 #palettes
   background-color: var(--color7)
+  overflow-y: auto
+  height: calc(100vh - 64px)
 </style>
