@@ -12,7 +12,7 @@
                 IconsHeart.clickable(
                   :fill="palette.favorite ? 'var(--color9)' : 'transparent'",
                   :stroke="palette.favorite ? 'var(--color9)' : 'var(--color3)'",
-                  @click="favoriteClick(palette.id)")
+                  @click="favorite(palette.id)")
                 div#count.pl-2 {{ palette.favorite_count }}
                 img(src='/img/icons/dots.svg')
       InfiniteLoading(@infinite="load" :key="renderKey")
@@ -32,8 +32,6 @@ const colorStore = useColorStore()
 const { mode, style, qty, harmony, colors, wheel_color, colorTab } = storeToRefs(filterStore)
 const { palettes } = storeToRefs(colorStore)
 const next = ref('palettes/list/')
-const dialogStore = useDialogStore()
-const {changeSignUpForm} = dialogStore
 const state = ref()
 const last_next = ref()
 const load = async ($state) => {
@@ -91,32 +89,6 @@ watch([mode, style, qty, harmony, colors, wheel_color, colorTab, status], () => 
   renderKey.value += 1
   palettes.value = []
 })
-
-const favorite = async (id) => {
-  const palette = palettes.value.find(p => p.id === id)
-
-  if (palette.favorite) {
-    palette.favorite_count -= 1
-    palette.favorite = !palette.favorite
-    await fetch(`favorites/${id}/`,  'delete')
-  } else {
-    palette.favorite_count += 1
-    palette.favorite = !palette.favorite
-    await fetch(`favorites/`, 'post', {
-      palette: id
-    })
-  }
-}
-
-const favoriteClick = async (id) => {
-  if (status.value === 'unauthenticated') {
-    dialogStore.changeSource('favorite')
-    changeSignUpForm(true)
-    return
-  }
-  await favorite(id)
-}
-
 
 </script>
 

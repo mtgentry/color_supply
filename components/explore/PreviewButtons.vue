@@ -1,7 +1,8 @@
 <template lang="pug">
   div#actions.centered
-    v-btn(flat)
-      IconsHeart
+    v-btn(flat :disabled="!palette"  @click="favorite(palette?.id)")
+      IconsHeart(:stroke="!palette ?  'var(--color6)' : palette?.favorite ? 'var(--color9)' : 'var(--color4)'"
+        :fill="!palette ? 'transparent' : palette?.favorite ? 'var(--color9)' : 'transparent'")
     v-btn(flat @click="toggleInfo" :disabled="!palette" :active="info") Info
     v-btn(flat @click="selectRandomPalette")
       svg.mr-1(width='13' height='12' viewbox='0 0 13 12' fill='none' xmlns='http://www.w3.org/2000/svg')

@@ -15,3 +15,8 @@ const props = defineProps({
   }
 })
 </script>
+
+<style scoped lang="sass">
+svg
+  cursor: pointer
+</style>

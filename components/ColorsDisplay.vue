@@ -28,7 +28,7 @@ const selectPalette = () => {
 const isSelected = computed(() => {
   let selected = storePalette.value?.id === props.palette.id
   if (selected) {
-    colorRow.value.scrollIntoView({ behavior: 'smooth', block: "center"});
+    colorRow.value?.scrollIntoView({ behavior: 'smooth', block: "center"});
   }
   return selected
 })

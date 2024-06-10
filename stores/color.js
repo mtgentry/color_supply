@@ -19,8 +19,11 @@ export const useColorStore = defineStore('color', () =>{
   }
 
   const selectRandomPalette = () => {
-    const randomIndex = Math.floor(Math.random() * palettes.value.length)
-    palette.value = palettes.value[randomIndex]
+    let randomIndex;
+    do {
+      randomIndex = Math.floor(Math.random() * palettes.value.length);
+    } while (palettes.value[randomIndex].id === palette.value?.id);
+    palette.value = palettes.value[randomIndex];
   }
 
   const toggleInfo = () => {
