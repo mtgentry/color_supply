@@ -3,14 +3,20 @@
     v-btn(flat)
       IconsHeart
     v-btn(flat) Info
-    v-btn(flat) Shuffle
+    v-btn(flat @click="selectRandomPalette")
+      svg.mr-1(width='13' height='12' viewbox='0 0 13 12' fill='none' xmlns='http://www.w3.org/2000/svg')
+        path(d='M0.963379 10.0742L1.82243 7.35995' stroke='#A4A7B1')
+        path(d='M4.09424 8.44727L1.38532 7.58652' stroke='#A4A7B1')
+        path(d='M1.74341 4.17021C2.48271 2.29702 4.35498 0.966797 6.54785 0.966797C9.38774 0.966797 11.6899 3.1978 11.6899 5.94988C11.6899 8.70196 9.38774 10.933 6.54785 10.933C4.35498 10.933 2.48271 9.60274 1.74341 7.72955' stroke='#A4A7B1')
+      | Shuffle
     v-btn(flat) Adjust
 
 
 </template>
 
 <script setup>
-
+const colorStore = useColorStore()
+const { selectRandomPalette } = colorStore
 </script>
 
 <style scoped lang="sass">

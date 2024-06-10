@@ -28,9 +28,10 @@ import "v3-infinite-loading/lib/style.css"
 const renderKey = ref(0)
 const { status } = useAuth()
 const filterStore = useFilterStore()
+const colorStore = useColorStore()
 const { mode, style, qty, harmony, colors, wheel_color, colorTab } = storeToRefs(filterStore)
+const { palettes } = storeToRefs(colorStore)
 const next = ref('palettes/list/')
-const palettes = ref([])
 const dialogStore = useDialogStore()
 const {changeSignUpForm} = dialogStore
 const state = ref()

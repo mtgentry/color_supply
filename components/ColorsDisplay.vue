@@ -1,10 +1,11 @@
 <template lang="pug">
-  .color-row(@click='selectPalette' :class='{clickable: !props.readonly, active: isSelected, round: props.rounded}')
+  .color-row(@click='selectPalette' :class='{clickable: !props.readonly, active: isSelected, round: props.rounded}' ref='colorRow')
     .color-box(v-for='(color, index) in palette.colors' :key='index' :style='{backgroundColor: color}')
 
 </template>
 
 <script setup>
+const colorRow = ref()
 const props = defineProps({
   palette: Object,
   rounded: {
@@ -25,7 +26,11 @@ const selectPalette = () => {
 }
 
 const isSelected = computed(() => {
-  return storePalette.value?.id === props.palette.id
+  let selected = storePalette.value?.id === props.palette.id
+  if (selected) {
+    colorRow.value.scrollIntoView({ behavior: 'smooth', block: "center"});
+  }
+  return selected
 })
 
 
