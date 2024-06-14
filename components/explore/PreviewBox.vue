@@ -1,5 +1,5 @@
 <template lang="pug">
-  v-card(v-if="store.preview === 0")#previewBox
+  v-card#previewBox(v-if="preview === 0")
     v-card-text.pa-0
       svg(width='374' height='313' viewBox='0 0 374 313' fill='none' xmlns='http://www.w3.org/2000/svg')
           path(d='M374 313H0V0H374V313Z' :fill="background")
@@ -143,7 +143,8 @@ const ok_text = ref('white')
 const items = [background, ok_background, stairs, door_background, door_light, triangle, folder, cloud, door_circle, ok_text]
 
 const colorStore = useColorStore()
-const store = useFilterStore()
+const filterStore = useFilterStore()
+const {preview} = storeToRefs(filterStore)
 
 const {palette, info} = storeToRefs(colorStore)
 
@@ -242,7 +243,6 @@ const changeColors = (colors) => {
 watch(palette, (palette) => {
   changeColors(palette.colors)
 })
-
 
 </script>
 

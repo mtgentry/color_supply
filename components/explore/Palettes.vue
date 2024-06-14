@@ -1,5 +1,7 @@
 <template lang="pug">
   ExporePreviewBox
+  v-navigation-drawer#preview-drawer(location="right" v-if="preview===1" width="374")
+    ExplorePreviewNav
   v-container#paletteResults(fluid)
     v-row
       v-col(md="4" v-for='(palette, index) in palettes' :key='index')
@@ -34,6 +36,10 @@ const { palettes } = storeToRefs(colorStore)
 const next = ref('palettes/list/')
 const state = ref()
 const last_next = ref()
+
+const store = useFilterStore()
+const {preview} = storeToRefs(store)
+
 const load = async ($state) => {
   if (last_next.value === next.value) {
     return
@@ -115,4 +121,8 @@ watch([mode, style, qty, harmony, colors, wheel_color, colorTab, status], () => 
 
   #count
     min-width: 20px
+
+#preview-drawer
+  :deep(.v-navigation-drawer__content)
+    overflow: hidden
 </style>
