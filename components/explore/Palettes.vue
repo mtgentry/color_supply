@@ -79,7 +79,8 @@ const load = async ($state) => {
   if (next.value === 'palettes/list/') {
     palettes.value = response.results
   } else {
-    palettes.value = [...palettes.value, ...response.results]
+    let filtered = response.results.filter(p => !palettes.value.find(p2 => p2.id === p.id))
+    palettes.value = [...palettes.value, ...filtered]
   }
 
   if (!response.next) {
