@@ -22,9 +22,15 @@ export const favorite = async (id) => {
 
   const favoriteClick = async (id) => {
     if (status.value === 'unauthenticated') {
+      const was_logged = useCookie('was_logged')
       dialogStore.changeSource('favorite')
-      dialogStore.changeSignUpForm(true)
-      return
+      if (was_logged.value) {
+        dialogStore.changeLoginForm(true)
+        return
+      } else {
+        dialogStore.changeSignUpForm(true)
+        return
+      }
     }
     await favoritePost(id)
   }
