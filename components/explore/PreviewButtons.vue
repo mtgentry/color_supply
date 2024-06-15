@@ -35,6 +35,7 @@ const { palette, info } = storeToRefs(colorStore)
   flex-direction: row
   justify-content: space-between
   padding: 26px 23px
+  width: 100%
 
 .v-btn
   border: 1px solid var(--color4)

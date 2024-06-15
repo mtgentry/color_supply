@@ -250,7 +250,7 @@ watch(palette, (palette) => {
 #previewBox
   position: fixed
   bottom: 10px
-  right: 10px
+  right: 30px
   display: flex
   flex-direction: column
 </style>
