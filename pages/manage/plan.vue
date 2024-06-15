@@ -15,6 +15,9 @@
 </template>
 
 <script setup>
+definePageMeta({
+  middleware: ['auth'],
+})
 const { data } = useAuth()
 const route = useRoute()
 const planStore = usePlanStore()

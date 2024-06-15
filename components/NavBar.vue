@@ -44,6 +44,10 @@ const signUp = () => {
 }
 const logout = () => {
   signOut()
+  const route = useRoute()
+  if (route.name.includes('manage')) {
+    navigateTo('/explore')
+  }
   snackbar.add({
     type: 'success',
     text: 'Logged out successfully',
