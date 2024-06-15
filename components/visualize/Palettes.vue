@@ -7,7 +7,7 @@
           v-btn(value="favorites") Favorites
       v-col.centered(md="12" v-if="pending")
         v-progress-circular(indeterminate)
-      v-col(md="12" v-for='(palette, index) in palettes?.results' :key='index' v-else)
+      v-col(md="12" :key="index" v-for="(palette, index) in palettes?.results" v-else)
         ColorsDisplay(:palette='palette' rounded)
 </template>
 
