@@ -87,6 +87,16 @@ const signup = async () => {
   })
 }
 
+onMounted(() => {
+  const route = useRoute()
+  if (route.query.delete) {
+    snackbar.add({
+      type: 'success',
+      text: 'Account deleted successfully!'
+    })
+  }
+})
+
 </script>
 
 <style scoped lang="sass">

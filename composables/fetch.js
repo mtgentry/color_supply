@@ -22,18 +22,19 @@ export const fetch = async (path, method='get', query) => {
   } else if (method === 'get') {
     options.query = query
   } else if (method === 'delete') {
-    options.query = query
+    options.body = query
   } else if (method === 'put') {
     options.body = query
   } else if (method === 'patch') {
     options.body = query
   }
-  const resp =  $fetch(
+  return $fetch(
     path, options
   ).catch((error) => {
     if (error.data === 'Access limited') {
       changeSignUpForm(true, true)
+    } else {
+      throw error
     }
   })
-  return resp
 }

@@ -6,13 +6,49 @@
           nuxt-link(to="general") General
         v-list-item
           nuxt-link(to="plan") Plan
-        v-list-item
-          nuxt-link(to="") Billing
       div.pa-5.centered
-        v-btn(color="red" variant="outlined" @click="signOut") Delete Account
+        v-dialog(max-width='500')
+          template(v-slot:activator='{ props: activatorProps }')
+            v-btn#delete(color="red" variant="outlined" v-bind='activatorProps') Delete Account
+          template(v-slot:default='{ isActive }')
+            v-card
+              v-card-text
+                div Are you sure you want to delete your account?
+                v-text-field.pt-3#password(v-model="state.password" label="Password" :type="showPassword ? 'text' : 'password'" required autocomplete="false"
+                  variant="outlined" :append-inner-icon="showPassword ? 'mdi-eye-off' : 'mdi-eye'"  @click:append-inner="showPassword = !showPassword"
+                  :error="error" :error-messages="error ? [error] : []")
+              v-card-actions
+                v-btn(color='red' text @click='deleteAccount') Delete Account
+                v-spacer
+                v-btn(text='No' @click='isActive.value = false')
     v-col#content.pa-0(cols="10")
       slot
 </template>
+
+
+<script setup>
+const { signOut } = useAuth()
+const initialState = {
+  password: '',
+}
+const showPassword = ref(false)
+const state = reactive({
+  ...initialState,
+})
+const error = ref(null)
+const deleteAccount = async () => {
+  try {
+    await fetch('users/delete/', 'delete', {password: state.password});
+    debugger
+    await signOut({redirect: false});
+    await navigateTo('/signup?delete=true');
+  } catch (e) {
+    if (e.data?.password) {
+      error.value = e.data.password;
+    }
+  }
+}
+</script>
 
 
 <style scoped lang="sass">
@@ -28,5 +64,6 @@
 
 #content
   background-color: var(--color7)
-
+#delete
+  background-color: var(--color7)
 </style>
