@@ -430,7 +430,7 @@ const changeColors = (colors) => {
 
 watch(palette, (palette) => {
   changeColors(palette.colors)
-})
+}, {deep: true})
 
 onMounted(() => {
   if (!palette.value) return

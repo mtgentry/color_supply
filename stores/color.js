@@ -18,13 +18,20 @@ export const useColorStore = defineStore('color', () =>{
     palette.value = new_palette
   }
 
-  const selectRandomPalette = () => {
-    let randomIndex;
+  const shufflePalette = () => {
+    let oldArray = [...palette.value.colors]
+    let newArray
+
     do {
-      randomIndex = Math.floor(Math.random() * palettes.value.length);
-    } while (palettes.value[randomIndex].id === palette.value?.id);
-    palette.value = palettes.value[randomIndex];
-  }
+      newArray = [...palette.value.colors]
+      for (let i = newArray.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [newArray[i], newArray[j]] = [newArray[j], newArray[i]];
+      }
+    } while (JSON.stringify(newArray) === JSON.stringify(oldArray))
+
+    palette.value.colors = newArray
+  };
 
   const toggleInfo = () => {
     info.value = !info.value
@@ -38,7 +45,7 @@ export const useColorStore = defineStore('color', () =>{
     palette,
     selectPalette,
     palettes,
-    selectRandomPalette,
+    shufflePalette,
     info,
     toggleInfo
   }
