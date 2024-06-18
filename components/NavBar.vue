@@ -25,7 +25,6 @@
                     span My Likes
                 v-list-item Bug report & feedback
                 v-list-item(@click="logout") Log Out
-
     v-toolbar-title
       nuxt-link(to="/explore") Explore
       nuxt-link(to="/create") Create
@@ -67,6 +66,15 @@ const logout = () => {
   #signup
     background-color: var(--color1)
     color: var(--color6)!important
+  :deep(.v-toolbar-title__placeholder)
+    height: 64px
+    display: flex
+    align-items: center
+
+    :nth-child(2)
+      left: 190px
+    :nth-child(3)
+      left: 260px
 
   .v-toolbar-title
     a
@@ -75,15 +83,19 @@ const logout = () => {
       font-size: 17px
       font-weight: 400
       margin-right: 20px
+      padding: 17px 0
+      position: fixed
+      top: 1px
+
       &:hover
         color: var(--color1)
 
       &.router-link-active
-        border-bottom: var(--color3) 1px solid
+        border-bottom: var(--color1) 2px solid
 
         &:hover
           color: var(--color1)
-          border-bottom: var(--color1) 1px solid
+
 
   #popup
     font-size: 14px
