@@ -1,5 +1,5 @@
 <template lang="pug">
-  v-expansion-panels#panels(static variant="accordion" v-model="activePanel")
+  v-expansion-panels#panels(static variant="accordion" v-model="activePanel" multiple)
     ExploreExpansionPanel(title="Mode")
       v-radio-group(v-model="mode" hide-details)
         div(v-for="m in modes" :key="m")
@@ -20,7 +20,7 @@
 <script setup>
 const filterStore = useFilterStore()
 const { mode, style, qty } = storeToRefs(filterStore)
-const activePanel = ref(3)
+const activePanel = ref([0, 1, 2, 3, 4])
 const qtyLocal = ref(qty.value)
 
 const modes = [
@@ -88,8 +88,6 @@ watch(style, (value, oldValue) => {
 
 :deep(.v-expansion-panel-text__wrapper)
   padding: 0!important
-  min-height: 235px
-
 //#panels
 //  width: 300px
 
@@ -130,6 +128,10 @@ watch(style, (value, oldValue) => {
   z-index: 1
 :deep(.v-tabs--density-default)
   --v-tabs-height: 24px
+
 #harmony
   position: relative
+
+  :deep(.v-window-item)
+    min-height: 235px
 </style>
