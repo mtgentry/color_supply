@@ -4,7 +4,7 @@
       circle(r="14" cx="15" cy="15" :fill="color" :stroke="title === 'white' ? 'var(--color3)' : ''" stroke-width="1")
       path(d="M16.0605 1.06055L5.7959 11.3252L1 6.5293" transform="translate(7,9)" :stroke="title === 'white' ? 'var(--color3)': 'white'"
         stroke-width="2" fill="transparent" v-if="colors.includes(color)")
-    div {{ capitalized(title) }}
+    div.color-name {{ capitalized(title) }}
 
 </template>
 
@@ -22,5 +22,6 @@ const select = () => {
 </script>
 
 <style scoped lang="sass">
-
+.color-name
+  font-size: 14px
 </style>
