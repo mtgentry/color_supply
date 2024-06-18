@@ -8,11 +8,19 @@
 
 <script setup>
 const store = useColorStore()
+if (!store.palette) {
+  store.palette = {
+    colors: ['#FF0000', '#00FF00', '#0000FF', '#FFFF00', '#00FFFF', '#1A1A1A'],
+    name: 'New Palette',
+    id: null
+  }
+}
 const disableColor = (event) => {
   if (!event.target.classList.contains('color')) {
     store.selectColor(null)
   }
 }
+
 </script>
 
 <style scoped lang="sass">

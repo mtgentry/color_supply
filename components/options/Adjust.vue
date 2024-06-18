@@ -1,5 +1,5 @@
 <template lang="pug">
-  v-expansion-panels(static multiple variant="accordion")
+  v-expansion-panels(static multiple variant="accordion" v-model="options")
     ExploreExpansionPanel(title="Adjust" static variant="accordion")
       template(v-slot:title)
         h2 Adjust
@@ -12,11 +12,11 @@
 
 <script setup>
 const store = useColorStore()
-
 const color = ref()
+const options = ref([0])
 
 watch(() => store.selectedColor, (value) => {
-  color.value = store.colors[value]
+  color.value = store.palette.colors[value]
 })
 
 watch(() => color, (value) => {
@@ -48,7 +48,8 @@ h2
 
 :deep(.v-expansion-panel-text__wrapper)
   padding: 0!important
-
+:deep(.v-color-picker-preview__alpha)
+  display: none
 h3
   font-size: 15px
   font-style: normal

@@ -1,9 +1,6 @@
 import { defineStore } from 'pinia'
 export const useColorStore = defineStore('color', () =>{
   const selectedColor = ref(null)
-  const colors = ref({
-    colors: ['#FF0000', '#00FF00', '#0000FF', '#FFFF00', '#00FFFF', '#1A1A1A']
-  })
   const palette = ref()
   const palettes = ref([])
   const info = ref(false)
@@ -11,7 +8,7 @@ export const useColorStore = defineStore('color', () =>{
     selectedColor.value = index
   }
   const updateSelectedColor = (color) => {
-    colors.value[selectedColor.value] = color
+    palette.value.colors[selectedColor.value] = color
   }
 
   const selectPalette = (new_palette) => {
@@ -40,7 +37,6 @@ export const useColorStore = defineStore('color', () =>{
   return {
     selectedColor,
     selectColor,
-    colors,
     updateSelectedColor,
     palette,
     selectPalette,

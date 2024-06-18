@@ -91,7 +91,7 @@ const logout = () => {
         color: var(--color1)
 
       &.router-link-active
-        border-bottom: var(--color1) 2px solid
+        border-bottom: var(--color1) 3px solid
 
         &:hover
           color: var(--color1)

@@ -246,6 +246,11 @@ watch(palette, (palette) => {
   { deep: true }
 )
 
+onMounted(() => {
+  if (!palette.value) return
+  changeColors(palette.value.colors)
+})
+
 
 </script>
 

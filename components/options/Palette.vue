@@ -1,13 +1,14 @@
 <template lang="pug">
   h2 Palette
   div.d-flex.flex-row
-    ColorsDisplay(:palette='store.colors' readonly)
+    ColorsDisplay(:palette='palette' readonly)
 
 
 </template>
 
 <script setup>
-const store = useColorStore()
+const colorStore = useColorStore()
+const { palette } = storeToRefs(colorStore)
 
 </script>
 

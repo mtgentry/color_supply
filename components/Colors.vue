@@ -3,7 +3,7 @@
     transition
       div.delete.centered(v-if="dragging")
         v-icon(color="white" size="large") mdi-delete
-    draggable(:list="store.colors.colors" v-bind="dragOptions" @start="dragStart" @end="dragEnd" @change="change" :item-key="item => item")
+    draggable(:list="store.palette.colors" v-bind="dragOptions" @start="dragStart" @end="dragEnd" @change="change" :item-key="item => item")
       template(#item="{element, index}")
         div.drag-item
           EditorColor(:key="index" :index="index" :color="element" :dragging="dragging" :class="{ 'color-hover': !dragging }")
@@ -32,7 +32,7 @@ const storeHistory = () => {
   preDeletionColors.value.push([...startOrder.value])
 }
 const dragStart = (event) => {
-  startOrder.value = [...store.colors]
+  startOrder.value = [...store.palette.colors]
   dragging.value = true
 }
 const dragEnd = (event) => {
@@ -45,13 +45,13 @@ const dragEnd = (event) => {
 }
 
 const change = (event) => {
-  if (startOrder.value !== store.colors) {
+  if (startOrder.value !== store.palette.colors) {
     storeHistory()
   }
 }
 
 const revertDelete = () => {
-  store.colors = [...preDeletionColors.value[preDeletionColors.value.length - 1]]
+  store.palette.colors = [...preDeletionColors.value[preDeletionColors.value.length - 1]]
   preDeletionColors.value.pop()
 }
 
