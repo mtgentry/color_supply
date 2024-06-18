@@ -1,7 +1,8 @@
 <template lang="pug">
   v-app-bar(elevation="0" app)
     template(v-slot:prepend)
-      img#logo(src="/img/rainbow.svg" height="40" contain)
+      nuxt-link(to="/explore")
+        img#logo(src="/img/rainbow.svg" height="40" contain)
     template(v-slot:append)
       div(v-if="status === 'unauthenticated'")
         v-btn#login(@click="login") Login
