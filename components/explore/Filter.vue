@@ -10,7 +10,7 @@
         v-checkbox.px-5(v-model="style"  :label="t.title" :value="t.value" hide-details true-icon="mdi-close-box-outline")
         v-divider(v-if="t !== styles[styles.length - 1]")
     ExploreExpansionPanel#slider(title="QTY")
-      v-range-slider.px-5.pb-5(:min="2" :max="10" v-model="qtyLocal" :step="1" @end="changeQty" thumb-label="always" show-ticks="always" hide-details)
+      v-range-slider.px-5.pb-5(:min="2" :max="5" v-model="qtyLocal" :step="1" @end="changeQty" thumb-label="always" show-ticks="always" hide-details)
     ExploreExpansionPanel#harmony(title="Color" eager)
       ExploreColor
     ExploreExpansionPanel#preview.centered(title="Preview")

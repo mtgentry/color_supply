@@ -2,7 +2,7 @@ import { defineStore } from 'pinia'
 export const useFilterStore = defineStore('filter', () =>{
   const mode = ref('illustration')
   const style = ref(['all'])
-  const qty = ref([2, 10])
+  const qty = ref([2, 5])
   const harmonies = ref(['complementary', 'split-complementary', 'analogous', 'triad', 'square'])
   const harmony = ref('complementary')
   const preview = ref(0)
