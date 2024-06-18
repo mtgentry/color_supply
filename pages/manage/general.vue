@@ -11,7 +11,7 @@
           :error-messages="v$.password.$errors.map(e => e.$message)"
           variant="outlined" :append-inner-icon="showPassword ? 'mdi-eye-off' : 'mdi-eye'"  @click:append-inner="showPassword = !showPassword"
           @blur="v$.password.$touch" auto)
-        v-btn(color="primary" type="submit") Save Changes
+        v-btn.mt-2(color="primary" type="submit") Save Changes
 </template>
 
 <script setup>
@@ -77,4 +77,7 @@ const saveChanges = async () => {
   padding-top: 170px
 .v-form
   width: 500px
+
+:deep(.v-input:not(.v-input--error) #password-messages)
+  color: var(--color1)!important
 </style>

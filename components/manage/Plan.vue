@@ -97,7 +97,8 @@ h3
   letter-spacing: 0.4px
 
 sup
-  font-size: 12px
+  font-size: 18px
+  top: -20px
 
 #description
   font-size: 15px

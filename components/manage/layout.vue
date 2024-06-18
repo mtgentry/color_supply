@@ -1,7 +1,7 @@
 <template lang="pug">
   v-row
-    v-col#nav.pa-0(cols="2")
-      v-list
+    v-col#nav.pa-0(cols="1")
+      v-list(density="compact" )
         v-list-item
           nuxt-link(to="general") General
         v-list-item
@@ -21,7 +21,7 @@
                 v-btn(color='red' text @click='deleteAccount') Delete Account
                 v-spacer
                 v-btn(text='No' @click='isActive.value = false')
-    v-col#content.pa-0(cols="10")
+    v-col#content.pa-0(cols="11")
       slot
 </template>
 
@@ -58,12 +58,28 @@ const deleteAccount = async () => {
   display: flex
   flex-direction: column
   justify-content: space-between
+  font-size: 18px
 
 .v-list
   background-color: var(--color6)
+  padding: 20px
+
+:deep(.v-list-item)
+  padding-inline: 0
 
 #content
   background-color: var(--color7)
 #delete
   background-color: var(--color7)
+
+a
+  text-decoration: none
+  color: var(--color2)
+.router-link-active
+  text-decoration: underline
+
+a:hover
+  color: var(--color1)
+
+
 </style>

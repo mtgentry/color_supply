@@ -15,7 +15,7 @@
                   a(@click="signUp") Create an account
                 p Forgot password? !{` `}
                   nuxt-link(to="/reset") Reset
-                p#terms By continuing you agree to our Terms of Service and Privacy Policy.
+                p.pb-2#terms By continuing you agree to our Terms of Service and Privacy Policy.
 </template>
 
 <script setup>
@@ -39,6 +39,6 @@ const signUp = () => {
 a
   color: var(--color1)
   cursor: pointer
-  text-decoration: underline
+  text-decoration: none
 </style>
 

@@ -13,7 +13,7 @@
               div#signupFooter.text-center
                 p Already have an account?  !{` `}
                   a(@click="login") Log in
-                p#terms By continuing you agree to our Terms of Service and Privacy Policy.
+                p.pb-2#terms By continuing you agree to our Terms of Service and Privacy Policy.
 </template>
 
 <script setup>
@@ -38,5 +38,8 @@ const login = () => {
 a
   color: var(--color1)
   cursor: pointer
-  text-decoration: underline
+  text-decoration: none
+
+:deep(.v-input:not(.v-input--error) #password-messages)
+  color: var(--color1)!important
 </style>

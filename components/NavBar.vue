@@ -8,10 +8,10 @@
         v-btn#login(@click="login") Login
         v-btn#signup.ml-3(@click="signUp" color="primary" ) Sign Up
       div.centered(v-else)
-        v-menu(open-on-hover open-delay="0")
+        v-menu(open-on-hover open-delay="0" offset="10")
           template(v-slot:activator="{ props }")
             img.clickable(src="/img/icons/user.svg" height="40" v-bind="props")
-          v-card#popup
+          v-card#popup(elevation="0")
             v-card-text
               div.profile {{data.name }}
               div.profile#email {{data.email }}
@@ -98,6 +98,7 @@ const logout = () => {
 
 
   #popup
+    border: var(--color4) 1px solid
     font-size: 14px
     .v-card-text
       padding: 25px

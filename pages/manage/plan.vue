@@ -36,6 +36,7 @@ const alertMessage = computed(() => {
 <style scoped lang="sass">
 #toggle
   margin: 128px 0 64px 0
+  padding: 0
   .v-btn
     margin-right: 12px
     width: 120px
