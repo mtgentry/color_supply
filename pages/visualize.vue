@@ -1,7 +1,8 @@
 <template lang="pug">
   v-row#visualize
-    v-col.pa-0.centered(cols="10")
+    v-col#image.pa-0.centered(cols="10")
       VisualizeImage
+      VisualizeButtons
     v-col#palettes(cols="2")
       VisualizePalettes
 </template>
@@ -16,4 +17,6 @@
   height: calc(100vh - 64px)
   overflow: auto
   padding: 0
+#image
+  position: relative
 </style>

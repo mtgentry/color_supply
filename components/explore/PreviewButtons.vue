@@ -20,8 +20,6 @@
         path(d='M6.19199 11H13.0588V12H6.19199C5.98607 12.5826 5.43045 13 4.77734 13C4.12423 13 3.56861 12.5826 3.3627 12H0V11H3.3627C3.56861 10.4174 4.12423 10 4.77734 10C5.43045 10 5.98607 10.4174 6.19199 11Z' :fill="palette ? 'var(--color4)' : 'var(--color5)'")
         path(d='M6.86685 7L1.43925e-05 7L1.448e-05 6L6.86685 6C7.07277 5.4174 7.62838 5 8.28149 5C8.9346 5 9.49022 5.4174 9.69614 6L13.0588 6L13.0588 7L9.69614 7C9.49022 7.5826 8.9346 8 8.28149 8C7.62838 8 7.07277 7.5826 6.86685 7Z' :fill="palette ? 'var(--color4)' : 'var(--color5)'")
       | Adjust
-
-
 </template>
 
 <script setup>
@@ -36,18 +34,4 @@ const { palette, info } = storeToRefs(colorStore)
   justify-content: space-between
   padding: 26px 23px
   width: 100%
-
-.v-btn
-  border: 1px solid var(--color4)
-  color: var(--color4)
-  font-size: 13px
-  letter-spacing: 0.26px
-
-  &.v-btn--disabled
-    color: var(--color5)
-    background-color: var(--color7)!important
-
-  :deep(.v-btn__overlay)
-    opacity: 0!important
-
 </style>

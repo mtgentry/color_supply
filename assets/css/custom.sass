@@ -80,3 +80,17 @@ html
 
 a:visited
   color: var(--color1)
+
+#actions
+  .v-btn
+    border: 1px solid var(--color4)
+    color: var(--color4)
+    font-size: 13px
+    letter-spacing: 0.26px
+
+    &.v-btn--disabled
+      color: var(--color5)
+      background-color: var(--color7)!important
+
+    :deep(.v-btn__overlay)
+      opacity: 0!important

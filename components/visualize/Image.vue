@@ -148,6 +148,11 @@ onMounted(() => {
 
   transform.value = `translate(${translateX}, ${translateY})`
 });
+
+watch(palette, (palette) => {
+    changeColors(palette.colors)
+  }, {deep: true}
+)
 </script>
 
 <style scoped lang="sass">

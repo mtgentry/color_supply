@@ -7,26 +7,29 @@
           v-btn(value="favorites") Favorites
       v-col.centered(md="12" v-if="pending")
         v-progress-circular(indeterminate)
-      v-col(md="12" :key="index" v-for="(palette, index) in palettes?.results" v-else)
+      v-col(md="12" :key="index" v-for="(palette, index) in visualizePalettes?.results" v-else)
         ColorsDisplay(:palette='palette' rounded)
 </template>
 
 <script setup>
 const colorStore = useColorStore()
 const toggle = ref('recent')
-const {data: palettes, pending, refresh} = useApi('palettes/list/',  {
+const { palettes } = storeToRefs(colorStore)
+const {data: visualizePalettes, pending} = useApi('palettes/list/',  {
   toggle: toggle
 }, 'get')
 
-watch(palettes, () => {
-  colorStore.selectPalette(palettes.value.results[0])
+watch(visualizePalettes, () => {
+  colorStore.selectPalette(visualizePalettes.value.results[0])
+  let filtered = visualizePalettes.value.results.filter(p => !palettes.value.find(p2 => p2.id === p.id))
+  palettes.value = [...palettes.value, ...filtered]
 })
+
 
 </script>
 
 <style scoped lang="sass">
 #paletteResults
-
   .v-col
     padding: 6px 24px
 
@@ -41,9 +44,10 @@ watch(palettes, () => {
   .v-btn
     height: 20px!important
     padding: 0!important
+    line-height: 23px
 
     &.v-btn--active
-      text-decoration: underline
+      border-bottom: 1px solid var(--color2)
 
   :deep(.v-btn__overlay)
       background: none
