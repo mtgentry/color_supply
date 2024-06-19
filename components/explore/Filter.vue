@@ -118,8 +118,8 @@ watch(style, (value, oldValue) => {
   background: none!important
   top: 22px!important
 
-.v-window-item
-  min-height: 20px
+//.v-window-item
+//  min-height: 20px
 
 #slider
   :deep(.v-expansion-panel-text)
@@ -135,7 +135,4 @@ watch(style, (value, oldValue) => {
 
 #harmony
   position: relative
-
-  :deep(.v-window-item)
-    min-height: 235px
 </style>

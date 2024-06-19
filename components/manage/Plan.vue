@@ -71,11 +71,12 @@ const createCheckout = async () => {
   font-size: 16px!important
   min-height: 284px
   font-weight: 500
+  padding: 0 0 20px 0
 
   &.selected
     outline: 2px solid var(--color1)
     outline-offset: -2px
-    padding: 0 0 20px 0
+
     background-color: var(--color8)
     h3
       color: var(--color2)

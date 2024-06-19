@@ -9,13 +9,13 @@
           v-row
             v-col.pa-0(cols="12")
               ColorsDisplay(:palette='palette')
-            v-col.pa-0(cols="12")
+            v-col#actions.pa-0(cols="12")
               .info
                 IconsHeart.clickable(
                   :fill="palette.favorite ? 'var(--color9)' : 'transparent'",
                   :stroke="palette.favorite ? 'var(--color9)' : 'var(--color3)'",
                   @click="favorite(palette.id)")
-                div#count.pl-2 {{ palette.favorite_count }}
+                #count {{ palette.favorite_count }}
                 img(src='/img/icons/dots.svg')
       InfiniteLoading(@infinite="load" :key="renderKey")
         template(#spinner)
@@ -101,17 +101,18 @@ watch([mode, style, qty, harmony, colors, wheel_color, colorTab, status], () => 
 
 <style scoped lang="sass">
 #paletteResults
+  #actions
+    display: flex
+    justify-content: end
   .info
-    padding-top: 5px
+    color: var(--color3)
+    min-width: 70px
     display: flex
     align-items: center
-    justify-content: flex-end
-    color: var(--color3)
-
-    div
-      line-height: 1px
-      padding-top: 1px
-
+    justify-content: space-between
+  #count
+    margin-top: 3px
+    padding-left: 4px
   #paletteResults
     height: calc(100vh - 88px)
     overflow-y: auto
@@ -120,8 +121,6 @@ watch([mode, style, qty, harmony, colors, wheel_color, colorTab, status], () => 
     width: calc(100vw - 350px)
     overflow: hidden
 
-  #count
-    min-width: 20px
 
 #preview-drawer
   :deep(.v-navigation-drawer__content)
