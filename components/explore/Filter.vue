@@ -121,6 +121,10 @@ watch(style, (value, oldValue) => {
 .v-window-item
   min-height: 20px
 
+#slider
+  :deep(.v-expansion-panel-text)
+    min-height: 70px
+
 :deep(.v-tabs)
   position: absolute
   top: 11px
