@@ -16,6 +16,10 @@ const props = defineProps({
     type: Boolean,
     default: false,
   },
+  noSelect: {
+    type: Boolean,
+    default: false,
+  },
 })
 const store = useColorStore()
 const {palette: storePalette} = storeToRefs(store)
@@ -26,6 +30,7 @@ const selectPalette = () => {
 }
 
 const isSelected = computed(() => {
+  if (props.noSelect) return false
   let selected = storePalette.value?.id === props.palette.id
   if (selected) {
     colorRow.value?.scrollIntoView({ behavior: 'smooth', block: "center"});
