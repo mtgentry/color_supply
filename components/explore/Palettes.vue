@@ -1,5 +1,4 @@
 <template lang="pug">
-  ExporePreviewBox
   v-navigation-drawer#preview-drawer(location="right" v-if="preview===1" width="374")
     ExplorePreviewNav
   v-container#paletteResults(fluid)
@@ -103,7 +102,7 @@ watch([mode, style, qty, harmony, colors, wheel_color, colorTab, status], () => 
 #paletteResults
   #actions
     display: flex
-    justify-content: end
+    justify-content: flex-end
   .info
     color: var(--color3)
     min-width: 70px

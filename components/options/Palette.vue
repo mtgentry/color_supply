@@ -1,7 +1,7 @@
 <template lang="pug">
   h2 Palette
   div.d-flex.flex-row
-    ColorsDisplay(:palette='palette' readonly)
+    ColorsDisplay(:palette='palette' readonly no-select)
 
 
 </template>

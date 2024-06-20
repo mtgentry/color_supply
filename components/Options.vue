@@ -2,7 +2,8 @@
   #options
     OptionsPalette
     v-divider
-    OptionsAdjust
+    //OptionsAdjust
+    OptionsSliders
 
 </template>
 

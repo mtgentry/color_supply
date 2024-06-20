@@ -1,4 +1,4 @@
-export const hexToHSLA = (hex) => {
+export const hexToHSL = (hex) => {
   let r = 0, g = 0, b = 0;
 
   // 3 digits
@@ -57,6 +57,5 @@ export const hexToHSLA = (hex) => {
     h: h,
     s: s,
     l: l,
-    a: 1
   }
 }

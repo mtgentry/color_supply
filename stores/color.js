@@ -4,6 +4,8 @@ export const useColorStore = defineStore('color', () =>{
   const palette = ref()
   const palettes = ref([])
   const info = ref(false)
+  const hue = ref(179)
+  const saturation = ref(50)
   const selectColor = (index) => {
     selectedColor.value = index
   }
@@ -29,6 +31,12 @@ export const useColorStore = defineStore('color', () =>{
 
     palette.value.colors = newArray
   };
+  const hueDiff = computed(() => {
+    return hue.value - 179
+  })
+  const saturationDiff = computed(() => {
+    return saturation.value - 50
+  })
 
   const toggleInfo = () => {
     info.value = !info.value
@@ -43,6 +51,10 @@ export const useColorStore = defineStore('color', () =>{
     palettes,
     shufflePalette,
     info,
-    toggleInfo
+    toggleInfo,
+    hue,
+    saturation,
+    hueDiff,
+    saturationDiff
   }
 })

@@ -1,13 +1,10 @@
-export const HSLAToHex = (h, s, l, a) => {
-  s /= 100;
-  l /= 100;
+export const HSLToHex = (h, s, l) => {
   let c = (1 - Math.abs(2 * l - 1)) * s,
       x = c * (1 - Math.abs((h / 60) % 2 - 1)),
       m = l - c/2,
       r = 0,
       g = 0,
       b = 0;
-
   if (0 <= h && h < 60) {
     r = c; g = x; b = 0;
   } else if (60 <= h && h < 120) {
@@ -26,11 +23,11 @@ export const HSLAToHex = (h, s, l, a) => {
   g = Math.round((g + m) * 255).toString(16);
   b = Math.round((b + m) * 255).toString(16);
 
-  if (r.length == 1)
+  if (r.length === 1)
     r = "0" + r;
-  if (g.length == 1)
+  if (g.length === 1)
     g = "0" + g;
-  if (b.length == 1)
+  if (b.length === 1)
     b = "0" + b;
 
   return "#" + r + g + b;

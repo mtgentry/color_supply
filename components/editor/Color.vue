@@ -1,6 +1,6 @@
 <template lang="pug">
-  div.color.top-right.bottom-left(:style="{backgroundColor:  color}"
-    :class="{active: index === store.selectedColor, bright: hsla.l <= brigtness, darker: hsla.l > brigtness, disabled}" @click="activate")
+  div.color.top-right.bottom-left(:style="{backgroundColor: adjustedColor}"
+    :class="{active: index === store.selectedColor, bright: hsl.l <= brigtness, darker: hsl.l > brigtness, disabled}" @click="activate")
     div.top-right
     div.bottom-left
 </template>
@@ -13,11 +13,25 @@ const props = defineProps({
   disabled: Boolean
 })
 const brigtness = 0.2
-
 const store = useColorStore()
-const hsla = computed(() => {
-  return hexToHSLA(props.color)
+const {palette: storePalette, hueDiff, saturationDiff, hue} = storeToRefs(store)
+
+const hsl = computed(() => {
+  return hexToHSL(props.color)
 })
+
+const adjustedColor = computed(() => {
+  let h = (hsl.value.h + hueDiff.value) % 360
+  if (h < 0) h += 360
+  // let s = (((hsl.value.s * 100) + saturationDiff.value) % 100) / 100
+  // if (s < 0) s += 100
+  return HSLToHex(
+    h,
+    hsl.value.s,
+    hsl.value.l
+  )
+})
+
 
 const activate = () => {
   if (props.disabled) return
