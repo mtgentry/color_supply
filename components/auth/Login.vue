@@ -65,7 +65,7 @@ const login = async () => {
     dialogStore.changeLoginForm(false)
     dialogStore.changeSignUpForm(false)
     snackbar.add({
-      type: 'success',
+      type: 'info',
       text: 'Logged in successfully',
     })
   } catch (error) {

@@ -68,8 +68,9 @@ export default defineNuxtConfig({
     },
   },
   snackbar: {
-    bottom: true,
+    top: true,
     right: true,
-    duration: 5000
+    duration: 2000,
+    color: 'info',
   }
 })

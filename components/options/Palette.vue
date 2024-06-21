@@ -1,5 +1,5 @@
 <template lang="pug">
-  h2 Palette
+  h2 Color
   div.d-flex.flex-row
     ColorsDisplay(:palette='palette' readonly no-select)
 

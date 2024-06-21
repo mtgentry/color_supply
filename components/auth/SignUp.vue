@@ -82,7 +82,7 @@ const signup = async () => {
   pending.value = false
   changeSignUpForm(false)
   snackbar.add({
-    type: 'success',
+    type: 'info',
     text: 'Account created successfully!'
   })
 }
@@ -91,7 +91,7 @@ onMounted(() => {
   const route = useRoute()
   if (route.query.delete) {
     snackbar.add({
-      type: 'success',
+      type: 'info',
       text: 'Account deleted successfully!'
     })
   }

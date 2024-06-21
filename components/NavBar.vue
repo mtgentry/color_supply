@@ -49,7 +49,7 @@ const logout = () => {
     navigateTo('/explore')
   }
   snackbar.add({
-    type: 'success',
+    type: 'info',
     text: 'Logged out successfully',
   })
 }

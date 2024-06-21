@@ -49,7 +49,7 @@ const reset = async () => {
     // console.error(error)
   }
   snackbar.add({
-    type: 'success',
+    type: 'info',
     text: 'Check your email for a password reset link.'
   })
 

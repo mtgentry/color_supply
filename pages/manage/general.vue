@@ -62,7 +62,7 @@ const saveChanges = async () => {
   await fetch('/users/update/', 'patch', state)
   state.password = null
   snackbar.add({
-    type: 'success',
+    type: 'info',
     text: 'Changes saved!'
   })
 }
