@@ -146,9 +146,10 @@ const colorStore = useColorStore()
 const filterStore = useFilterStore()
 const {preview} = storeToRefs(filterStore)
 
-const {palette, info} = storeToRefs(colorStore)
+const {palette, info, boxColors} = storeToRefs(colorStore)
 
 const changeColors = (colors) => {
+  if (!colors) return
   items.forEach((item, index) => {
     if (index === 0) {
       items[index].value = colors[0]
@@ -241,9 +242,13 @@ const changeColors = (colors) => {
 }
 
 watch(palette, (palette) => {
-    changeColors(palette.colors)
+    boxColors.value = palette.colors
   },
   { deep: true }
+)
+watch(boxColors, (boxColors) => {
+    changeColors(boxColors)
+  },
 )
 
 onMounted(() => {

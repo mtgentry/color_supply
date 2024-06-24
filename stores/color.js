@@ -6,6 +6,8 @@ export const useColorStore = defineStore('color', () =>{
   const info = ref(false)
   const hue = ref(179)
   const saturation = ref(50)
+
+  const boxColors = ref([])
   const selectColor = (index) => {
     selectedColor.value = index
   }
@@ -18,18 +20,18 @@ export const useColorStore = defineStore('color', () =>{
   }
 
   const shufflePalette = () => {
-    let oldArray = [...palette.value.colors]
+    let oldArray = [...boxColors.value]
     let newArray
 
     do {
-      newArray = [...palette.value.colors]
+      newArray = [...boxColors.value]
       for (let i = newArray.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
         [newArray[i], newArray[j]] = [newArray[j], newArray[i]];
       }
     } while (JSON.stringify(newArray) === JSON.stringify(oldArray))
 
-    palette.value.colors = newArray
+    boxColors.value = newArray
   };
   const hueDiff = computed(() => {
     return hue.value - 179
@@ -55,6 +57,7 @@ export const useColorStore = defineStore('color', () =>{
     hue,
     saturation,
     hueDiff,
-    saturationDiff
+    saturationDiff,
+    boxColors
   }
 })

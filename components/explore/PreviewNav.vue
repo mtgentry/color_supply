@@ -328,7 +328,7 @@ const triangle = ref('white')
 const eye = ref('white')
 
 const colorStore = useColorStore()
-const {palette, info} = storeToRefs(colorStore)
+const {palette, info, boxColors} = storeToRefs(colorStore)
 const changeColors = (colors) => {
   background.value = colors[0]
   clouds.value = colors[1]
@@ -429,9 +429,14 @@ const changeColors = (colors) => {
 }
 
 watch(palette, (palette) => {
-  changeColors(palette.colors)
-}, {deep: true})
-
+    boxColors.value = palette.colors
+  },
+  { deep: true }
+)
+watch(boxColors, (boxColors) => {
+    changeColors(boxColors)
+  },
+)
 onMounted(() => {
   if (!palette.value) return
   changeColors(palette.value.colors)

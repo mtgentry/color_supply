@@ -39,7 +39,6 @@ const error = ref(null)
 const deleteAccount = async () => {
   try {
     await fetch('users/delete/', 'delete', {password: state.password});
-    debugger
     await signOut({redirect: false});
     await navigateTo('/signup?delete=true');
   } catch (e) {
