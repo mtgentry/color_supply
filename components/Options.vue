@@ -1,14 +1,15 @@
 <template lang="pug">
   #options
-    OptionsPalette
-    v-divider
-    //OptionsAdjust
-    OptionsSliders
+    //OptionsPalette
+    //v-divider
+    OptionsAdjust(v-if="selectedColor !== null")
+    OptionsSliders(v-else)
 
 </template>
 
 <script setup>
-
+const colorStore = useColorStore()
+const { selectedColor } = storeToRefs(colorStore)
 </script>
 
 <style scoped lang="sass">

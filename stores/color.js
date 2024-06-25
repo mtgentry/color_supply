@@ -6,13 +6,29 @@ export const useColorStore = defineStore('color', () =>{
   const info = ref(false)
   const hue = ref(179)
   const saturation = ref(50)
-
+  const createColors = ref(['#FF0000', '#00FF00', '#0000FF', '#FFFF00', '#00FFFF', '#1A1A1A'])
+  // const createColors = ref(['#FF0000', ])
   const boxColors = ref([])
   const selectColor = (index) => {
+    if (!index && selectedColor.value !== null) {
+      fixSelectedColorHue(selectedColor.value)
+    }
     selectedColor.value = index
   }
   const updateSelectedColor = (color) => {
-    palette.value.colors[selectedColor.value] = color
+    createColors.value[selectedColor.value] = color
+  }
+
+  const fixSelectedColorHue = (index) => {
+    if (palette.value.colors[index] === createColors.value[index]) return
+    let hsl = hexToHSL(createColors.value[index])
+    let h = (hsl.h - hueDiff.value) % 360
+    if (h < 0) h += 360
+    palette.value.colors[index] = HSLToHex(
+      h,
+      hsl.s,
+      hsl.l
+    )
   }
 
   const selectPalette = (new_palette) => {
@@ -58,6 +74,8 @@ export const useColorStore = defineStore('color', () =>{
     saturation,
     hueDiff,
     saturationDiff,
+    createColors,
+    fixSelectedColorHue,
     boxColors
   }
 })
