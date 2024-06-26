@@ -1,32 +1,42 @@
 <template lang="pug">
-  div.color.top-right.bottom-left(:style="{backgroundColor: color}"
-    :class="{active: index === selectedColor, bright: hsl.l <= brigtness, darker: hsl.l > brigtness, disabled}" @click="activate")
-    div.top-right
-    div.bottom-left
+  div
+    div.color.top-right.bottom-left(:style="{backgroundColor: createColors[index]}"
+      :class="{active: index === selectedColor, bright: hsl.l <= brigtness, darker: hsl.l > brigtness, disabled}" @click="activate")
+      div.top-right
+      div.bottom-left
 </template>
 
 <script setup>
 const props = defineProps({
-  color: String,
   dragging: Boolean,
   index: Number,
   disabled: Boolean
 })
 const brigtness = 0.2
 const colorStore = useColorStore()
-const {palette, hueDiff, saturationDiff, hue, selectedColor, createColors} = storeToRefs(colorStore)
+const {palette, hueDiff, saturation, lightness, hue, selectedColor, createColors, modifiedColors} = storeToRefs(colorStore)
 
 const hsl = computed(() => {
-  return hexToHSL(palette.value.colors[props.index])
+  return hexToHSL(createColors.value[props.index])
 })
 
 const adjustColor = () => {
-  let h = (hsl.value.h + hueDiff.value) % 360
+  let colorHsl = hexToHSL(modifiedColors.value[props.index])
+  let h = (colorHsl.h + hueDiff.value) % 360
   if (h < 0) h += 360
+
+  let s = colorHsl.s + (saturation.value / 100)
+  if (s < 0) s = 0
+  if (s > 1) s = 1
+
+  let l = colorHsl.l + (lightness.value / 100)
+  if (l < 0) l = 0
+  if (l > 1) l = 1
+
   return HSLToHex(
     h,
-    hsl.value.s,
-    hsl.value.l
+    s,
+    l
   )
 }
 
@@ -36,13 +46,9 @@ const activate = () => {
   colorStore.selectColor(props.index)
 }
 
-watch(hueDiff, () => {
+watch([hueDiff, saturation, lightness], () => {
   createColors.value[props.index] = adjustColor()
 })
-
-watch(palette.value, () => {
-  createColors.value[props.index] = adjustColor()
-}, {deep: true})
 
 </script>
 
@@ -101,10 +107,9 @@ watch(palette.value, () => {
 .no-move
   transition: transform 0s
 
-.color-hover.bright:hover:not(.active):not(.disabled)
-  filter: brightness(3)
-
-.color-hover.darker:hover:not(.active):not(.disabled)
-  filter: brightness(0.5)
-
+.color-hover
+  .bright:hover:not(.active):not(.disabled)
+    filter: brightness(3)
+  .darker:hover:not(.active):not(.disabled)
+    filter: brightness(0.5)
 </style>

@@ -6,7 +6,7 @@
     draggable(:list="createColors" v-bind="dragOptions" @start="dragStart" @end="dragEnd" @change="change" :item-key="item => item")
       template(#item="{element, index}")
         div.drag-item
-          EditorColor(:key="index" :index="index" :color="element" :dragging="dragging" :class="{ 'color-hover': !dragging }")
+          CreateColor(:key="index" :index="index" :color="element" :dragging="dragging" :class="{ 'color-hover': !dragging }")
     v-tooltip(text="Revert" location="bottom")
       template(v-slot:activator="{ props }")
         v-icon#undo(v-bind="props" v-show="preDeletionColors.length" @click="revertDelete") mdi-undo

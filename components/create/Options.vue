@@ -2,8 +2,8 @@
   #options
     //OptionsPalette
     //v-divider
-    OptionsAdjust(v-if="selectedColor !== null")
-    OptionsSliders(v-else)
+    CreateAdjust(v-if="selectedColor !== null")
+    CreateSliders(v-else)
 
 </template>
 

@@ -5,12 +5,15 @@
       v-slider(v-model="hue" min="0" max="359" step="1")
     #saturation
       v-label Saturation
-      v-slider(v-model="saturation" min="0" max="100" step="1")
+      v-slider(v-model="saturation" min="-100" max="100" step="1")
+    #lightness
+      v-label Lightness
+      v-slider(v-model="lightness" min="-100" max="100" step="1")
 </template>
 
 <script setup>
 const colorStore = useColorStore()
-const { hue, saturation } = storeToRefs(colorStore)
+const { hue, saturation, lightness } = storeToRefs(colorStore)
 </script>
 
 <style scoped lang="sass">
@@ -27,6 +30,12 @@ const { hue, saturation } = storeToRefs(colorStore)
     :deep(.v-slider-track__fill)
       background: transparent
   #saturation
+    :deep(.v-slider-track__background)
+      opacity: 1
+      background: linear-gradient(to right, hsl(0, 0%, 100%), hsl(0, 100%, 50%))
+    :deep(.v-slider-track__fill)
+      background: transparent
+  #lightness
     :deep(.v-slider-track__background)
       opacity: 1
       background: linear-gradient(to right, hsl(0, 0%, 100%), hsl(0, 0%, 0%))

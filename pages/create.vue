@@ -1,23 +1,29 @@
 <template lang="pug">
   v-row#create
     v-col.centered(cols="9" @click="disableColor")
-      Colors
+      CreateColors
     v-col(cols="3")
-      Options
+      CreateOptions
 </template>
 
 <script setup>
-const store = useColorStore()
-if (!store.palette) {
-  store.palette = {
+const colorStore = useColorStore()
+const { palette, createColors, modifiedColors } = storeToRefs(colorStore)
+if (!palette.value) {
+  palette.value = {
+    // colors: ['#FF0000', ],
     colors: ['#FF0000', '#00FF00', '#0000FF', '#FFFF00', '#00FFFF', '#1A1A1A'],
     name: 'New Palette',
     id: null
   }
 }
+onMounted(() => {
+  modifiedColors.value = [...palette.value.colors]
+  createColors.value = [...palette.value.colors]
+})
 const disableColor = (event) => {
   if (!event.target.classList.contains('color')) {
-    store.selectColor(null)
+    colorStore.selectColor(null)
   }
 }
 

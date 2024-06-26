@@ -15,10 +15,10 @@ const store = useColorStore()
 const color = ref()
 const options = ref([0])
 
-const {selectedColor, palette} = storeToRefs(store)
+const {selectedColor, palette, createColors} = storeToRefs(store)
 
 onMounted(() => {
-  color.value = palette.value.colors[selectedColor.value]
+  color.value = createColors.value[selectedColor.value]
 })
 
 watch(() => color, (value) => {

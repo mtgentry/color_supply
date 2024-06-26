@@ -50,8 +50,8 @@ export const hexToHSL = (hex) => {
   s = delta == 0 ? 0 : delta / (1 - Math.abs(2 * l - 1));
 
   // Multiply l and s by 100
-  s = +(s).toFixed(1);
-  l = +(l).toFixed(1);
+  s = +(s).toFixed(2);
+  l = +(l).toFixed(2);
 
   return {
     h: h,
