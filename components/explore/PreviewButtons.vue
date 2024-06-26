@@ -34,4 +34,8 @@ const { palette, info } = storeToRefs(colorStore)
   justify-content: space-between
   padding: 26px 23px
   width: 100%
+  .v-btn
+    :deep(.v-btn__overlay)
+      opacity: 0
+
 </style>
