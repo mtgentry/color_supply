@@ -2,7 +2,7 @@
   v-row#create
     v-col.centered(cols="9" @click="disableColor")
       CreateColors
-    v-col(cols="3")
+    v-col#options(cols="3")
       CreateOptions
 </template>
 
@@ -21,6 +21,11 @@ onMounted(() => {
   modifiedColors.value = [...palette.value.colors]
   createColors.value = [...palette.value.colors]
 })
+
+watch(palette, () => {
+  modifiedColors.value = [...palette.value.colors]
+  createColors.value = [...palette.value.colors]
+})
 const disableColor = (event) => {
   if (!event.target.classList.contains('color')) {
     colorStore.selectColor(null)
@@ -33,4 +38,8 @@ const disableColor = (event) => {
 #create
   .v-col
     height: calc(100vh - 64px)
+
+#options
+  overflow-y: auto
+  background-color: var(--color7)
 </style>

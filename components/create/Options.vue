@@ -3,8 +3,9 @@
     //OptionsPalette
     //v-divider
     CreateAdjust(v-if="selectedColor !== null")
-    CreateSliders(v-else)
-
+    CreateSliders(v-if="selectedColor === null")
+    v-divider
+    VisualizePalettes(v-if="selectedColor === null")
 </template>
 
 <script setup>
@@ -17,11 +18,11 @@ const { selectedColor } = storeToRefs(colorStore)
   background-color: var(--color7)
   margin: -12px
   padding: 32px 24px
-  height: calc(100vh - 64px)
+
 
   :deep(h2)
     padding-bottom: 20px
 
   .v-divider
-    margin: 32px 0 26px 0
+    margin: 15px 0 25px 0
 </style>

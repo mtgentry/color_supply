@@ -4,7 +4,7 @@
       VisualizeImage
       VisualizeButtons
     v-col#palettes(cols="2")
-      VisualizePalettes
+      VisualizePalettes(select-first)
 </template>
 
 <script setup>
