@@ -1,5 +1,5 @@
 <template lang="pug">
-  v-btn-toggle#preview(v-model="selected" mandatory)
+  v-btn-toggle#preview.flex-row(v-model="selected" mandatory)
     v-btn
       svg(width='35' height='23' viewBox='0 0 35 23' fill='none' xmlns='http://www.w3.org/2000/svg')
         path(d='M0.5 0.539062H34.5V21.5391H0.5V0.539062Z' fill='white' :stroke='selected === 0 ? color1 : color5')
@@ -14,16 +14,21 @@
 </template>
 
 <script setup>
-const store = useFilterStore()
+const filterStore = useFilterStore()
+const {preview} = storeToRefs(filterStore)
 const selected = ref(0)
-const {preview} = storeToRefs(store)
+
 let element = document.documentElement
 let style = getComputedStyle(element)
 const color1 = style.getPropertyValue('--color1').trim()
 const color5 = style.getPropertyValue('--color5').trim()
 
 watch(selected, (value) => {
-  store.changeFilter(preview, value)
+  filterStore.changeFilter(preview, value)
+})
+
+onMounted(() => {
+  selected.value = preview.value
 })
 
 </script>
@@ -38,4 +43,7 @@ watch(selected, (value) => {
 
   &:nth-child(2)
     margin: 0 8px
+
+.v-btn-group--density-default.v-btn-group
+  height: unset
 </style>

@@ -9,6 +9,7 @@ export const useFilterStore = defineStore('filter', () =>{
   const colors = ref([])
   const wheel_color = ref('#F03872')
   const colorTab = ref('color')
+  const showPreviews = ref(false)
 
   const changeFilter = (ref, value) => {
     ref.value = value
@@ -35,6 +36,7 @@ export const useFilterStore = defineStore('filter', () =>{
     colors,
     harmonies,
     wheel_color,
-    colorTab
+    colorTab,
+    showPreviews
   }
 })

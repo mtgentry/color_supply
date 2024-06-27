@@ -13,8 +13,6 @@
       v-range-slider.px-5.pb-5(:min="2" :max="5" v-model="qtyLocal" :step="1" @end="changeQty" thumb-label="always" show-ticks="always" hide-details)
     ExploreExpansionPanel#harmony(title="Color" eager)
       ExploreColor
-    ExploreExpansionPanel#preview.centered(title="Preview")
-      ExplorePreviews
 </template>
 
 <script setup>
