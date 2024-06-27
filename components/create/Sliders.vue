@@ -32,7 +32,7 @@ const { hue, saturation, lightness } = storeToRefs(colorStore)
   #saturation
     :deep(.v-slider-track__background)
       opacity: 1
-      background: linear-gradient(to right, hsl(0, 0%, 100%), hsl(0, 100%, 50%))
+      background: linear-gradient(90deg, #F0F0F0 0%, #E3E7EF 24.07%, #A0BAEF 98.26%)
     :deep(.v-slider-track__fill)
       background: transparent
   #lightness
@@ -41,4 +41,12 @@ const { hue, saturation, lightness } = storeToRefs(colorStore)
       background: linear-gradient(to right, hsl(0, 0%, 100%), hsl(0, 0%, 0%))
     :deep(.v-slider-track__fill)
       background: transparent
+
+  :deep(.v-slider-track__background)
+    height: 8px
+
+  :deep(.v-slider.v-input--horizontal)
+    margin: 0
+  :deep(.v-slider-thumb__surface)
+    color: var(--color2)
 </style>
