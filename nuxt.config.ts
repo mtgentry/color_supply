@@ -11,6 +11,9 @@ export default defineNuxtConfig({
       baseURL: process.env.BASE_URL,
     },
   },
+  nitro: {
+    compressPublicAssets: true,
+  },
   app: {
     head: {
       charset: 'utf-8',
