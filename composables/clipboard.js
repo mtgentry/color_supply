@@ -6,7 +6,7 @@ export const clipboard = async (text, snackbar) => {
     snackbar.add({
       type: 'info',
       text: 'Copied to clipboard.',
-      duration: 500,
+      duration: 1000,
     })
   } catch (err) {
     console.error('Failed to copy: ', err)

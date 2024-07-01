@@ -33,8 +33,6 @@ watch(visualizePalettes, () => {
   let filtered = visualizePalettes.value.results.filter(p => !palettes.value.find(p2 => p2.id === p.id))
   palettes.value = [...palettes.value, ...filtered]
 })
-
-
 </script>
 
 <style scoped lang="sass">

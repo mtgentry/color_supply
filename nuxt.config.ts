@@ -75,6 +75,5 @@ export default defineNuxtConfig({
     top: true,
     right: true,
     duration: 2000,
-    color: 'info',
   }
 })

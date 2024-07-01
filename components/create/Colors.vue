@@ -16,7 +16,7 @@
 import draggable from 'vuedraggable'
 
 const colorStore = useColorStore()
-const { createColors } = storeToRefs(colorStore)
+const { createColors, palette } = storeToRefs(colorStore)
 
 const dragOptions = {
   ghostClass: 'ghost',
@@ -33,26 +33,26 @@ const storeHistory = () => {
   preDeletionColors.value.push([...startOrder.value])
 }
 const dragStart = (event) => {
-  startOrder.value = [...store.palette.colors]
+  startOrder.value = [...createColors.value]
   dragging.value = true
 }
 const dragEnd = (event) => {
   dragging.value = false
-  store.selectColor(event.newIndex)
+  colorStore.selectColor(event.newIndex)
   if (event.originalEvent.offsetY < -100) {
-    store.colors.splice(event.newIndex, 1)
+    createColors.value.splice(event.newIndex, 1)
     storeHistory()
   }
 }
 
 const change = (event) => {
-  if (startOrder.value !== store.palette.colors) {
+  if (startOrder.value !== createColors.value) {
     storeHistory()
   }
 }
 
 const revertDelete = () => {
-  store.palette.colors = [...preDeletionColors.value[preDeletionColors.value.length - 1]]
+  createColors.value = [...preDeletionColors.value[preDeletionColors.value.length - 1]]
   preDeletionColors.value.pop()
 }
 

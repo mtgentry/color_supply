@@ -22,11 +22,14 @@ const props = defineProps({
   },
 })
 const store = useColorStore()
-const {palette: storePalette} = storeToRefs(store)
+const {palette: storePalette, hue, saturation, lightness} = storeToRefs(store)
 
 const selectPalette = () => {
   if (props.readonly) return
   store.selectPalette(props.palette)
+  hue.value = 179
+  saturation.value = 0
+  lightness.value = 0
 }
 
 const isSelected = computed(() => {

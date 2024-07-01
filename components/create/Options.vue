@@ -1,11 +1,11 @@
 <template lang="pug">
   #options
-    //OptionsPalette
-    //v-divider
+    div(v-show="selectedColor === null")
+      CreateSliders
+      v-divider
+      VisualizePalettes
     CreateAdjust(v-if="selectedColor !== null")
-    CreateSliders(v-if="selectedColor === null")
-    v-divider
-    VisualizePalettes(v-if="selectedColor === null")
+
 </template>
 
 <script setup>
