@@ -14,6 +14,7 @@ export default defineNuxtConfig({
   nitro: {
     compressPublicAssets: true,
   },
+  spaLoadingTemplate: true,
   app: {
     head: {
       charset: 'utf-8',
