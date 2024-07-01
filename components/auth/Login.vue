@@ -4,10 +4,10 @@
       h1 Log in
     v-form(@submit.prevent="login")
       v-text-field(v-model="state.email" label="Email" required email="sara.smith@gmail.com"  variant="outlined"
-        :error-messages="v$.email.$errors.map(e => e.$message)" @blur="v$.email.$touch")
+        :error-messages="v$.email.$errors.map(e => e.$message)" @blur="v$.email.$touch" autocomplete="email")
       v-text-field#password(v-model="state.password" label="Password" :type="showPassword ? 'text' : 'password'" required placeholder="Colorfan19#"
         variant="outlined" :append-inner-icon="showPassword ? 'mdi-eye-off' : 'mdi-eye'"  @click:append-inner="showPassword = !showPassword"
-        :error-messages="v$.password.$errors.map(e => e.$message)" @blur="v$.password.$touch")
+        :error-messages="v$.password.$errors.map(e => e.$message)" @blur="v$.password.$touch" autocomplete="current-password")
       v-btn#submit(color="primary" type="submit" :disabled="pending") Continue
       slot(name="footer")
         div#description

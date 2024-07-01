@@ -4,13 +4,13 @@
       h1 Sign up to access more colors
     v-form
       v-text-field(v-model="state.name" label="Name" required placeholder="Sara" variant="outlined" :counter="10"
-        :error-messages="v$.name.$errors.map(e => e.$message)" @blur="v$.name.$touch" @input="v$.name.$touch")
+        :error-messages="v$.name.$errors.map(e => e.$message)" @blur="v$.name.$touch" @input="v$.name.$touch" autocomplete="name")
       v-text-field(v-model="state.email" label="Email" required placeholder="sara.smith@gmail.com"  variant="outlined"
-        :error-messages="emailError || v$.email.$errors.map(e => e.$message)"  @blur="v$.email.$touch")
+        :error-messages="emailError || v$.email.$errors.map(e => e.$message)"  @blur="v$.email.$touch" autocomplete="email")
       v-text-field#password(v-model="state.password" label="Password" :type="showPassword ? 'text' : 'password'" required
       placeholder="Colorfan19#" :hint="!v$.password.$invalid ? '' : 'At least 8 characters, with a number or symbol'"  :error-messages="v$.password.$errors.map(e => e.$message)"
         variant="outlined" :append-inner-icon="showPassword ? 'mdi-eye-off' : 'mdi-eye'"  @click:append-inner="showPassword = !showPassword"
-        @blur="v$.password.$touch")
+        @blur="v$.password.$touch" autocomplete="new-password")
       v-btn#submit(color="primary" text @click="signup" :disabled="pending" flat) Create Free Account
       slot(name="footer")
         div.text-center

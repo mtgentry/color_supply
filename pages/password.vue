@@ -4,7 +4,7 @@
     v-form(@submit.prevent="reset")
       v-text-field#password(v-model="state.password" label="New Password" :type="showPassword ? 'text' : 'password'" required placeholder="Colorfan19#"
         variant="outlined" :append-inner-icon="showPassword ? 'mdi-eye-off' : 'mdi-eye'"  @click:append-inner="showPassword = !showPassword"
-        :error-messages="v$.password.$errors.map(e => e.$message)" @blur="v$.password.$touch")
+        :error-messages="v$.password.$errors.map(e => e.$message)" @blur="v$.password.$touch" autocomplete="new-password")
       v-btn#submit(color="primary" type="submit") Change Password
       div#description
         p Want to log in? !{` `}

@@ -7,7 +7,7 @@
         v-text-field(v-model="state.email" label="Email" required placeholder="sara.smith@gmail.com"  variant="outlined" name="email"
           :error-messages="v$.email.$errors.map(e => e.$message)"  @blur="v$.email.$touch")
         v-text-field#password(v-model="state.password" label="New Password" :type="showPassword ? 'text' : 'password'" required name="password"
-        placeholder="Colorfan19#" :hint="!v$.password.$invalid ? '' : 'At least 8 characters, with a number or symbol'"
+        placeholder="Colorfan19#" :hint="!v$.password.$invalid ? '' : 'At least 8 characters, with a number or symbol'" auto-complete="new-password"
           :error-messages="v$.password.$errors.map(e => e.$message)"
           variant="outlined" :append-inner-icon="showPassword ? 'mdi-eye-off' : 'mdi-eye'"  @click:append-inner="showPassword = !showPassword"
           @blur="v$.password.$touch" auto)
