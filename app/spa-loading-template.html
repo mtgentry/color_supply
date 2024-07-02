@@ -1,0 +1,52 @@
+<style>
+  html {
+    background-color: #FFF !important
+  }
+  body {
+    margin: 0;
+  }
+  .load {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+
+  #loading {
+    opacity: 0;
+    transition: opacity 3s;
+  }
+
+  /* Faded in state */
+  #loading.visible {
+    opacity: 1;
+  }
+
+  /* Glowing effect */
+  #loading.glowing {
+    animation: fadeIn 3s infinite
+  }
+
+  @keyframes fadeIn {
+    0% { opacity: 1; }
+    50% { opacity: 0.5; }
+    100% { opacity: 1; }
+  }
+</style>
+
+<div class="load">
+  <img id="loading" src="/img/rainbow.svg" alt="loading" onload="imageLoaded()">
+</div>
+
+
+<script>
+  const imageLoaded = function() {
+    let image = document.getElementById('loading');
+    image.classList.add('visible');
+
+    // After the fade-in transition, add the glowing effect
+    setTimeout(function() {
+        image.classList.add('glowing');
+    }, 3000); // 2000ms matches the transition duration in the CSS
+};
+</script>
