@@ -26,12 +26,19 @@ const apple = ref("white")
 const dot5 = ref("white")
 
 const colorStore = useColorStore()
-const {palette} = storeToRefs(colorStore)
+const {palette, boxColors} = storeToRefs(colorStore)
 
-watch(palette, (palette) => {
-  changeColors(palette.colors)
-})
-
+watch(palette, (palette, oldPalette) => {
+    if (palette.colors !== oldPalette?.colors) {
+      boxColors.value = palette.colors
+    }
+  },
+  { deep: true }
+)
+watch(boxColors, (boxColors) => {
+    changeColors(boxColors)
+  },
+)
 const changeColors = (colors) => {
   if (colors.length === 10) {
     background.value = colors[0]
@@ -149,10 +156,6 @@ onMounted(() => {
   transform.value = `translate(${translateX}, ${translateY})`
 });
 
-watch(palette, (palette) => {
-    changeColors(palette.colors)
-  }, {deep: true}
-)
 </script>
 
 <style scoped lang="sass">

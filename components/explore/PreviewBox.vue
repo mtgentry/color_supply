@@ -241,8 +241,10 @@ const changeColors = (colors) => {
   }
 }
 
-watch(palette, (palette) => {
-    boxColors.value = palette.colors
+watch(palette, (palette, oldPalette) => {
+    if (palette.colors !== oldPalette?.colors) {
+      boxColors.value = palette.colors
+    }
   },
   { deep: true }
 )
