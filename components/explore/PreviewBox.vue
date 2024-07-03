@@ -1,6 +1,7 @@
 <template lang="pug">
-  v-card#previewBox(v-if="preview === 0")
+  v-card#previewBox.fade-in(v-if="preview === 0")
     v-card-text.pa-0
+      ExplorePreviewClose(:background="background")
       svg(width='374' height='313' viewBox='0 0 374 313' fill='none' xmlns='http://www.w3.org/2000/svg')
         path(d='M374 313H0V0H374V313Z' :fill="background")
         path(d='M138.273 152H20V45.7912H138.273V152Z' fill='#1D1E20')
@@ -76,7 +77,7 @@
         path(d='M323.238 50.3582L294 101H352.476L323.238 50.3582Z' fill='#1D1E20')
         path(d='M328.264 47.4065L299.025 98.0488H357.501L328.264 47.4065Z' :fill="triangle")
         path(d='M299.524 97.7606H357.004L328.264 47.9816L299.524 97.7606ZM358 98.3359H298.527L328.264 46.831L358 98.3359Z' fill='#1D1E20')
-        path(d='M313.322 82.8118C328.264 96.4452 342.842 82.8118 342.842 82.8118C327.413 68.8766 313.322 82.8118 313.322 82.8118Z' fill='white')
+        path(d='M313.322 82.8118C328.264 96.4452 342.842 82.8118 342.842 82.8118C327.413 68.8766 313.322 82.8118 313.322 82.8118Z' fill='#ffffff')
         path(d='M313.748 82.8082C319.797 88.2159 326.467 89.8471 333.58 87.6551C338.191 86.2344 341.519 83.5723 342.409 82.8099C336.166 77.2819 329.436 75.6139 322.405 77.8533C317.837 79.3074 314.601 82.0363 313.748 82.8082ZM327.617 89.1582C326.461 89.1582 325.317 89.0541 324.186 88.8458C320.297 88.129 316.577 86.1703 313.129 83.0237L312.905 82.8199L313.12 82.6066C313.156 82.5715 316.755 79.0546 322.209 77.312C325.42 76.2861 328.638 76.0634 331.773 76.6498C335.687 77.3822 339.475 79.3832 343.035 82.5977L343.267 82.8077L343.039 83.0215C343.001 83.056 339.282 86.4945 333.77 88.1986C331.703 88.8374 329.644 89.1582 327.617 89.1582Z' fill='#1D1E20')
         path(d='M333.136 82.7448C333.136 85.5361 330.873 87.7988 328.082 87.7988C325.291 87.7988 323.028 85.5361 323.028 82.7448C323.028 79.9535 325.291 77.6908 328.082 77.6908C330.873 77.6908 333.136 79.9535 333.136 82.7448Z' :fill="triangle")
         path(d='M328.082 77.9779C325.454 77.9779 323.316 80.1159 323.316 82.744C323.316 85.3726 325.454 87.5106 328.082 87.5106C330.71 87.5106 332.848 85.3726 332.848 82.744C332.848 80.1159 330.71 77.9779 328.082 77.9779ZM328.082 88.0859C325.136 88.0859 322.74 85.6895 322.74 82.744C322.74 79.799 325.136 77.4026 328.082 77.4026C331.027 77.4026 333.424 79.799 333.424 82.744C333.424 85.6895 331.027 88.0859 328.082 88.0859Z' fill='#1D1E20')
@@ -120,7 +121,7 @@
         path(d='M246.341 63.6138H196.369L189.044 86.2246H239.016L246.341 63.6138Z' :fill="folder")
         path(d='M189.704 85.7482H238.665L245.681 64.0904H196.72L189.704 85.7482ZM239.366 86.7012H188.384L196.018 63.1374H247L239.366 86.7012Z' fill='#1D1E20')
         path(d='M211 77.2773L212.722 103.063L218.732 98.052L228.462 115L232.307 112.285L222.944 95.5626L224.189 88.0584L211 77.2773Z' fill='#1D1E20')
-        path(d='M213.203 72.834L214.926 98.6198L220.934 93.6086L230.664 110.557L234.51 107.842L225.146 91.12L231.513 87.8018L213.203 72.834Z' fill='white')
+        path(d='M213.203 72.834L214.926 98.6198L220.934 93.6086L230.664 110.557L234.51 107.842L225.146 91.12L231.513 87.8018L213.203 72.834Z' fill='#ffffff')
         path(d='M221.036 93.0378L230.783 110.016L234.019 107.732L224.632 90.9679L230.837 87.7337L213.632 73.6691L215.249 97.8639L221.036 93.0378ZM230.544 111.1L220.831 94.1819L214.601 99.3776L212.772 72.0006L232.187 87.8725L225.66 91.2746L235 107.954L230.544 111.1Z' fill='#1D1E20')
       ExplorePreviewInfo(v-if="info")
       ExplorePreviewButtons
@@ -129,18 +130,19 @@
 </template>
 
 <script setup>
-const defaultArea = ref('white')
-const background = ref('white')
-const ok_background = ref('white')
-const stairs = ref('white')
-const door_background = ref('white')
-const door_light = ref('white')
-const triangle = ref('white')
-const folder = ref('white')
-const cloud = ref('white')
-const door_circle = ref('white')
-const ok_text = ref('white')
+const defaultArea = ref('#ffffff')
+const background = ref('#ffffff')
+const ok_background = ref('#ffffff')
+const stairs = ref('#ffffff')
+const door_background = ref('#ffffff')
+const door_light = ref('#ffffff')
+const triangle = ref('#ffffff')
+const folder = ref('#ffffff')
+const cloud = ref('#ffffff')
+const door_circle = ref('#ffffff')
+const ok_text = ref('#ffffff')
 const items = [background, ok_background, stairs, door_background, door_light, triangle, folder, cloud, door_circle, ok_text]
+
 
 const colorStore = useColorStore()
 const filterStore = useFilterStore()
@@ -195,7 +197,7 @@ const changeColors = (colors) => {
     triangle.value = colors[5]
   } else if (colors.length === 6) {
     ok_text.value = colors[3]
-    door_circle.value = 'white'
+    door_circle.value = '#ffffff'
     cloud.value = colors[5]
     folder.value = colors[4]
     triangle.value = colors[5]
@@ -268,4 +270,6 @@ onMounted(() => {
   right: 30px
   display: flex
   flex-direction: column
+  transition: all 0.5s ease-in
+
 </style>

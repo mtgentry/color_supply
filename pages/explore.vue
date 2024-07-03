@@ -1,12 +1,11 @@
 <template lang="pug">
-  v-row#explore
+  v-row#explore(v-auto-animate="{ duration: 100 }")
     v-col#filter(cols="2")
       ExploreFilter
     v-col#palettes()
       ExplorePalettes
     ExplorePreviewBox
-
-
+    ExplorePreviewOpen
 </template>
 
 <script setup>

@@ -8,9 +8,6 @@
       svg(width='35' height='23' viewBox='0 0 35 23' fill='none' xmlns='http://www.w3.org/2000/svg')
         path(d='M0.5 0.539062H34.5V21.5391H0.5V0.539062Z' fill='white' :stroke='selected === 1 ? color1 : color5')
         path(d='M25 3.03906H32V19.0391H25V3.03906Z' :fill='selected === 1 ? color1 : color5')
-    v-btn
-      svg(width='35' height='23' viewBox='0 0 35 23' fill='none' xmlns='http://www.w3.org/2000/svg')
-        path(d='M0.5 0.539062H34.5V21.5391H0.5V0.539062Z' fill='white' :stroke='selected === 2 ? color1 : color5')
 </template>
 
 <script setup>

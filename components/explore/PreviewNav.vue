@@ -1,7 +1,8 @@
 <template lang="pug">
   div#explorePreviewNav
+    ExplorePreviewClose(:background="background")
     svg(width='374' height='1760' viewbox='0 0 374 1760' fill='none' xmlns='http://www.w3.org/2000/svg')
-      path(d='M374 1854H0V0H374V1854Z' fill='white')
+      path(d='M374 1854H0V0H374V1854Z' fill='#ffffff')
       path(d='M374 1854H0V-0.00012207H374V1854Z' :fill='background')
       path(d='M297.773 272.655H236.507V264.299H211V272.655V280.082V325.109H297.773L310.493 285.539H297.773V272.655Z' fill='#382B17')
       path(d='M245.265 255.944H219.759V271.727H245.265V255.944Z' :fill='folder2')
@@ -160,7 +161,7 @@
       path(d='M298.883 471.104L250 556H347.765L298.883 471.104Z' fill='#1D1E20')
       path(d='M307.285 466.156L258.402 551.053H356.167L307.285 466.156Z' :fill='triangle')
       path(d='M259.235 550.571H355.335L307.285 467.121L259.235 550.571ZM357 551.535H257.569L307.285 465.192L357 551.535Z' fill='#1D1E20')
-      path(d='M282.305 525.508C307.285 548.363 331.658 525.508 331.658 525.508C305.862 502.147 282.305 525.508 282.305 525.508Z' fill='white')
+      path(d='M282.305 525.508C307.285 548.363 331.658 525.508 331.658 525.508C305.862 502.147 282.305 525.508 282.305 525.508Z' fill='#ffffff')
       path(d='M283.016 525.503C293.129 534.569 304.281 537.303 316.173 533.629C323.881 531.247 329.445 526.784 330.933 525.506C320.496 516.239 309.245 513.443 297.489 517.197C289.852 519.635 284.443 524.209 283.016 525.503ZM306.203 536.148C304.271 536.148 302.358 535.974 300.468 535.625C293.966 534.423 287.746 531.14 281.981 525.865L281.606 525.523L281.967 525.165C282.026 525.107 288.043 519.211 297.161 516.289C302.53 514.57 307.91 514.196 313.152 515.179C319.695 516.407 326.029 519.762 331.98 525.15L332.368 525.502L331.986 525.861C331.924 525.919 325.705 531.683 316.491 534.54C313.035 535.611 309.592 536.148 306.203 536.148Z' fill='#1D1E20')
       path(d='M315.431 525.397C315.431 530.076 311.648 533.869 306.981 533.869C302.314 533.869 298.531 530.076 298.531 525.397C298.531 520.717 302.314 516.924 306.981 516.924C311.648 516.924 315.431 520.717 315.431 525.397Z' :fill='eye')
       path(d='M306.981 517.406C302.587 517.406 299.013 520.991 299.013 525.396C299.013 529.803 302.587 533.387 306.981 533.387C311.375 533.387 314.95 529.803 314.95 525.396C314.95 520.991 311.375 517.406 306.981 517.406ZM306.981 534.352C302.056 534.352 298.051 530.334 298.051 525.396C298.051 520.459 302.056 516.442 306.981 516.442C311.906 516.442 315.912 520.459 315.912 525.396C315.912 530.334 311.906 534.352 306.981 534.352Z' fill='#1D1E20')
@@ -174,7 +175,7 @@
       path(d='M325.252 462.482C325.132 462.482 325.013 462.439 324.92 462.35C324.727 462.166 324.72 461.861 324.903 461.668L334.293 451.797C334.476 451.605 334.78 451.597 334.972 451.781C335.164 451.965 335.172 452.271 334.988 452.463L325.6 462.333C325.505 462.433 325.378 462.482 325.252 462.482Z' fill='#1D1E20')
       path(d='M330.77 473.775C330.605 473.775 330.444 473.69 330.355 473.536C330.221 473.307 330.298 473.012 330.527 472.876L339.088 467.852C339.317 467.717 339.611 467.795 339.745 468.024C339.879 468.254 339.803 468.549 339.573 468.684L331.013 473.709C330.937 473.754 330.853 473.775 330.77 473.775Z' fill='#1D1E20')
       path(d='M286 306.923L289.848 364.491L303.274 353.303L325.015 391.141L333.606 385.079L312.685 347.746L315.468 330.992L286 306.923Z' fill='#1D1E20')
-      path(d='M290.922 297.005L294.77 354.573L308.195 343.385L329.935 381.223L338.526 375.161L317.606 337.829L331.83 330.421L290.922 297.005Z' fill='white')
+      path(d='M290.922 297.005L294.77 354.573L308.195 343.385L329.935 381.223L338.526 375.161L317.606 337.829L331.83 330.421L290.922 297.005Z' fill='#ffffff')
       path(d='M308.425 342.108L330.202 380.013L337.432 374.912L316.458 337.487L330.322 330.266L291.883 298.866L295.493 352.882L308.425 342.108ZM329.667 382.432L307.965 344.662L294.046 356.262L289.96 295.141L333.339 330.576L318.756 338.171L339.623 375.408L329.667 382.432Z' fill='#1D1E20')
       path(d='M292.614 73.7487C297.193 56.8623 312.624 44.4421 330.958 44.4421C346.835 44.4421 360.534 53.7561 366.896 67.2176C369.719 66.3024 372.731 65.8044 375.86 65.8044C391.903 65.8044 404.907 78.8099 404.907 94.8522C404.907 110.894 391.903 123.898 375.86 123.898H295.138C281.254 123.898 270 112.644 270 98.7605C270 85.7291 279.915 75.0148 292.614 73.7487Z' fill='#1D1E20')
       path(d='M298.901 62.1397C303.48 45.2549 318.911 32.8347 337.245 32.8347C353.122 32.8347 366.821 42.1487 373.183 55.6086C376.006 54.6934 379.019 54.197 382.147 54.197C398.19 54.197 411.195 67.2025 411.195 83.2448C411.195 99.2871 398.19 112.291 382.147 112.291H301.425C287.541 112.291 276.287 101.037 276.287 87.1531C276.287 74.1217 286.203 63.4058 298.901 62.1397Z' :fill='clouds')
@@ -297,38 +298,40 @@
 </template>
 
 <script setup>
-const defaultArea = ref('white')
-const background = ref('white')
-const clouds = ref('white')
-const cloud2 = ref('white')
-const no_background = ref('white')
-const rainbow_background = ref('white')
-const rainbow2 = ref('white')
-const rainbow3 = ref('white')
-const rainbow4 = ref('white')
-const rainbow5 = ref('white')
-const rainbow6 = ref('white')
-const rainbow7 = ref('white')
-const folder1 = ref('white')
-const folder2 = ref('white')
-const folder3 = ref('white')
-const folder4 = ref('white')
-const folder5 = ref('white')
-const folder6 = ref('white')
-const ok_background = ref('white')
-const no_text = ref('white')
-const ok_text = ref('white')
-const sun = ref('white')
-const sun_top = ref('white')
-const sun_background = ref('white')
-const door_background = ref('white')
-const stairs = ref('white')
-const ball = ref('white')
-const triangle = ref('white')
-const eye = ref('white')
+const defaultArea = ref('#ffffff')
+const background = ref('#ffffff')
+const clouds = ref('#ffffff')
+const cloud2 = ref('#ffffff')
+const no_background = ref('#ffffff')
+const rainbow_background = ref('#ffffff')
+const rainbow2 = ref('#ffffff')
+const rainbow3 = ref('#ffffff')
+const rainbow4 = ref('#ffffff')
+const rainbow5 = ref('#ffffff')
+const rainbow6 = ref('#ffffff')
+const rainbow7 = ref('#ffffff')
+const folder1 = ref('#ffffff')
+const folder2 = ref('#ffffff')
+const folder3 = ref('#ffffff')
+const folder4 = ref('#ffffff')
+const folder5 = ref('#ffffff')
+const folder6 = ref('#ffffff')
+const ok_background = ref('#ffffff')
+const no_text = ref('#ffffff')
+const ok_text = ref('#ffffff')
+const sun = ref('#ffffff')
+const sun_top = ref('#ffffff')
+const sun_background = ref('#ffffff')
+const door_background = ref('#ffffff')
+const stairs = ref('#ffffff')
+const ball = ref('#ffffff')
+const triangle = ref('#ffffff')
+const eye = ref('#ffffff')
 
 const colorStore = useColorStore()
 const {palette, info, boxColors} = storeToRefs(colorStore)
+const filterStore = useFilterStore()
+const {preview} = storeToRefs(filterStore)
 const changeColors = (colors) => {
   background.value = colors[0]
   clouds.value = colors[1]
@@ -427,7 +430,6 @@ const changeColors = (colors) => {
 
   }
 }
-
 watch(palette, (palette, oldPalette) => {
     if (palette.colors !== oldPalette?.colors) {
       boxColors.value = palette.colors
@@ -449,7 +451,6 @@ onMounted(() => {
 #button-overlay
   position: absolute
   bottom: 0
-  background-color: white
+  background-color: #ffffff
   width: 100%
-
 </style>
