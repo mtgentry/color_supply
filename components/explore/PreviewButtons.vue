@@ -22,7 +22,6 @@
       | Adjust
     div.clickable#extra(@click="togglePreviews")
       svg(xmlns='http://www.w3.org/2000/svg' width='33' height='28' viewbox='0 0 33 32' fill='none')
-        rect(width='32' height='30' fill='white')
         circle(cx='16' cy='16' r='16' fill='white')
         circle(cx='2' cy='2' r='2' transform='matrix(-1.19249e-08 1 1 1.19249e-08 14 14)' :fill='showPreviews ? "var(--color1)" : "#D9DBDF"')
         circle(cx='2' cy='2' r='2' transform='matrix(-1.19249e-08 1 1 1.19249e-08 22 14)' :fill='showPreviews ? "var(--color1)" : "#D9DBDF"')
@@ -87,4 +86,5 @@ onMounted(() => {
   #extra
     position: absolute
     right: 5px
+    z-index: 11
 </style>
