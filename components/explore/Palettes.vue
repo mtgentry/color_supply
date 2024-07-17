@@ -73,7 +73,7 @@ const load = async ($state) => {
   const response = await fetch(next.value, 'get', {
     mode: mode.value,
     style: style.value,
-    qty: qty.value,
+    qty: harmony_arg ? undefined : qty.value,
     harmony: harmony_arg,
     colors: color_arg
   })

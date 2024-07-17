@@ -10,14 +10,15 @@
         v-checkbox.px-5(v-model="style"  :label="t.title" :value="t.value" hide-details true-icon="mdi-close-box-outline")
         v-divider(v-if="t !== styles[styles.length - 1]")
     ExploreExpansionPanel#slider(title="QTY")
-      v-range-slider.px-5.pb-5(:min="2" :max="5" v-model="qtyLocal" :step="1" @end="changeQty" thumb-label="always" show-ticks="always" hide-details)
+      v-range-slider.px-5.pb-5(:min="2" :max="5" v-model="qtyLocal" :step="1" @end="changeQty" thumb-label="always" show-ticks="always"
+        hide-details :disabled="colorTab !== 'color'")
     ExploreExpansionPanel#harmony(title="Color" eager)
       ExploreColor
 </template>
 
 <script setup>
 const filterStore = useFilterStore()
-const { mode, style, qty } = storeToRefs(filterStore)
+const { mode, style, qty, colorTab } = storeToRefs(filterStore)
 const activePanel = ref([0, 1, 2, 3, 4])
 const qtyLocal = ref(qty.value)
 
