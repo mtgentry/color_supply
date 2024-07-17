@@ -59,7 +59,11 @@ watch(style, (value, oldValue) => {
 </script>
 
 <style scoped lang="sass">
+#panels
+  padding-left: 24px
 
+:deep(.v-expansion-panel-title)
+  padding: 16px 24px 16px 0
 :deep(.v-slider-thumb__label)
   top: calc(var(--v-slider-thumb-size) * 1.4)!important
 
