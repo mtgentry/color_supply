@@ -2,10 +2,10 @@
   v-navigation-drawer#preview-drawer(location="right" v-if="preview===1" width="374")
     ExplorePreviewNav
   v-container#paletteResults(fluid)
-    v-row
+    v-row(v-auto-animate="{ duration: 300 }")
       v-col(md="4" v-for='(palette, index) in palettes' :key='index')
         v-container(fluid)
-          v-row
+          v-row()
             v-col.pa-0(cols="12")
               ColorsDisplay(:palette='palette')
             v-col#actions.pa-0(cols="12")
@@ -16,17 +16,18 @@
                   @click="favorite(palette.id)")
                 #count {{ palette.favorite_count }}
                 img(src='/img/icons/dots.svg')
-      InfiniteLoading(@infinite="load" :key="renderKey")
-        template(#spinner)
-          v-row#loading
-            v-col(cols="4" v-for='index in [1,2,3]' :key='index')
-              v-skeleton-loader(:loading="true"  type="heading")
+  InfiniteLoading(@infinite="load" :key="renderKey")
+    template(#spinner)
+      v-row#loading
+        v-col(cols="4" v-for='index in [1,2,3]' :key='index')
+          v-skeleton-loader(:loading="true"  type="heading")
 </template>
 
 <script setup>
 import InfiniteLoading from "v3-infinite-loading"
 import "v3-infinite-loading/lib/style.css"
 const renderKey = ref(0)
+const loading = ref(false)
 const { status } = useAuth()
 const filterStore = useFilterStore()
 const colorStore = useColorStore()
@@ -40,6 +41,10 @@ const store = useFilterStore()
 const {preview} = storeToRefs(store)
 
 const load = async ($state) => {
+  if (loading.value) {
+    return
+  }
+  loading.value = true
   if (last_next.value === next.value) {
     return
   }
@@ -62,7 +67,7 @@ const load = async ($state) => {
   }
 
   if (colorTab.value === 'list') {
-     harmony_arg = harmony.value
+    harmony_arg = harmony.value
   }
   last_next.value =  next.value === 'palettes/list/' ? null : next.value
   const response = await fetch(next.value, 'get', {
@@ -76,10 +81,16 @@ const load = async ($state) => {
     return
   }
   if (next.value === 'palettes/list/') {
-    palettes.value = response.results
+    setTimeout(() => {
+      palettes.value = response.results
+      loading.value = false
+    }, 300)
   } else {
-    let filtered = response.results.filter(p => !palettes.value.find(p2 => p2.id === p.id))
-    palettes.value = [...palettes.value, ...filtered]
+    setTimeout(() => {
+      let filtered = response.results.filter(p => !palettes.value.find(p2 => p2.id === p.id))
+      palettes.value = [...palettes.value, ...filtered]
+      loading.value = false
+    }, 300)
   }
 
   if (!response.next) {
