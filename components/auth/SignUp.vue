@@ -11,7 +11,7 @@
       placeholder="Colorfan19#" :hint="!v$.password.$invalid ? '' : 'At least 8 characters, with a number or symbol'"  :error-messages="v$.password.$errors.map(e => e.$message)"
         variant="outlined" :append-inner-icon="showPassword ? 'mdi-eye-off' : 'mdi-eye'"  @click:append-inner="showPassword = !showPassword"
         @blur="v$.password.$touch" autocomplete="new-password")
-      v-btn#submit(color="primary" text @click="signup" :disabled="pending" flat) Create Free Account
+      v-btn#submit(color="primary" text @click="signup" :disabled="pending || v$.$invalid" flat) Create Free Account
       slot(name="footer")
         div.text-center
           p By continuing you agree to our Terms of Service and Privacy Policy.
