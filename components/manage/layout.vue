@@ -1,12 +1,12 @@
 <template lang="pug">
   v-row
-    v-col#nav.pa-0(cols="1")
-      v-list(density="compact" )
-        v-list-item
+    v-col#nav(cols="2")
+      v-list.pa-0(density="compact" )
+        v-list-item.pa-0
           nuxt-link(to="general") General
-        v-list-item
+        v-list-item.pa-0
           nuxt-link(to="plan") Plan
-      div.pa-5.centered
+      div.pa-0.centered
         v-dialog(max-width='500')
           template(v-slot:activator='{ props: activatorProps }')
             v-btn#delete(color="red" variant="outlined" v-bind='activatorProps') Delete Account
@@ -18,10 +18,10 @@
                   variant="outlined" :append-inner-icon="showPassword ? 'mdi-eye-off' : 'mdi-eye'"  @click:append-inner="showPassword = !showPassword"
                   :error="error" :error-messages="error ? [error] : []")
               v-card-actions
-                v-btn(color='red' text @click='deleteAccount') Delete Account
+                v-btn#delete(color='red' text @click='deleteAccount') Delete Account
                 v-spacer
                 v-btn(text='No' @click='isActive.value = false')
-    v-col#content.pa-0(cols="11")
+    v-col#content.pa-0(cols="10")
       slot
 </template>
 
@@ -58,6 +58,7 @@ const deleteAccount = async () => {
   flex-direction: column
   justify-content: space-between
   font-size: 18px
+  padding: 16px 24px 24px 24px
 
 .v-list
   background-color: var(--color6)
@@ -80,5 +81,6 @@ a
 a:hover
   color: var(--color1)
 
-
+#delete
+  width: 100%
 </style>
