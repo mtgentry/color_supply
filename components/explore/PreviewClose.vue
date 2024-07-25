@@ -12,8 +12,9 @@ const props = defineProps(
   }
 )
 const filterStore = useFilterStore()
-const {preview} = storeToRefs(filterStore)
+const {preview, previousPreview} = storeToRefs(filterStore)
 const closePreview = () => {
+  previousPreview.value = preview.value
   preview.value = 2
 }
 

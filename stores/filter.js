@@ -6,6 +6,7 @@ export const useFilterStore = defineStore('filter', () =>{
   const harmonies = ref(['complementary', 'split-complementary', 'analogous', 'triad', 'square'])
   const harmony = ref('complementary')
   const preview = ref(2)
+  const previousPreview = ref(0)
   const colors = ref([])
   const wheel_color = ref('#F03872')
   const colorTab = ref('color')
@@ -37,6 +38,7 @@ export const useFilterStore = defineStore('filter', () =>{
     harmonies,
     wheel_color,
     colorTab,
-    showPreviews
+    showPreviews,
+    previousPreview
   }
 })
