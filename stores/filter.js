@@ -5,7 +5,7 @@ export const useFilterStore = defineStore('filter', () =>{
   const qty = ref([2, 5])
   const harmonies = ref(['complementary', 'split-complementary', 'analogous', 'triad', 'square'])
   const harmony = ref('complementary')
-  const preview = ref(0)
+  const preview = ref(2)
   const colors = ref([])
   const wheel_color = ref('#F03872')
   const colorTab = ref('color')
