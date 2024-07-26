@@ -72,7 +72,8 @@ $transition-time: 0.8s
   position: relative
 
 .ghost
-  opacity: 0.1!important
+  opacity: 0.15!important
+  filter: saturate(90%)
   border: unset!important
   top: 0!important
   left: 0!important
