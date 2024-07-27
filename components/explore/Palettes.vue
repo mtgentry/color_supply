@@ -1,7 +1,7 @@
 <template lang="pug">
   v-navigation-drawer#preview-drawer(location="right" v-if="preview===1" width="374")
     ExplorePreviewNav
-  v-container#paletteResults(fluid)
+  v-container#paletteResults(fluid v-if="palettes.length")
     v-row(v-auto-animate="{ duration: 300 }")
       v-col(md="4" v-for='(palette, index) in palettes' :key='index')
         v-container(fluid)
@@ -19,8 +19,8 @@
   InfiniteLoading(@infinite="load" :key="renderKey")
     template(#spinner)
       v-row#loading
-        v-col(cols="4" v-for='index in [1,2,3]' :key='index')
-          v-skeleton-loader(:loading="true"  type="heading")
+        v-col(cols="4" v-for='index in loadingNumber' :key='index')
+          ColorsDisplay(:palette='loadingPalette' noSelect readonly)
 </template>
 
 <script setup>
@@ -36,6 +36,11 @@ const { palettes } = storeToRefs(colorStore)
 const next = ref('palettes/list/')
 const state = ref()
 const last_next = ref()
+const loadingPalette = ref({colors: ['#f5eded', ], id: 'none'})
+
+const loadingNumber = computed(() => {
+  return palettes.value.length ? 3 : 30
+})
 
 const store = useFilterStore()
 const {preview} = storeToRefs(store)
