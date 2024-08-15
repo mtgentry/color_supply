@@ -1,5 +1,5 @@
 <template lang="pug">
-  v-row#explore(v-auto-animate="{ duration: 100 }")
+  v-row#explore(v-auto-animate="{ duration: 200 }")
     v-col#filter(cols="2")
       ExploreFilter
     v-col#palettes

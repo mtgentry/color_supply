@@ -1,5 +1,5 @@
 <template lang="pug">
-  v-card#previewBox.fade-in(v-if="preview === 0")
+  v-card#previewBox(v-if="preview === 0")
     v-card-text.pa-0
       ExplorePreviewClose(:background="background")
       svg(width='374' height='313' viewBox='0 0 374 313' fill='none' xmlns='http://www.w3.org/2000/svg')
@@ -270,6 +270,4 @@ onMounted(() => {
   right: 30px
   display: flex
   flex-direction: column
-  transition: all 0.5s ease-in
-
 </style>
