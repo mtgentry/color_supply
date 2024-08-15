@@ -1,5 +1,5 @@
 <template lang="pug">
-  v-navigation-drawer#preview-drawer(location="right" v-if="preview===1" width="374")
+  v-navigation-drawer#preview-drawer(location="right" v-if="preview===1" width="374" touchless)
     ExplorePreviewNav
   v-container#paletteResults(fluid v-if="palettes.length")
     v-row(v-auto-animate="{ duration: 300 }")

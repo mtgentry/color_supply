@@ -1,6 +1,6 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
-  devtools: { enabled: true },
+  devtools: { enabled: process.env.IS_DEV },
   ssr: false,
   css: [
     '~/assets/css/custom.sass',
@@ -9,17 +9,18 @@ export default defineNuxtConfig({
     public: {
       BASE_URL: process.env.BASE_URL,
       baseURL: process.env.BASE_URL,
+      IS_DEV: process.env.IS_DEV,
     },
   },
   nitro: {
-    compressPublicAssets: true,
+    compressPublicAssets: !process.env.IS_DEV,
   },
   spaLoadingTemplate: true,
   app: {
     head: {
       charset: 'utf-8',
       viewport: 'width=device-width, initial-scale=1',
-      script: [
+      script: process.env.IS_DEV ? [] : [
         { src: 'https://cdn.amplitude.com/libs/analytics-browser-2.7.4-min.js.gz' },
         { src: 'https://cdn.amplitude.com/libs/plugin-session-replay-browser-1.4.1-min.js.gz' },
         { src: 'https://cdn.amplitude.com/libs/plugin-autocapture-browser-0.9.0-min.js.gz'},
@@ -39,7 +40,7 @@ export default defineNuxtConfig({
           charset: 'utf-8'
         }
       ],
-      __dangerouslyDisableSanitizersByTagID: {
+      __dangerouslyDisableSanitizersByTagID: process.env.IS_DEV ? {} : {
         amplitude: ['innerHTML']
       }
     },
@@ -61,6 +62,11 @@ export default defineNuxtConfig({
     'nuxt-snackbar'
   ],
   vuetify: {
+    moduleOptions: {
+      styles: {
+        configFile: 'assets/css/variables.scss',
+      }
+    },
     vuetifyOptions: {
       theme: {
         themes: {
