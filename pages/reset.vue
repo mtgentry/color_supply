@@ -18,7 +18,7 @@ import {required, helpers, email} from '@vuelidate/validators'
 const snackbar = useSnackbar()
 definePageMeta({
   middleware: ['auth'],
-  auth: { unauthenticatedOnly: true, navigateAuthenticatedTo: '/explore' },
+  auth: { unauthenticatedOnly: true, navigateAuthenticatedTo: '/palettes' },
   layout: 'auth',
 })
 useHead({

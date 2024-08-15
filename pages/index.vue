@@ -4,7 +4,7 @@
 
 <script setup>
 const router = useRouter()
-router.push('/explore')
+router.push('/palettes')
 </script>
 
 <style scoped lang="sass">

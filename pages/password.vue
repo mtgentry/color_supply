@@ -21,7 +21,7 @@ const router = useRouter()
 
 definePageMeta({
   middleware: ['auth'],
-  auth: { unauthenticatedOnly: true, navigateAuthenticatedTo: '/explore' },
+  auth: { unauthenticatedOnly: true, navigateAuthenticatedTo: '/palettes' },
   layout: 'auth',
   title: 'Password Reset',
 })
@@ -31,7 +31,7 @@ useHead({
 const key = route.query.key
 
 if (!key) {
-  router.push('/explore')
+  router.push('/palettes')
 }
 
 const error_message = ref('')

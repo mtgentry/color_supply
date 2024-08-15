@@ -1,7 +1,7 @@
 <template lang="pug">
   v-app-bar(elevation="0" app)
     template(v-slot:prepend)
-      nuxt-link(to="/explore")
+      nuxt-link(to="/palettes")
         img#logo(src="/img/rainbow.svg" height="40" contain)
     template(v-slot:append)
       div(v-if="status === 'unauthenticated'")
@@ -26,7 +26,7 @@
                 v-list-item Bug report & feedback
                 v-list-item(@click="logout") Log Out
     v-toolbar-title
-      nuxt-link(to="/explore") Explore
+      nuxt-link(to="/palettes") Palettes
       nuxt-link(to="/create") Create
       nuxt-link(to="/visualize") Visualize
 </template>
@@ -46,7 +46,7 @@ const logout = () => {
   signOut()
   const route = useRoute()
   if (route.name.includes('manage')) {
-    navigateTo('/explore')
+    navigateTo('/palettes')
   }
   snackbar.add({
     type: 'info',

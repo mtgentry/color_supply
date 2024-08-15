@@ -59,7 +59,7 @@ const v$ = useVuelidate(rules, state)
 const login = async () => {
   try {
     pending.value = true
-    await signIn({ email: state.email, password: state.password }, {callbackUrl: '/explore'})
+    await signIn({ email: state.email, password: state.password }, {callbackUrl: '/palettes'})
     const was_logged = useCookie('was_logged')
     was_logged.value = true
     dialogStore.changeLoginForm(false)

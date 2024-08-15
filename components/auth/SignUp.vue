@@ -32,7 +32,7 @@ const props = defineProps({
 
 const {data} = useAuth()
 if (data.value) {
-  navigateTo('/explore')
+  navigateTo('/palettes')
 }
 
 const pending = ref(false)
@@ -74,7 +74,7 @@ const v$ = useVuelidate(rules, state)
 const signup = async () => {
   emailError.value = null
   pending.value = true
-  await signUp(state, {callbackUrl: '/explore'}).catch((e) => {
+  await signUp(state, {callbackUrl: '/palettes'}).catch((e) => {
     if (e.data.email) {
       emailError.value = 'Email already in use.'
     }
