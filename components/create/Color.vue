@@ -1,6 +1,6 @@
 <template lang="pug">
   div
-    div.color.top-right.bottom-left(:style="{backgroundColor: createColors[index]}"
+    div.color(:style="{backgroundColor: createColors[index]}"
       :class="{active: index === selectedColor, bright: hsl.l <= brigtness, darker: hsl.l > brigtness, disabled}" @click="activate")
       div.top-right
       div.bottom-left

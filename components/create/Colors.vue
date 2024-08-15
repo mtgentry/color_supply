@@ -72,15 +72,17 @@ $transition-time: 0.8s
   position: relative
 
 .ghost
-  opacity: 0.15!important
-  filter: saturate(90%)
-  border: unset!important
+  opacity: 0.55!important
+  filter: saturate(20%)
+  border: none!important
   top: 0!important
   left: 0!important
   transition: none!important
 
-  &::before, &::after, :deep(.top-right::before), :deep(.bottom-left::before)
+  :deep(::before), :deep(::after), :deep(div.top-right::before), :deep(div.bottom-left::before)
     display: none!important
+  :deep(.active)
+    border: none!important
 
 :deep(.flip-list-move)
   transition: transform 2s
