@@ -1,4 +1,5 @@
 <template lang="pug">
+  //was 'explore' before
   v-row#explore(v-auto-animate="{ duration: 200 }")
     v-col#filter(cols="2")
       ExploreFilter

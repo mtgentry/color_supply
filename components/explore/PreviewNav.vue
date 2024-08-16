@@ -289,8 +289,9 @@
       path(d='M282.529 1605.09H298.157V1589.46H282.529V1605.09ZM300.14 1607.07H280.546V1587.47H300.14V1607.07Z' fill='#1D1E20')
       path(d='M264.917 1605.09H280.546V1589.46H264.917V1605.09ZM282.529 1607.07H262.935V1587.47H282.529V1607.07Z' fill='#1D1E20')
       path(d='M300.14 1605.09H315.768V1589.46H300.14V1605.09ZM317.751 1607.07H298.157V1587.47H317.751V1607.07Z' fill='#1D1E20')
-  div#button-overlay.centered
-    ExplorePreviewInfo(v-if="info")
+  div#button-overlay
+    div(v-auto-animate="{ easing: 'ease-in-out' }")
+      ExplorePreviewInfo(v-if="info")
     ExplorePreviewButtons
 
 
