@@ -26,7 +26,7 @@
     v-window-item(value='color' transition="none" reverse-transition="none")
       ExploreHarmonyColors
     v-window-item(value='wheel' transition="none" reverse-transition="none")
-      ExploreHarmony.px-5
+      ExploreHarmony.pa-0
     v-window-item(value='list'  transition="none" reverse-transition="none")
       ExploreHarmonyList
 
@@ -59,5 +59,8 @@ const { colorTab } = storeToRefs(filterStore)
   opacity: 0!important
 
 :deep(.v-btn--size-default)
+  padding: 0!important
+
+:deep(.v-selection-control)
   padding: 0!important
 </style>

@@ -7,10 +7,11 @@
     //      v-divider(v-if="m !== modes[modes.length - 1]")
     ExploreExpansionPanel(title="Style")
       div(v-for="t in styles" :key="t")
-        v-checkbox.px-5(v-model="style"  :label="t.title" :value="t.value" hide-details true-icon="mdi-close-box-outline")
+        v-checkbox(v-model="style"  :label="t.title" :value="t.value" hide-details true-icon="mdi-close-box-outline")
         v-divider(v-if="t !== styles[styles.length - 1]")
     ExploreExpansionPanel#slider(title="QTY")
-      v-range-slider.px-5.pb-5(:min="2" :max="5" v-model="qtyLocal" :step="1" @end="changeQty" thumb-label="always" show-ticks="always"
+      v-range-slider.pb-5.pl-2(:min="2" :max="5" v-model="qtyLocal" :step="1" @end="changeQty"
+        thumb-label="always" show-ticks="always" width="125px"
         hide-details :disabled="colorTab !== 'color'")
     ExploreExpansionPanel#harmony(title="Color" eager)
       ExploreColor
@@ -61,7 +62,7 @@ watch(style, (value, oldValue) => {
 
 <style scoped lang="sass">
 #panels
-  padding-left: 24px
+  padding-left: 10px
 
 :deep(.v-expansion-panel-title)
   padding: 16px 24px 16px 0
@@ -125,6 +126,7 @@ watch(style, (value, oldValue) => {
 //  min-height: 20px
 
 #slider
+
   :deep(.v-expansion-panel-text)
     min-height: 70px
 
@@ -138,4 +140,7 @@ watch(style, (value, oldValue) => {
 
 #harmony
   position: relative
+
+  :deep(.v-expansion-panel-text)
+    margin-left: -10px
 </style>

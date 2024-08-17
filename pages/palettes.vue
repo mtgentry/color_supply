@@ -15,7 +15,7 @@
 
 <style scoped lang="sass">
 #filter
-  min-width: 310px
+  max-width: 188px
   padding: 0
   background-color: var(--color7)
   height: calc(100vh - 64px)

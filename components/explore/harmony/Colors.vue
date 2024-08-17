@@ -1,6 +1,6 @@
 <template lang="pug">
   v-container.pt-5
-    v-row.px-5.py-1
+    v-row.py-1
       v-col.pa-1(cols="3" v-for="(color, name) in colors")
         ExploreHarmonyColor(:key="color" :color="color" :title="name")
 
