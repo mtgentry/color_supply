@@ -36,7 +36,7 @@ const { palettes } = storeToRefs(colorStore)
 const next = ref('palettes/list/')
 const state = ref()
 const last_next = ref()
-const loadingPalette = ref({colors: ['#f5eded', ], id: 'none'})
+const loadingPalette = ref({colors: ['#FBFBFA', ], id: 'none'})
 
 const loadingNumber = computed(() => {
   return palettes.value.length ? 3 : 30
