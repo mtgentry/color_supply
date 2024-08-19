@@ -30,6 +30,7 @@ const selectPalette = () => {
   hue.value = 179
   saturation.value = 0
   lightness.value = 0
+  store.addRecentPalette(props.palette)
 }
 
 const isSelected = computed(() => {

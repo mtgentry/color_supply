@@ -28,6 +28,10 @@ const dot5 = ref("white")
 const colorStore = useColorStore()
 const {palette, boxColors} = storeToRefs(colorStore)
 
+onMounted(() => {
+  changeColors(palette.value.colors)
+})
+
 watch(palette, (palette, oldPalette) => {
     if (palette.colors !== oldPalette?.colors) {
       boxColors.value = palette.colors

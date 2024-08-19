@@ -8,7 +8,7 @@
         v-label(v-else) Recent
       v-col.centered(md="12" v-if="pending")
         v-progress-circular(indeterminate)
-      v-col(md="12" :key="index" v-for="(palette, index) in visualizePalettes?.results" v-else)
+      v-col(md="12" :key="index" v-for="(palette, index) in visualizePalettes" v-else)
         ColorsDisplay(:palette='palette' rounded)
 </template>
 
@@ -21,17 +21,23 @@ const props = defineProps({
 })
 const colorStore = useColorStore()
 const toggle = ref('recent')
-const { palettes } = storeToRefs(colorStore)
-const {data: visualizePalettes, pending} = useApi('palettes/list/',  {
-  toggle: toggle
-}, 'get')
+const { palettes, recentPalettes } = storeToRefs(colorStore)
+const visualizePalettes = ref(recentPalettes.value)
 
-watch(visualizePalettes, () => {
-  if (props.selectFirst && visualizePalettes.value.results.length > 0) {
-    colorStore.selectPalette(visualizePalettes.value.results[0])
+onMounted(() => {
+  colorStore.selectPalette(visualizePalettes.value[0])
+})
+const {data: favorites, pending, execute} = useApi('palettes/list/',  {
+  toggle: toggle
+}, 'get', {immediate: false})
+watch(toggle, async (value) => {
+  if (value === 'recent') {
+    visualizePalettes.value = recentPalettes.value
+  } else {
+    await execute()
+    visualizePalettes.value = favorites.value.results
   }
-  let filtered = visualizePalettes.value.results.filter(p => !palettes.value.find(p2 => p2.id === p.id))
-  palettes.value = [...palettes.value, ...filtered]
+
 })
 </script>
 
@@ -57,8 +63,8 @@ watch(visualizePalettes, () => {
       border-bottom: 1px solid var(--color2)
 
   :deep(.v-btn__overlay)
-      background: none
-      opacity: 0!important
+    background: none
+    opacity: 0!important
   :deep(.v-ripple__container)
     display: none
 

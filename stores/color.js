@@ -53,7 +53,18 @@ export const useColorStore = defineStore('color', () =>{
   const toggleInfo = () => {
     info.value = !info.value
   }
-
+  const recentPalettes = ref(JSON.parse(localStorage.getItem('recentPalettes')) ||[{
+    id: 0,
+    colors: ['#FF0000', '#00FF00', '#0000FF', '#FFFF00', '#00FFFF', '#1A1A1A']
+  }])
+  const addRecentPalette = (color) => {
+    if (recentPalettes.value.includes(color)) {
+      // move color to the front
+      recentPalettes.value = recentPalettes.value.filter(c => c !== color)
+    }
+    recentPalettes.value = [color, ...recentPalettes.value].slice(0, 20)
+    localStorage.setItem('recentPalettes', JSON.stringify(recentPalettes.value))
+  }
   return {
     selectedColor,
     selectColor,
@@ -71,6 +82,8 @@ export const useColorStore = defineStore('color', () =>{
     createColors,
     fixSelectedColorHue,
     boxColors,
-    modifiedColors
+    modifiedColors,
+    recentPalettes,
+    addRecentPalette
   }
 })
