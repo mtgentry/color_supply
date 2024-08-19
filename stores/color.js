@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia'
 export const useColorStore = defineStore('color', () =>{
   const selectedColor = ref(null)
-  const palette = ref()
+
   const palettes = ref([])
   const info = ref(false)
   const hue = ref(179)
@@ -10,7 +10,7 @@ export const useColorStore = defineStore('color', () =>{
   // const createColors = ref(['#FF0000', '#00FF00', '#0000FF', '#FFFF00', '#00FFFF', '#1A1A1A'])
   const createColors = ref([])
   const modifiedColors = ref([])
-  const boxColors = ref([])
+
   const selectColor = (index) => {
     if (!index && selectedColor.value !== null) {
       fixSelectedColorHue(selectedColor.value)
@@ -53,10 +53,7 @@ export const useColorStore = defineStore('color', () =>{
   const toggleInfo = () => {
     info.value = !info.value
   }
-  const recentPalettes = ref(JSON.parse(localStorage.getItem('recentPalettes')) ||[{
-    id: 0,
-    colors: ['#FF0000', '#00FF00', '#0000FF', '#FFFF00', '#00FFFF', '#1A1A1A']
-  }])
+  const recentPalettes = ref(JSON.parse(localStorage.getItem('recentPalettes')) || [])
   const addRecentPalette = (color) => {
     if (recentPalettes.value.includes(color)) {
       // move color to the front
@@ -65,6 +62,8 @@ export const useColorStore = defineStore('color', () =>{
     recentPalettes.value = [color, ...recentPalettes.value].slice(0, 20)
     localStorage.setItem('recentPalettes', JSON.stringify(recentPalettes.value))
   }
+  const palette = ref(recentPalettes.value[0] || {})
+  const boxColors = ref(recentPalettes.value[0]?.colors || [])
   return {
     selectedColor,
     selectColor,

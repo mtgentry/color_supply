@@ -21,7 +21,15 @@ const props = defineProps({
 })
 const colorStore = useColorStore()
 const toggle = ref('recent')
-const { palettes, recentPalettes } = storeToRefs(colorStore)
+const { palettes, recentPalettes, palette, boxColors } = storeToRefs(colorStore)
+const pendingDefault = ref(false)
+if (!recentPalettes.value.length) {
+  pendingDefault.value = true
+  const response = await fetch('palettes/default/', 'get')
+  recentPalettes.value = [response]
+  palette.value = response
+  boxColors.value = response.colors
+}
 const visualizePalettes = ref(recentPalettes.value)
 
 onMounted(() => {

@@ -32,7 +32,7 @@ const { status } = useAuth()
 const filterStore = useFilterStore()
 const colorStore = useColorStore()
 const { mode, style, qty, harmony, colors, wheel_color, colorTab } = storeToRefs(filterStore)
-const { palettes } = storeToRefs(colorStore)
+const { palettes, recentPalettes } = storeToRefs(colorStore)
 const next = ref('palettes/list/')
 const state = ref()
 const last_next = ref()
@@ -87,7 +87,11 @@ const load = async ($state) => {
   }
   if (next.value === 'palettes/list/') {
     setTimeout(() => {
-      palettes.value = response.results
+      if (recentPalettes.value.length) {
+        palettes.value = [recentPalettes.value[0], ...response.results]
+      } else {
+        palettes.value = response.results
+      }
       loading.value = false
     }, 300)
   } else {
