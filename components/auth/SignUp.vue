@@ -11,6 +11,7 @@
       placeholder="Colorfan19#" :hint="!v$.password.$invalid ? '' : 'At least 8 characters, with a number or symbol'"  :error-messages="v$.password.$errors.map(e => e.$message)"
         variant="outlined" :append-inner-icon="showPassword ? 'mdi-eye-off' : 'mdi-eye'"  @click:append-inner="showPassword = !showPassword"
         @blur="v$.password.$touch" autocomplete="new-password")
+      v-checkbox(v-model="state.influencer" v-if="signUpInfluencer" v-show="false")
       v-btn#submit(color="primary" text @click="signup" :disabled="pending || v$.$invalid" flat) Create Free Account
       slot(name="footer")
         div.text-center
@@ -22,6 +23,8 @@
 <script setup>
 import {useVuelidate} from '@vuelidate/core'
 import {email, helpers, minLength, required} from '@vuelidate/validators'
+const dialogStore = useDialogStore()
+const {signUpInfluencer} = storeToRefs(dialogStore)
 const snackbar = useSnackbar()
 const props = defineProps({
   source: {
@@ -41,6 +44,7 @@ const initialState = {
   name: '',
   email: '',
   password: null,
+  influencer: signUpInfluencer.value,
 }
 
 const state = reactive({
@@ -50,7 +54,6 @@ const emailError = ref(null)
 const showPassword = ref(false)
 const symbol = helpers.regex(/[^a-zA-Z0-9\s]/)
 const number = helpers.regex(/[0-9]/)
-const dialogStore = useDialogStore()
 const {changeSignUpForm} = dialogStore
 
 const rules = {

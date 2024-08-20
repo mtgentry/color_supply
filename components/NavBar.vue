@@ -34,13 +34,13 @@
 <script setup>
 const { status, signOut, data } = useAuth()
 const dialogStore = useDialogStore()
-const {changeLoginForm} = dialogStore
+const {changeLoginForm, changeSignUpForm} = dialogStore
 const snackbar = useSnackbar()
 const login = () => {
   changeLoginForm(true)
 }
 const signUp = () => {
-  dialogStore.changeSignUpForm(true)
+  changeSignUpForm(true)
 }
 const logout = () => {
   signOut()
