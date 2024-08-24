@@ -30,6 +30,7 @@ export const useColorStore = defineStore('color', () =>{
 
   const selectPalette = (new_palette) => {
     palette.value = new_palette
+    selectColor(null)
   }
 
   const shufflePalette = () => {
