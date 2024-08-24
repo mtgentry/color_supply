@@ -89,15 +89,23 @@ export default defineNuxtConfig({
     baseURL: process.env.BASE_URL,
     provider: {
       type: 'local',
-      endpoints: {
-        signIn: { path: '/login/', method: 'post' },
-        signOut: false,
-        signUp: { path: '/users/signup/', method: 'post' },
-        getSession: { path: '/session/', method: 'get' },
+      baseURL: process.env.BASE_URL,
+      token:  {
+        maxAgeInSeconds: 60 * 60,
       },
-      token: {
-        maxAgeInSeconds: 60 * 60 * 24 * 7,
-      }
+      refresh: {
+        isEnabled: true,
+        endpoint: { path: 'refresh/', method: 'post' },
+        token: {
+          maxAgeInSeconds: 60 * 60 * 24 * 7,
+        }
+      },
+      endpoints: {
+        signIn: { path: 'login/', method: 'post' },
+        signOut: false,
+        signUp: { path: 'users/signup/', method: 'post' },
+        getSession: { path: 'session/', method: 'get' },
+      },
     },
   },
   snackbar: {
