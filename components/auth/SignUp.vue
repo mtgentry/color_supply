@@ -3,7 +3,7 @@
     slot(name="header")
       h1 Sign up to access more colors
     v-form
-      v-text-field(v-model="state.name" label="Name" required placeholder="Sara" variant="outlined" :counter="10"
+      v-text-field(v-model="state.name" label="Name" required placeholder="Sara" variant="outlined"
         :error-messages="v$.name.$errors.map(e => e.$message)" @blur="v$.name.$touch" @input="v$.name.$touch" autocomplete="name")
       v-text-field(v-model="state.email" label="Email" required placeholder="sara.smith@gmail.com"  variant="outlined"
         :error-messages="emailError || v$.email.$errors.map(e => e.$message)"  @blur="v$.email.$touch" autocomplete="email")
