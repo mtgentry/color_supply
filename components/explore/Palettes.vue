@@ -1,7 +1,7 @@
 <template lang="pug">
   v-navigation-drawer#preview-drawer(location="right" v-if="preview===1" width="374" touchless)
     ExplorePreviewNav
-  v-container#paletteResults(fluid v-if="palettes.length")
+  v-container#paletteResults(fluid v-if="palettes.length" ref="scroll")
     v-row(v-auto-animate="{ duration: 300 }")
       v-col(md="4" v-for='(palette, index) in palettes' :key='index')
         v-container(fluid)
@@ -16,17 +16,20 @@
                   @click="favorite(palette.id)")
                 #count {{ palette.favorite_count }}
                 img(src='/img/icons/dots.svg')
-  InfiniteLoading(@infinite="load" :key="renderKey")
+  InfiniteLoading#infinite(@infinite="load" :key="renderKey" distance="500" :target="scroll")
     template(#spinner)
       v-row#loading
         v-col(cols="4" v-for='index in loadingNumber' :key='index')
           ColorsDisplay(:palette='loadingPalette' noSelect readonly)
+    template(#complete)
+      div
 </template>
 
 <script setup>
 import InfiniteLoading from "v3-infinite-loading"
 import "v3-infinite-loading/lib/style.css"
 const renderKey = ref(0)
+const scroll = ref()
 const loading = ref(false)
 const { status } = useAuth()
 const filterStore = useFilterStore()
@@ -119,6 +122,7 @@ watch([mode, style, qty, harmony, colors, wheel_color, colorTab, status], () => 
 </script>
 
 <style scoped lang="sass">
+
 #paletteResults
   #actions
     display: flex

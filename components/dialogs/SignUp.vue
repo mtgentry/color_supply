@@ -24,7 +24,8 @@ const was_logged = useCookie('was_logged')
 if (status.value === 'unauthenticated') {
   const user = await fetch('/session/')
   if (user.restricted && !was_logged.value) {
-    dialogStore.changeSignUpForm(true, true)
+    // TODO: adjust form
+    // dialogStore.changeSignUpForm(true, true)
   }
 }
 
