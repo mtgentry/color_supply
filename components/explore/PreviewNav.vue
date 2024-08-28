@@ -443,7 +443,7 @@ watch(boxColors, (boxColors) => {
   },
 )
 onMounted(() => {
-  if (!palette.value) return
+  if (!palette.value.colors) return
   changeColors(palette.value.colors)
 })
 </script>
