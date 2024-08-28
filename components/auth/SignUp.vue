@@ -55,6 +55,7 @@ const showPassword = ref(false)
 const symbol = helpers.regex(/[^a-zA-Z0-9\s]/)
 const number = helpers.regex(/[0-9]/)
 const {changeSignUpForm} = dialogStore
+const route = useRoute()
 
 const rules = {
   name: {
@@ -73,11 +74,19 @@ const rules = {
 }
 
 const v$ = useVuelidate(rules, state)
+let signInOptions = {
+  redirect: false,
+}
+if (['signup', 'private_invite'].includes(route.name)) {
+  signInOptions = {
+    callbackUrl: '/palettes'
+  }
+}
 
 const signup = async () => {
   emailError.value = null
   pending.value = true
-  await signUp(state, {callbackUrl: '/palettes'}).catch((e) => {
+  await signUp(state, signInOptions).catch((e) => {
     if (e.data.email) {
       emailError.value = 'Email already in use.'
     }

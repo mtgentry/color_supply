@@ -17,8 +17,9 @@
             nuxt-link(to="/signup") Sign up
 </template>
 <script setup>
-import {email, helpers, required} from "@vuelidate/validators";
-import {useVuelidate} from "@vuelidate/core";
+import {email, helpers, required} from "@vuelidate/validators"
+import {useVuelidate} from "@vuelidate/core"
+const route = useRoute()
 const pending = ref(false)
 const props = defineProps({
   source: {
@@ -55,11 +56,19 @@ const rules = {
   },
 }
 const v$ = useVuelidate(rules, state)
+let signInOptions = {
+  redirect: false,
+}
+if (route.name === 'login') {
+  signInOptions = {
+    callbackUrl: '/palettes'
+  }
+}
 
 const login = async () => {
   try {
     pending.value = true
-    await signIn({ email: state.email, password: state.password }, {callbackUrl: '/palettes'})
+    await signIn({ email: state.email, password: state.password }, signInOptions)
     const was_logged = useCookie('was_logged')
     was_logged.value = true
     dialogStore.changeLoginForm(false)
