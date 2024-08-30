@@ -6,7 +6,9 @@
           v-btn(value="recent").mr-5 Recent
           v-btn(value="favorites") Favorites
         v-label(v-else) Recent
-      v-col.centered(md="12" v-if="pending")
+      v-col.pa-0(md="12" v-if="status === 'unauthenticated' && toggle === 'favorites'")
+        VisualizeSignUp
+      v-col.centered(md="12" v-else-if="pending")
         v-progress-circular(indeterminate)
       v-col(md="12" :key="index" v-for="(palette, index) in visualizePalettes" v-else)
         ColorsDisplay(:palette='palette' rounded)
@@ -19,6 +21,7 @@ const props = defineProps({
     default: false
   }
 })
+const { status } = useAuth()
 const colorStore = useColorStore()
 const toggle = ref('recent')
 const { palettes, recentPalettes, palette, boxColors } = storeToRefs(colorStore)
@@ -35,14 +38,14 @@ const visualizePalettes = ref(recentPalettes.value)
 onMounted(() => {
   colorStore.selectPalette(visualizePalettes.value[0])
 })
-const {data: favorites, pending, execute} = useApi('palettes/list/',  {
+const {data: favorites, pending, refreshAuthExecute} = useApi('palettes/list/',  {
   toggle: toggle
 }, 'get', {immediate: false})
 watch(toggle, async (value) => {
   if (value === 'recent') {
     visualizePalettes.value = recentPalettes.value
   } else {
-    await execute()
+    await refreshAuthExecute()
     visualizePalettes.value = favorites.value.results
   }
 

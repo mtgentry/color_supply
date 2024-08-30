@@ -18,6 +18,12 @@ export const useApi = (path, query, method='get') => {
   const {data, pending, error, execute, refresh} = useFetch(
     path, options
   );
-
-  return {data, pending, error, execute, refresh}
+  const refreshAuthExecute = async () => {
+    const newAuth = useCookie('auth.token')
+    if (newAuth.value) {
+      options.headers['Authorization'] = 'Bearer ' + newAuth.value
+    }
+    await execute()
+  }
+  return {data, pending, error, execute, refresh, refreshAuthExecute}
 }
