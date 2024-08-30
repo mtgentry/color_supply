@@ -3,8 +3,10 @@
 </template>
 
 <script setup>
-const router = useRouter()
-router.push('/palettes')
+onMounted(async () => {
+  await navigateTo({ path: '/palettes' })
+})
+
 </script>
 
 <style scoped lang="sass">
