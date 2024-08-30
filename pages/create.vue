@@ -1,8 +1,8 @@
 <template lang="pug">
   v-row#create
-    v-col.centered(cols="9" @click="disableColor")
+    v-col.centered(col="auto" @click="disableColor")
       CreateColors
-    v-col#options(cols="3")
+    v-col#options
       CreateOptions
 </template>
 
@@ -42,4 +42,6 @@ const disableColor = (event) => {
 #options
   overflow-y: auto
   background-color: var(--color7)
+  min-width: 12em
+  max-width: 17.375em
 </style>
