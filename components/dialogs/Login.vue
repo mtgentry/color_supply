@@ -25,7 +25,7 @@ const { status } = useAuth()
 if (status.value === 'unauthenticated') {
   const was_logged = useCookie('was_logged')
   if (was_logged.value) {
-    dialogStore.changeLoginForm(true)
+    // dialogStore.changeLoginForm(true)
   }
 }
 
