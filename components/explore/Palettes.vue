@@ -28,6 +28,8 @@
 <script setup>
 import InfiniteLoading from "v3-infinite-loading"
 import "v3-infinite-loading/lib/style.css"
+import {findClosestColor} from "~/composables/findClosestColor.js";
+
 const renderKey = ref(0)
 const scroll = ref()
 const loading = ref(false)
@@ -47,6 +49,13 @@ const loadingNumber = computed(() => {
 
 const store = useFilterStore()
 const {preview} = storeToRefs(store)
+
+const reorderColors = (color_arg, colors) => {
+  const closestColor = findClosestColor(color_arg, colors)
+  return colors.sort((a, b) => {
+    return a === closestColor ? -1 : b === closestColor ? 1 : 0
+  })
+}
 
 const load = async ($state) => {
   if (loading.value) {
@@ -87,6 +96,12 @@ const load = async ($state) => {
   })
   if (!response) {
     return
+  }
+  if (colorTab.value === 'wheel') {
+    response.results = response.results.map(p => {
+      p.colors = reorderColors(wheel_color.value, p.colors)
+      return p
+    })
   }
   if (next.value === 'palettes/list/') {
     setTimeout(() => {
