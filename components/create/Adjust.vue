@@ -4,7 +4,7 @@
     .d-flex.flex-row.align-center.justify-space-between
       .d-flex.align-center
         svg(width="26" height="26" viewBox="0 0 26 26").mr-5
-          circle(r="13" cx="13" cy="13" :fill="color" :stroke="title === 'white' ? 'var(--color3)' : ''" stroke-width="1")
+          circle(r="12" cx="13" cy="13" :fill="color" :stroke="color === '#FFFFFF' ? 'var(--color3)' : ''" stroke-width="1")
         div#colorLabel {{ color }}
       .d-flex.justify-end.align-center
         svg.mr-2.clickable(xmlns='http://www.w3.org/2000/svg' width='15' height='13' viewBox='0 0 15 13' fill='none' @click="clipboard(color, snackbar)")
