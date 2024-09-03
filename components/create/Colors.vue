@@ -14,6 +14,7 @@
 
 <script setup>
 import draggable from 'vuedraggable'
+import {colorShadow} from "~/composables/colorShadow.js";
 
 const colorStore = useColorStore()
 const { createColors, palette } = storeToRefs(colorStore)
@@ -33,6 +34,8 @@ const storeHistory = () => {
   preDeletionColors.value.push([...startOrder.value])
 }
 const dragStart = (event) => {
+  let color = colorShadow(event.item.childNodes[0].childNodes[0].style.backgroundColor)
+  document.documentElement.style.setProperty('--ghost-color', color)
   startOrder.value = [...createColors.value]
   dragging.value = true
 }
@@ -72,12 +75,13 @@ $transition-time: 0.8s
   position: relative
 
 .ghost
-  opacity: 0.55!important
-  filter: saturate(20%)
   border: none!important
   top: 0!important
   left: 0!important
   transition: none!important
+
+  :deep(.color)
+    background-color: var(--ghost-color) !important
 
   :deep(::before), :deep(::after), :deep(div.top-right::before), :deep(div.bottom-left::before)
     display: none!important
