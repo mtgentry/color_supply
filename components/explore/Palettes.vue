@@ -1,11 +1,11 @@
 <template lang="pug">
   v-navigation-drawer#preview-drawer(location="right" v-if="preview===1" width="374" touchless)
     ExplorePreviewNav
-  v-container#paletteResults(fluid v-if="palettes.length" ref="scroll")
-    v-row(v-auto-animate="{ duration: 300 }")
+  v-container#paletteResults(fluid ref="scroll")
+    v-row(v-auto-animate="{ duration: 300 }" v-if="palettes.length")
       v-col(md="4" v-for='(palette, index) in palettes' :key='index')
         v-container(fluid)
-          v-row()
+          v-row
             v-col.pa-0(cols="12")
               ColorsDisplay(:palette='palette')
             v-col#actions.pa-0(cols="12")
@@ -16,11 +16,11 @@
                   @click="favorite(palette.id)")
                 #count {{ palette.favorite_count }}
                 img(src='/img/icons/dots.svg')
-  InfiniteLoading#infinite(@infinite="load" :key="renderKey" distance="500" :target="scroll")
-    template(#spinner)
-      v-row#loading
-        v-col(cols="4" v-for='index in loadingNumber' :key='index')
-          ColorsDisplay(:palette='loadingPalette' noSelect readonly)
+    InfiniteLoading#infinite(@infinite="load" :key="renderKey" distance="400" target="#palettes" )
+      template(#spinner)
+        v-row
+          v-col(cols="4" v-for='index in loadingNumber' :key='index')
+            ColorsDisplay(:palette='loadingPalette' noSelect readonly)
     template(#complete)
       div
 </template>
