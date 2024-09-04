@@ -8,7 +8,7 @@ export const useFilterStore = defineStore('filter', () =>{
   const preview = ref(2)
   const previousPreview = ref(0)
   const colors = ref([])
-  const wheel_color = ref('#F03872')
+  const wheel_color = ref('#F15957')
   const colorTab = ref('color')
   const showPreviews = ref(false)
 
