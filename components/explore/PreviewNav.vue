@@ -1,7 +1,7 @@
 <template lang="pug">
   div#explorePreviewNav
     ExplorePreviewClose(:background="background")
-    svg(width='374' height='1760' viewbox='0 0 374 1760' fill='none' xmlns='http://www.w3.org/2000/svg')
+    svg(width='374' height='1760' viewbox='0 0 374 1760' fill='none' xmlns='http://www.w3.org/2000/svg' @click="shufflePalette")
       path(d='M374 1854H0V0H374V1854Z' fill='#ffffff')
       path(d='M374 1854H0V-0.00012207H374V1854Z' :fill='background')
       path(d='M297.773 272.655H236.507V264.299H211V272.655V280.082V325.109H297.773L310.493 285.539H297.773V272.655Z' fill='#382B17')
@@ -333,6 +333,7 @@ const colorStore = useColorStore()
 const {palette, info, boxColors} = storeToRefs(colorStore)
 const filterStore = useFilterStore()
 const {preview} = storeToRefs(filterStore)
+const { shufflePalette } = colorStore
 const changeColors = (colors) => {
   background.value = colors[0]
   clouds.value = colors[1]

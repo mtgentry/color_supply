@@ -2,7 +2,7 @@
   v-card#previewBox(v-if="preview === 0")
     v-card-text.pa-0
       ExplorePreviewClose(:background="background")
-      svg(width='374' height='313' viewBox='0 0 374 313' fill='none' xmlns='http://www.w3.org/2000/svg')
+      svg(width='374' height='313' viewBox='0 0 374 313' fill='none' xmlns='http://www.w3.org/2000/svg' @click="shufflePalette")
         path(d='M374 313H0V0H374V313Z' :fill="background")
         path(d='M138.273 152H20V45.7912H138.273V152Z' fill='#1D1E20')
         path(d='M144.495 146.162H25.7163V35.5035H144.495V146.162Z' :fill="ok_background")
@@ -148,7 +148,7 @@ const items = [background, ok_background, stairs, door_background, door_light, t
 const colorStore = useColorStore()
 const filterStore = useFilterStore()
 const {preview} = storeToRefs(filterStore)
-
+const { shufflePalette } = colorStore
 const {palette, info, boxColors} = storeToRefs(colorStore)
 
 const changeColors = (colors) => {
