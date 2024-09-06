@@ -21,8 +21,8 @@
         v-row
           v-col(cols="4" v-for='index in loadingNumber' :key='index')
             ColorsDisplay(:palette='loadingPalette' noSelect readonly)
-    template(#complete)
-      div
+      template(#complete)
+        div
 </template>
 
 <script setup>
