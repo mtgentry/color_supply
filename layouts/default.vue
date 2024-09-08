@@ -15,6 +15,15 @@ useHead({
     return titleChunk ? `${titleChunk} - Color Supply` : 'Color Supply';
   }
 })
+onBeforeMount(async () => {
+  // TODO: Remove this when the issue is fixed
+  const { refresh: refreshToken } = useAuth()
+  const refreshCookie = useCookie('auth.refresh-token')
+  const tokenCookie = useCookie('auth.token')
+  if (refreshCookie.value && !tokenCookie.value) {
+    await refreshToken()
+  }
+})
 </script>
 
 <style lang="sass">
