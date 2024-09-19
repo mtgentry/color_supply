@@ -50,11 +50,34 @@ const loadingNumber = computed(() => {
 const store = useFilterStore()
 const {preview} = storeToRefs(store)
 
-const reorderColors = (color_arg, colors) => {
+const reorderColorsWheel = (color_arg, colors) => {
   const closestColor = findClosestColor(color_arg, colors)
   return colors.sort((a, b) => {
     return a === closestColor ? -1 : b === closestColor ? 1 : 0
   })
+}
+
+const reorderColorsByParent = (color_args, colors) => {
+  const parentColors = [
+    '#CC3333', '#E87E30', '#F6D659', '#339966', '#336699',
+    '#663366', '#DC758C', '#9B836C', '#000000', '#8C8C8C',
+    '#C0C0C0', '#FFFFFF'
+  ]
+  const colorOrder = new Map();
+  color_args.forEach((color, index) => {
+    colorOrder.set(color, index);
+  });
+  const transformedColors = colors.map(color => ({
+    original: color,
+    closest: findClosestColor(color, parentColors)
+  }));
+  let result = transformedColors.sort((a, b) => {
+    const aOrder = colorOrder.has(a.closest) ? colorOrder.get(a.closest) : color_args.length;
+    const bOrder = colorOrder.has(b.closest) ? colorOrder.get(b.closest) : color_args.length;
+    return aOrder - bOrder;
+  }).map(item => item.original);
+
+  return result
 }
 
 const load = async ($state) => {
@@ -99,7 +122,12 @@ const load = async ($state) => {
   }
   if (colorTab.value === 'wheel') {
     response.results = response.results.map(p => {
-      p.colors = reorderColors(wheel_color.value, p.colors)
+      p.colors = reorderColorsWheel(wheel_color.value, p.colors)
+      return p
+    })
+  } else if (colors.value.length && colorTab.value === 'color') {
+    response.results = response.results.map(p => {
+      p.colors = reorderColorsByParent(colors.value, p.colors)
       return p
     })
   }
