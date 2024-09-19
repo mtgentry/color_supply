@@ -13,7 +13,7 @@
                 IconsHeart.clickable(
                   :fill="palette.favorite ? 'var(--color9)' : 'transparent'",
                   :stroke="palette.favorite ? 'var(--color9)' : 'var(--color3)'",
-                  @click="favorite(palette.id)")
+                  @click="favorite(palette)")
                 #count {{ palette.favorite_count }}
                 img(src='/img/icons/dots.svg')
     InfiniteLoading#infinite(@infinite="load" :key="renderKey" distance="400" target="#palettes" )
@@ -105,11 +105,12 @@ const load = async ($state) => {
   }
   if (next.value === 'palettes/list/') {
     setTimeout(() => {
-      if (recentPalettes.value.length) {
-        palettes.value = [recentPalettes.value[0], ...response.results]
-      } else {
-        palettes.value = response.results
-      }
+      // if (recentPalettes.value.length) {
+      //   palettes.value = [recentPalettes.value[0], ...response.results]
+      // } else {
+      //
+      // }
+      palettes.value = response.results
       loading.value = false
     }, 300)
   } else {

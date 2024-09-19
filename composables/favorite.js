@@ -1,12 +1,9 @@
 
-export const favorite = async (id) => {
+export const favorite = async (palette) => {
   const { status } = useAuth()
   const dialogStore = useDialogStore()
   const colorStore = useColorStore()
-  const { palettes } = storeToRefs(colorStore)
   const favoritePost = async (id) => {
-    const palette = palettes.value.find(p => p.id === id)
-
     if (palette.favorite) {
       palette.favorite_count -= 1
       palette.favorite = !palette.favorite
@@ -32,7 +29,7 @@ export const favorite = async (id) => {
         return
       }
     }
-    await favoritePost(id)
+    await favoritePost(palette.id)
   }
-  return await favoriteClick(id)
+  return await favoriteClick(palette.id)
 }

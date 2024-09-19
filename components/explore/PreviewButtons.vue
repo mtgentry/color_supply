@@ -1,6 +1,6 @@
 <template lang="pug">
   div#actions(ref="actions")
-    v-btn.actionBtn(flat :disabled="!palette" @click="favorite(palette?.id)" min-width="30px" )
+    v-btn.actionBtn(flat :disabled="!palette" @click="favorite(palette)" min-width="30px" )
       IconsHeart(:stroke="!palette ?  'var(--color5)' : palette?.favorite ? 'var(--color9)' : 'var(--color4)'"
         :fill="!palette ? 'var(--color5)' : palette?.favorite ? 'var(--color9)' : 'transparent'")
     v-btn.actionBtn(flat @click="toggleInfo" :disabled="!palette" :active="info")
