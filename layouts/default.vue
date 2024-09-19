@@ -1,11 +1,13 @@
 <template lang="pug">
   v-app(dark)
     NavBar
-    v-main
+    v-main(v-auto-animate="{ duration: 200 }")
       v-container(fluid)
         slot
       DialogsSignUp
       DialogsLogin
+      v-navigation-drawer#preview-drawer(location="right" v-if="preview===1" width="374" touchless)
+        ExplorePreviewNav
     NuxtSnackbar
 </template>
 
@@ -24,6 +26,8 @@ onBeforeMount(async () => {
     await refreshToken()
   }
 })
+const store = useFilterStore()
+const {preview} = storeToRefs(store)
 </script>
 
 <style lang="sass">
@@ -52,4 +56,9 @@ h2
 
 .fade-enter-from, .fade-leave-to
   opacity: 0
+
+
+#preview-drawer
+  .v-navigation-drawer__content
+    overflow: hidden
 </style>

@@ -10,7 +10,11 @@
 </template>
 
 <script setup>
-
+const store = useFilterStore()
+const {preview} = storeToRefs(store)
+onBeforeUnmount(() => {
+  store.preview = 2
+})
 </script>
 
 <style scoped lang="sass">

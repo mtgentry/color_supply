@@ -1,6 +1,4 @@
 <template lang="pug">
-  v-navigation-drawer#preview-drawer(location="right" v-if="preview===1" width="374" touchless)
-    ExplorePreviewNav
   v-container#paletteResults(fluid ref="scroll")
     v-row(v-auto-animate="{ duration: 300 }" v-if="palettes.length")
       v-col(md="4" v-for='(palette, index) in palettes' :key='index')
@@ -46,9 +44,6 @@ const loadingPalette = ref({colors: ['#FBFBFA', ], id: 'none'})
 const loadingNumber = computed(() => {
   return palettes.value.length ? 3 : 30
 })
-
-const store = useFilterStore()
-const {preview} = storeToRefs(store)
 
 const reorderColorsWheel = (color_arg, colors) => {
   const closestColor = findClosestColor(color_arg, colors)
@@ -186,10 +181,5 @@ watch([mode, style, qty, harmony, colors, wheel_color, colorTab, status], () => 
 
   #loading
     width: calc(100vw - 350px)
-    overflow: hidden
-
-
-#preview-drawer
-  :deep(.v-navigation-drawer__content)
     overflow: hidden
 </style>
