@@ -2,7 +2,7 @@
   v-row#create
     v-col.centered(col="auto" @click="disableColor")
       CreateColors
-    v-col#options
+    v-col#optionsDiv
       CreateOptions
 </template>
 
@@ -39,9 +39,11 @@ const disableColor = (event) => {
   .v-col
     height: calc(100vh - 64px)
 
-#options
+#optionsDiv
+  padding: 0
   overflow-y: auto
   background-color: var(--color7)
   min-width: 12em
   max-width: 17.375em
+
 </style>

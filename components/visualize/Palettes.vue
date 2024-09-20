@@ -55,9 +55,10 @@ watch(toggle, async (value) => {
 <style scoped lang="sass">
 #paletteResults
   .v-col
-    padding: 6px 24px
+    padding: 6px 0
 
   #toggleRow
+    margin: 0
     padding-top: 12px
 
   .v-btn--size-default
