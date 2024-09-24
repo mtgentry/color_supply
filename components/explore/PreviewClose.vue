@@ -3,8 +3,8 @@
     svg(width='34', height='34', viewBox='0 0 34 34', fill='none',
       xmlns='http://www.w3.org/2000/svg' @click="closePreview")
       circle(cx='17', cy='17', r='17', fill='transparent')
-      path(d='M12.001 12.2778L21.7892 22.0661', :stroke='closeColor')
-      path(d='M21.7893 12.2778L12.0011 22.0661', :stroke='closeColor')
+      path(d='M12.001 12.2778L21.7892 22.0661', :stroke='changeColorForBackground(props.background)')
+      path(d='M21.7893 12.2778L12.0011 22.0661', :stroke='changeColorForBackground(props.background)')
 </template>
 
 <script setup>
