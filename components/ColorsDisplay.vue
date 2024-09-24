@@ -21,6 +21,8 @@ const props = defineProps({
     default: false,
   },
 })
+const filterStore = useFilterStore()
+const {preview} = storeToRefs(filterStore)
 const store = useColorStore()
 const {palette: storePalette, hue, saturation, lightness} = storeToRefs(store)
 
@@ -31,6 +33,7 @@ const selectPalette = () => {
   saturation.value = 0
   lightness.value = 0
   store.addRecentPalette(props.palette)
+  preview.value = 0
 }
 
 const isSelected = computed(() => {
