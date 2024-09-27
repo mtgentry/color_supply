@@ -18,9 +18,8 @@ const colorFormat = (color) => {
 
 <style scoped lang="sass">
 #colors
-  padding-top: 10px
   .v-row
-    box-shadow: 0 -1px 0 var(--color2)
+    border-top: black 1px solid
     padding: 0
     height: 3.125em
     font-size: 0.75em
