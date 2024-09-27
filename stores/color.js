@@ -34,6 +34,7 @@ export const useColorStore = defineStore('color', () =>{
   }
 
   const shufflePalette = () => {
+    if (boxColors.value.length < 2) return
     let oldArray = [...boxColors.value]
     let newArray
 

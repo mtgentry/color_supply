@@ -1,7 +1,7 @@
 <template lang="pug">
   v-card#previewBox(v-if="preview === 0")
     v-card-text.pa-0
-      ExplorePreviewClose(:background="background")
+      ExplorePreviewClose
       svg(width='374' height='313' viewBox='0 0 374 313' fill='none' xmlns='http://www.w3.org/2000/svg' @click="shufflePalette")
         path(d='M374 313H0V0H374V313Z' :fill="background")
         path(d='M138.273 152H20V45.7912H138.273V152Z' fill='#1D1E20')
@@ -124,7 +124,7 @@
         path(d='M213.203 72.834L214.926 98.6198L220.934 93.6086L230.664 110.557L234.51 107.842L225.146 91.12L231.513 87.8018L213.203 72.834Z' fill='#ffffff')
         path(d='M221.036 93.0378L230.783 110.016L234.019 107.732L224.632 90.9679L230.837 87.7337L213.632 73.6691L215.249 97.8639L221.036 93.0378ZM230.544 111.1L220.831 94.1819L214.601 99.3776L212.772 72.0006L232.187 87.8725L225.66 91.2746L235 107.954L230.544 111.1Z' fill='#1D1E20')
       ExplorePreviewInfo
-      ExplorePreviewButtons
+      ExplorePreviewButtons(:background="background")
 
 
 </template>
@@ -267,6 +267,7 @@ onMounted(() => {
 #parent
   position: static!important
 #previewBox
+  cursor: pointer
   position: fixed
   bottom: 10px
   right: 30px
