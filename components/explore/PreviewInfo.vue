@@ -23,4 +23,8 @@ const colorFormat = (color) => {
     box-shadow: 0 -1px 0 var(--color2)
     padding: 0
     height: 3.125em
+    font-size: 0.75em
+    font-weight: normal
+    letter-spacing: 1.08px
+    line-height: 133.316%
 </style>
