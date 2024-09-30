@@ -17,8 +17,8 @@
   height: calc(100vh - 64px)
   overflow: auto
   padding: 0
-  min-width: 12em
-  max-width: 17.375em
+  min-width: 12rem
+  max-width: 17.375rem
 #image
   position: relative
 </style>

@@ -21,8 +21,8 @@ const colorFormat = (color) => {
   .v-row
     border-top: black 1px solid
     padding: 0
-    height: 3.125em
-    font-size: 0.75em
+    height: 3.125rem
+    font-size: 0.75rem
     font-weight: normal
     letter-spacing: 1.08px
     line-height: 133.316%
