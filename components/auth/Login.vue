@@ -29,6 +29,7 @@ const props = defineProps({
 })
 
 const dialogStore = useDialogStore()
+const { loginFavorite } = storeToRefs(dialogStore)
 const { signIn } = useAuth()
 
 const error_message = ref('')
@@ -73,6 +74,9 @@ const login = async () => {
     was_logged.value = true
     dialogStore.changeLoginForm(false)
     dialogStore.changeSignUpForm(false)
+    if (loginFavorite.value) {
+      favorite(loginFavorite.value)
+    }
     snackbar.add({
       type: 'info',
       text: 'Logged in successfully',

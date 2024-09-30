@@ -34,6 +34,7 @@
 <script setup>
 const { status, signOut, data } = useAuth()
 const dialogStore = useDialogStore()
+const colorStore = useColorStore()
 const {changeLoginForm, changeSignUpForm} = dialogStore
 const snackbar = useSnackbar()
 const login = () => {
@@ -48,6 +49,7 @@ const logout = () => {
   if (route.name.includes('manage')) {
     navigateTo('/palettes')
   }
+  colorStore.unfavoritePalettes()
   snackbar.add({
     type: 'info',
     text: 'Logged out successfully',

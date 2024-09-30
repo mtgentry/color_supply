@@ -66,6 +66,9 @@ export const useColorStore = defineStore('color', () =>{
   }
   const palette = ref(recentPalettes.value[0] || {})
   const boxColors = ref(recentPalettes.value[0]?.colors || [])
+  const unfavoritePalettes = () => {
+    palettes.value.forEach(palette => palette.favorite = false)
+  }
   return {
     selectedColor,
     selectColor,
@@ -85,6 +88,7 @@ export const useColorStore = defineStore('color', () =>{
     boxColors,
     modifiedColors,
     recentPalettes,
-    addRecentPalette
+    addRecentPalette,
+    unfavoritePalettes
   }
 })

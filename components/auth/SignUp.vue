@@ -24,6 +24,7 @@
 import {useVuelidate} from '@vuelidate/core'
 import {email, helpers, minLength, required} from '@vuelidate/validators'
 const dialogStore = useDialogStore()
+const {loginFavorite} = storeToRefs(dialogStore)
 const {signUpInfluencer} = storeToRefs(dialogStore)
 const snackbar = useSnackbar()
 const props = defineProps({
@@ -93,6 +94,9 @@ const signup = async () => {
   })
   pending.value = false
   changeSignUpForm(false)
+  if (loginFavorite.value) {
+    favorite(loginFavorite.value)
+  }
   snackbar.add({
     type: 'info',
     text: 'Account created successfully!'

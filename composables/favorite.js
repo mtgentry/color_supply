@@ -2,7 +2,7 @@
 export const favorite = async (palette) => {
   const { status } = useAuth()
   const dialogStore = useDialogStore()
-  const colorStore = useColorStore()
+  const { loginFavorite } = storeToRefs(dialogStore)
   const favoritePost = async (id) => {
     if (palette.favorite) {
       palette.favorite_count -= 1
@@ -21,6 +21,7 @@ export const favorite = async (palette) => {
     if (status.value === 'unauthenticated') {
       const was_logged = useCookie('was_logged')
       dialogStore.changeSource('favorite')
+      loginFavorite.value = palette
       if (was_logged.value) {
         dialogStore.changeLoginForm(true)
         return
@@ -29,6 +30,7 @@ export const favorite = async (palette) => {
         return
       }
     }
+    loginFavorite.value = null
     await favoritePost(palette.id)
   }
   return await favoriteClick(palette.id)

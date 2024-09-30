@@ -152,7 +152,7 @@ const load = async ($state) => {
   }
 }
 
-watch([mode, style, qty, harmony, colors, wheel_color, colorTab, status], () => {
+watch([mode, style, qty, harmony, colors, wheel_color, colorTab], () => {
   next.value = 'palettes/list/'
   renderKey.value += 1
   palettes.value = []
