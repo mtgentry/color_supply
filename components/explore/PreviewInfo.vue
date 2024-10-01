@@ -26,4 +26,8 @@ const colorFormat = (color) => {
     font-weight: normal
     letter-spacing: 1.08px
     line-height: 133.316%
+    -webkit-user-select: none
+    -moz-user-select: none
+    -ms-user-select: none
+    user-select: none
 </style>
