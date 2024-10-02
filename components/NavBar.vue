@@ -4,6 +4,8 @@
       nuxt-link(to="/palettes")
         img#logo(src="/img/rainbow.svg" height="40" contain)
     template(v-slot:append)
+      div#feedback
+        a(href="https://docs.google.com/document/d/1puqBgo1lgmq8Fw65LA1C8hWgwSEHo-FAW9K6CEBQutE/edit" target="_blank") Have ideas? We'd love to hear them.
       div(v-if="status === 'unauthenticated'")
         v-btn#login(@click="login") Login
         v-btn#signup.ml-3(@click="signUp" color="primary" ) Sign Up
@@ -121,5 +123,13 @@ const logout = () => {
         padding: 0
       .v-list-item--density-default.v-list-item--one-line
         min-height: 36px
+#feedback
+  font-size: 0.75rem
+  font-weight: 400
+  line-height: 16.38px
+  text-align: center
+  padding: 0 10px
+  a
+    text-decoration: unset!important
 
 </style>
