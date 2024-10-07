@@ -5,6 +5,13 @@ export default defineNuxtConfig({
   css: [
     '~/assets/css/custom.sass',
   ],
+  vite: {
+    server: {
+      hmr: {
+        clientPort: process.env.PORT,
+      }
+    }
+  },
   runtimeConfig: {
     public: {
       BASE_URL: process.env.BASE_URL,
