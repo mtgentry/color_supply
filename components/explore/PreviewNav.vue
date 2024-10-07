@@ -1,6 +1,6 @@
 <template lang="pug">
   div#explorePreviewNav
-    ExplorePreviewClose(:background="background")
+    ExplorePreviewButtons
     svg(width='374' height='1760' viewbox='0 0 374 1760' fill='none' xmlns='http://www.w3.org/2000/svg' @click="shufflePalette")
       path(d='M374 1854H0V0H374V1854Z' fill='#ffffff')
       path(d='M374 1854H0V-0.00012207H374V1854Z' :fill='background')
@@ -291,7 +291,7 @@
       path(d='M300.14 1605.09H315.768V1589.46H300.14V1605.09ZM317.751 1607.07H298.157V1587.47H317.751V1607.07Z' fill='#1D1E20')
   div#button-overlay
     ExplorePreviewInfo
-    ExplorePreviewButtons
+
 
 
 

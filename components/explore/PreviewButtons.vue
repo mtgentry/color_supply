@@ -5,6 +5,21 @@
         :fill="!palette.colors ? 'var(--color5)' : palette?.favorite ? 'var(--color9)' : 'transparent'")
     v-btn.pa-0(flat)
       IconsShare(:stroke='changeColorForBackground(props.background)')
+    v-btn.pa-0(flat)
+      IconsPositions(:fill='changeColorForBackground(props.background)')
+      v-menu(activator='parent')
+        v-list.pa-0
+          v-list-item
+            h2 Position
+          v-list-item(@click="changePreview(0)")
+            IconsCorner(stroke="var(--color5)" fill="var(--color5)")
+            span.pl-2 Corner
+          v-list-item(@click="changePreview(1)")
+            IconsSide(stroke="var(--color5)" fill="var(--color5)")
+            span.pl-2 Side
+          v-list-item(@click="changePreview(2)")
+            IconsBottom(stroke="var(--color5)" fill="var(--color5)")
+            span.pl-2 Bottom
     //v-btn.actionBtn(flat @click="shufflePalette" :disabled="!palette" )
     //  svg.mr-1(width='13' height='12' viewbox='0 0 13 12' fill='none' xmlns='http://www.w3.org/2000/svg')
     //    path(d='M0.963379 10.0742L1.82243 7.35995' :stroke="palette ? 'var(--color4)' : 'var(--color5)'")
@@ -18,12 +33,6 @@
     //    path(d='M6.86685 7L1.43925e-05 7L1.448e-05 6L6.86685 6C7.07277 5.4174 7.62838 5 8.28149 5C8.9346 5 9.49022 5.4174 9.69614 6L13.0588 6L13.0588 7L9.69614 7C9.49022 7.5826 8.9346 8 8.28149 8C7.62838 8 7.07277 7.5826 6.86685 7Z' :fill="palette ? 'var(--color4)' : 'var(--color5)'")
     //  | Adjust
 
-    //div.clickable#extra(@click="togglePreviews")
-    //  svg(xmlns='http://www.w3.org/2000/svg' width='33' height='28' viewbox='0 0 33 32' fill='none')
-    //    circle(cx='16' cy='16' r='16' fill='white')
-    //    circle(cx='2' cy='2' r='2' transform='matrix(-1.19249e-08 1 1 1.19249e-08 14 14)' :fill='showPreviews ? "var(--color1)" : "#D9DBDF"')
-    //    circle(cx='2' cy='2' r='2' transform='matrix(-1.19249e-08 1 1 1.19249e-08 22 14)' :fill='showPreviews ? "var(--color1)" : "#D9DBDF"')
-    //    circle(cx='2' cy='2' r='2' transform='matrix(-1.19249e-08 1 1 1.19249e-08 6 14)' :fill='showPreviews ? "var(--color1)" : "#D9DBDF"')
     //div#line(v-if="showPreviews" v-auto-animate)
     //  svg(height='48' width='2')
     //    line(x1='5' y1='0' x2='5' y2='48' style='stroke:var(--color4);stroke-width:2')
@@ -41,14 +50,16 @@
 <script setup>
 const props = defineProps(
   {
-    background: String
+    background: {
+      type: String,
+      default: 'white',
+    },
   }
 )
 const colorStore = useColorStore()
 const actions = ref(null)
 const filterStore = useFilterStore()
 const {preview, showPreviews, previousPreview} = storeToRefs(filterStore)
-const { shufflePalette, toggleInfo } = colorStore
 const { palette, info  } = storeToRefs(colorStore)
 const togglePreviews = () => {
   if (!showPreviews.value) {
@@ -88,6 +99,10 @@ const closeColor = computed(() => {
     return '#ffffff'
   }
 })
+
+const changePreview = (value) => {
+  preview.value = value
+}
 </script>
 
 <style scoped lang="sass">
@@ -120,4 +135,42 @@ const closeColor = computed(() => {
     border: unset
     :deep(.v-btn__overlay)
       opacity: 0
+
+.v-list-item
+  min-height: 45px
+  h2
+    font-size: 1.0625rem
+    font-weight: 500
+    line-height: normal
+    letter-spacing: 0.34px
+:deep(.v-list-item:not(:first-child))
+  padding-top: 0
+  padding-bottom: 0
+
+  &:hover
+    background: var(--color1)
+    cursor: pointer
+    .v-list-item__content
+      color: var(--color7)
+
+      svg
+        fill: var(--color7)
+        stroke: var(--color7)
+
+        path.background
+          fill: var(--color1)
+        path.middle
+          fill: var(--color7)
+
+  .v-list-item__content
+    display: flex
+    align-items: center
+    border-bottom: var(--color5) 1px solid
+    height: 100%
+    font-size: 0.875rem
+    font-style: normal
+    font-weight: 400
+    line-height: 135%
+
+
 </style>
