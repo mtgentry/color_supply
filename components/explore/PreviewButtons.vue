@@ -11,13 +11,13 @@
         v-list.pa-0
           v-list-item
             h2 Position
-          v-list-item(@click="changePreview(0)")
+          v-list-item(@click="changePreview(0)" :class="{ 'activePreview': preview === 0 }")
             IconsCorner(stroke="var(--color5)" fill="var(--color5)")
             span.pl-2 Corner
-          v-list-item(@click="changePreview(1)")
+          v-list-item(@click="changePreview(1)" :class="{ 'activePreview': preview === 1 }")
             IconsSide(stroke="var(--color5)" fill="var(--color5)")
             span.pl-2 Side
-          v-list-item(@click="changePreview(2)")
+          v-list-item(@click="changePreview(2)" :class="{ 'activePreview': preview === 2 }")
             IconsBottom(stroke="var(--color5)" fill="var(--color5)")
             span.pl-2 Bottom
     //v-btn.actionBtn(flat @click="shufflePalette" :disabled="!palette" )
@@ -147,7 +147,7 @@ const changePreview = (value) => {
   padding-top: 0
   padding-bottom: 0
 
-  &:hover
+  &:hover:not(.activePreview)
     background: var(--color1)
     cursor: pointer
     .v-list-item__content
@@ -172,5 +172,17 @@ const changePreview = (value) => {
     font-weight: 400
     line-height: 135%
 
+.activePreview
+  color: var(--color1)
 
+  :deep(.middle)
+    stroke: var(--color1) !important
+    fill: var(--color1) !important
+
+  :deep(.background)
+    stroke: var(--color1) !important
+  &:hover
+    cursor: default
+  svg:hover
+    cursor: default
 </style>
