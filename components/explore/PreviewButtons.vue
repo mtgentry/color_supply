@@ -114,7 +114,7 @@ const changePreview = (value) => {
   right: 2px
   z-index: 100
   overflow-x: hidden
-  opacity: 0.2
+  opacity: 0.4
   transition: opacity 0.3s ease
   &:hover
     opacity: 1
