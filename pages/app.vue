@@ -4,7 +4,7 @@
 
 <script setup>
 onMounted(async () => {
-  await navigateTo({ path: '/palettes' })
+  await navigateTo({ path: 'https://old.colorsupplyyy.com/app/'}, {external: true })
 })
 
 </script>
