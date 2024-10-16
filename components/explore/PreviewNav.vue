@@ -449,9 +449,15 @@ onMounted(() => {
 </script>
 
 <style lang="sass" scoped>
+#explorePreviewNav
+  position: absolute
+  width: 374px
+  top: 64px
+  right: 24px
 #button-overlay
   position: absolute
+  right: 24px
   bottom: 0
   background-color: #ffffff
-  width: 100%
+  width: 374px
 </style>

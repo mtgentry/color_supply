@@ -29,4 +29,5 @@ onBeforeUnmount(() => {
   overflow-y: auto
   height: calc(100vh - 64px)
   overflow-x: hidden
+  padding: 0
 </style>

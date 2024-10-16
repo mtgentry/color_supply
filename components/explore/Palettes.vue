@@ -1,26 +1,28 @@
 <template lang="pug">
-  v-container#paletteResults(fluid ref="scroll")
-    v-row(v-auto-animate="{ duration: 300 }" v-if="palettes.length")
-      v-col(md="4" v-for='(palette, index) in palettes' :key='index')
-        v-container(fluid)
-          v-row
-            v-col.pa-0(cols="12")
-              ColorsDisplay(:palette='palette')
-            v-col#actions.pa-0(cols="12")
-              .info
-                IconsHeart.clickable(
-                  :fill="palette.favorite ? 'var(--color9)' : 'transparent'",
-                  :stroke="palette.favorite ? 'var(--color9)' : 'var(--color3)'",
-                  @click="favorite(palette)")
-                #count {{ palette.favorite_count }}
-                img(src='/img/icons/dots.svg')
-    InfiniteLoading#infinite(@infinite="load" :key="renderKey" distance="400" target="#palettes" )
-      template(#spinner)
-        v-row
-          v-col(cols="4" v-for='index in loadingNumber' :key='index')
-            ColorsDisplay(:palette='loadingPalette' noSelect readonly)
-      template(#complete)
-        div
+    div#paletteRow
+      v-container.ma-0#paletteResults(fluid)
+        v-row.colorRow(v-auto-animate="{ duration: 300 }" v-if="palettes.length")
+          v-col.colorCol(md="4" cols="6" v-for='(palette, index) in palettes' :key='index')
+            v-container(fluid)
+              v-row
+                v-col.pa-0(cols="12")
+                  ColorsDisplay(:palette='palette')
+                v-col#actions.pa-0(cols="12")
+                  .info
+                    IconsHeart.clickable(
+                      :fill="palette.favorite ? 'var(--color9)' : 'transparent'",
+                      :stroke="palette.favorite ? 'var(--color9)' : 'var(--color3)'",
+                      @click="favorite(palette)")
+                    #count {{ palette.favorite_count }}
+                    img(src='/img/icons/dots.svg')
+        InfiniteLoading#infinite(@infinite="load" :key="renderKey"  target="#palettes" )
+          template(#spinner)
+            v-row.colorRow
+              v-col.colorCol(cols="4" v-for='index in loadingNumber' :key='index')
+                ColorsDisplay(:palette='loadingPalette' noSelect readonly)
+          template(#complete)
+            div
+      ExplorePreviewNav#previewNavCol
 </template>
 
 <script setup>
@@ -29,7 +31,6 @@ import "v3-infinite-loading/lib/style.css"
 import {findClosestColor} from "~/composables/findClosestColor.js";
 
 const renderKey = ref(0)
-const scroll = ref()
 const loading = ref(false)
 const { status } = useAuth()
 const filterStore = useFilterStore()
@@ -161,8 +162,13 @@ watch([mode, style, qty, harmony, colors, wheel_color, colorTab], () => {
 </script>
 
 <style scoped lang="sass">
-
+#paletteRow
+  display: flex
+  flex-direction: row
+#previewNavCol
+  width: calc(374px + 24px + 32px)
 #paletteResults
+  width: calc(100vw - 374px - 24px - 32px - 188px)
   #actions
     display: flex
     justify-content: flex-end
@@ -182,4 +188,38 @@ watch([mode, style, qty, harmony, colors, wheel_color, colorTab], () => {
   #loading
     width: calc(100vw - 350px)
     overflow: hidden
+
+  @media (min-width: 576px)
+    .colorRow
+      padding: 24px 4px 24px 12px
+    .colorCol
+      padding: 24px 12px 24px 12px
+
+  @media (min-width: 768px)
+    .colorRow
+      padding: 24px 12px 24px 12px
+    .colorCol
+      padding: 24px 12px 24px 12px
+
+  @media (min-width: 992px)
+    .colorRow
+      padding: 24px 12px 24px 12px
+    .colorCol
+      padding: 24px 12px 24px 12px
+
+  @media (min-width: 1280px)
+    .colorRow
+      padding: 32px 24px 32px 16px
+    .colorCol
+      padding: 32px 24px 32px 24px
+  @media (min-width: 1920px)
+    .colorRow
+      padding: 32px 24px 32px 24px
+    .colorCol
+      padding: 32px 24px 32px 24px
+  @media (min-width: 2568px)
+    .colorRow
+      padding: 48px 0px 32px 16px
+    .colorCol
+      padding: 16px 32px 32px 32px
 </style>

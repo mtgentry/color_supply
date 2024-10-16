@@ -6,8 +6,6 @@
         slot
       DialogsSignUp
       DialogsLogin
-      v-navigation-drawer#preview-drawer(location="right" v-if="preview===1" width="374" touchless)
-        ExplorePreviewNav
     NuxtSnackbar
 </template>
 
@@ -26,14 +24,13 @@ onBeforeMount(async () => {
     await refreshToken()
   }
 })
-const store = useFilterStore()
-const {preview} = storeToRefs(store)
 </script>
 
 <style lang="sass">
 
 .v-application
   background-color: var(--color6)
+  overflow: hidden
 
 .v-btn
   font-size: 14px
