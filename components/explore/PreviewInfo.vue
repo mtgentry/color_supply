@@ -1,9 +1,10 @@
 <template lang="pug">
   v-container#colors(v-if="palette.id" fluid)
     v-row
-      v-col.pa-0.centered.clickable(:col="palette?.colors.length > 6 ? null : 'auto'" :cols="palette?.colors.length > 6 ? 2 : null"
+      v-col.pa-0.centered.clickable(
         v-for="color in palette?.colors" @click="clipboard(colorFormat(color), snackbar)" :style="{'backgroundColor': color}" )
         div.pt-1(:style="{color: changeColorForBackground(color)}") {{ colorFormat(color) }}
+  //:col="palette?.colors.length > 6 ? null : 'auto'" :cols="palette?.colors.length > 6 ? 2 : null"
 </template>
 
 <script setup>

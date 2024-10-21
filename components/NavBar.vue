@@ -31,6 +31,11 @@
       nuxt-link(to="/palettes") Palettes
       nuxt-link(to="/create") Create
       nuxt-link(to="/visualize") Visualize
+  #mobileAuth
+    div.half
+      v-btn#signup(@click="signUp" color="primary" width="100%" ) Sign Up
+    div.half
+      v-btn#login(@click="login" width="100%") Login
 </template>
 
 <script setup>
@@ -131,5 +136,26 @@ const logout = () => {
   padding: 0 10px
   a
     text-decoration: unset!important
+:deep(.v-toolbar__append)
+  display: none
+  @media (min-width: 768px)
+    display: flex
 
+#mobileAuth
+  display: none
+  @media (max-width: 768px)
+    position: fixed
+    bottom: 0
+    display: flex
+    justify-content: space-between
+    z-index: 1000
+    width: 100vw
+    padding: 80px 0px 18px 0px
+    background-image: url('/img/white-gradient.svg')
+    background-size: cover
+  .half
+    width: 50%
+    padding-right: 24px
+    &:first-child
+      padding-left: 24px
 </style>

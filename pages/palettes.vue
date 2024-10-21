@@ -19,11 +19,17 @@ onBeforeUnmount(() => {
 
 <style scoped lang="sass">
 #filter
+  min-width: 188px
   max-width: 188px
   padding: 0
   background-color: var(--color7)
   height: calc(100vh - 64px)
   overflow-y: auto
+  display: none
+
+  @media (min-width: 768px)
+    display: initial
+
 #palettes
   background-color: var(--color7)
   overflow-y: auto

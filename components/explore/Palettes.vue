@@ -1,41 +1,42 @@
 <template lang="pug">
-    div#paletteRow
-      v-container.ma-0#paletteResults(fluid)
-        v-row.colorRow(v-auto-animate="{ duration: 300 }" v-if="palettes.length")
-          v-col.colorCol(md="4" cols="6" v-for='(palette, index) in palettes' :key='index')
-            v-container(fluid)
-              v-row
-                v-col.pa-0(cols="12")
-                  ColorsDisplay(:palette='palette')
-                v-col#actions.pa-0(cols="12")
-                  .info
-                    IconsHeart.clickable(
-                      :fill="palette.favorite ? 'var(--color9)' : 'transparent'",
-                      :stroke="palette.favorite ? 'var(--color9)' : 'var(--color3)'",
-                      @click="favorite(palette)")
-                    #count {{ palette.favorite_count }}
-                    img(src='/img/icons/dots.svg')
-        InfiniteLoading#infinite(@infinite="load" :key="renderKey"  target="#palettes" )
-          template(#spinner)
-            v-row.colorRow
-              v-col.colorCol(cols="4" v-for='index in loadingNumber' :key='index')
-                ColorsDisplay(:palette='loadingPalette' noSelect readonly)
-          template(#complete)
-            div
-      ExplorePreviewNav#previewNavCol
+    v-container(fluid).ma-0#paletteRow
+      v-row
+        v-col.pa-0
+          v-container.ma-0#paletteResults(fluid)
+            v-row.colorRow(v-auto-animate="{ duration: 300 }" v-if="palettes.length")
+              v-col.colorCol(cols="12" xs="12" sm="6" md="6" lg="4" v-for='(palette, index) in palettes' :key='index')
+                v-container(fluid)
+                  v-row
+                    v-col.pa-0(cols="12")
+                      ColorsDisplay(:palette='palette')
+                    v-col#actions.pa-0(cols="12")
+                      .info
+                        IconsHeart.clickable(
+                          :fill="palette.favorite ? 'var(--color9)' : 'transparent'",
+                          :stroke="palette.favorite ? 'var(--color9)' : 'var(--color3)'",
+                          @click="favorite(palette)")
+                        #count {{ palette.favorite_count }}
+                        img(src='/img/icons/dots.svg')
+            InfiniteLoading#infinite(@infinite="load" :key="renderKey" distance="400" target="#palettes")
+              template(#spinner)
+                v-row.colorRow
+                  v-col.colorCol(cols="4" v-for='index in loadingNumber' :key='index')
+                    ColorsDisplay(:palette='loadingPalette' noSelect readonly)
+            template(#complete)
+              div
+        ExplorePreviewNav(v-if="preview === 1")
 </template>
 
 <script setup>
 import InfiniteLoading from "v3-infinite-loading"
 import "v3-infinite-loading/lib/style.css"
 import {findClosestColor} from "~/composables/findClosestColor.js";
-
 const renderKey = ref(0)
 const loading = ref(false)
 const { status } = useAuth()
 const filterStore = useFilterStore()
 const colorStore = useColorStore()
-const { mode, style, qty, harmony, colors, wheel_color, colorTab } = storeToRefs(filterStore)
+const { mode, style, qty, harmony, colors, wheel_color, colorTab, preview } = storeToRefs(filterStore)
 const { palettes, recentPalettes } = storeToRefs(colorStore)
 const next = ref('palettes/list/')
 const state = ref()
@@ -165,10 +166,8 @@ watch([mode, style, qty, harmony, colors, wheel_color, colorTab], () => {
 #paletteRow
   display: flex
   flex-direction: row
-#previewNavCol
-  width: calc(374px + 24px + 32px)
 #paletteResults
-  width: calc(100vw - 374px - 24px - 32px - 188px)
+  width: 100%
   #actions
     display: flex
     justify-content: flex-end
@@ -209,7 +208,7 @@ watch([mode, style, qty, harmony, colors, wheel_color, colorTab], () => {
 
   @media (min-width: 1280px)
     .colorRow
-      padding: 32px 24px 32px 16px
+      padding: 32px 24px 32px 8px
     .colorCol
       padding: 32px 24px 32px 24px
   @media (min-width: 1920px)
@@ -219,7 +218,7 @@ watch([mode, style, qty, harmony, colors, wheel_color, colorTab], () => {
       padding: 32px 24px 32px 24px
   @media (min-width: 2568px)
     .colorRow
-      padding: 48px 0px 32px 16px
+      padding: 48px 32px 32px 16px
     .colorCol
       padding: 16px 32px 32px 32px
 </style>
