@@ -4,11 +4,11 @@
     v-col#filter(cols="2" v-if="showFilter")
       ExploreFilter
     v-col#palettes
-      v-btn#hamburger.iconBtn(@click="showFilter = !showFilter" flat)
-        svg(width='67', height='52', viewBox='0 0 67 52', fill='none', xmlns='http://www.w3.org/2000/svg')
-          path(d='M26.9414 28.5882C26.9414 28.2634 27.2048 28 27.5296 28H40.4708C40.7957 28 41.0591 28.2634 41.0591 28.5882C41.0591 28.9131 40.7957 29.1765 40.4708 29.1765H27.5296C27.2048 29.1765 26.9414 28.9131 26.9414 28.5882Z', fill='#788092')
-          path(d='M29.8823 32.7093C29.8823 32.3845 30.1457 32.1211 30.4706 32.1211H37.5294C37.8543 32.1211 38.1176 32.3845 38.1176 32.7093C38.1176 33.0342 37.8543 33.2976 37.5294 33.2976H36.9411H30.4706C30.1457 33.2976 29.8823 33.0342 29.8823 32.7093Z', fill='#788092')
-          path(d='M24 24.471C24 24.1462 24.2634 23.8828 24.5882 23.8828H43.4118C43.7366 23.8828 44 24.1462 44 24.471C44 24.7959 43.7366 25.0593 43.4118 25.0593H24.5882C24.2634 25.0593 24 24.7959 24 24.471Z', fill='#788092')
+      v-btn.mt-2.ml-2#hamburger.iconBtn(@click="showFilter = !showFilter" flat)
+        svg(width='20', height='10', viewBox='0 0 20 10', fill='none', xmlns='http://www.w3.org/2000/svg')
+          path(d='M2.94141 4.70542C2.94141 4.38055 3.20477 4.11719 3.52964 4.11719H16.4708C16.7957 4.11719 17.0591 4.38055 17.0591 4.70542V4.70542C17.0591 5.0303 16.7957 5.29366 16.4708 5.29366H3.52964C3.20477 5.29366 2.94141 5.0303 2.94141 4.70542V4.70542Z', fill='#788092')
+          path(d='M5.88232 8.82652C5.88232 8.50164 6.14569 8.23828 6.47056 8.23828H13.5294C13.8543 8.23828 14.1176 8.50164 14.1176 8.82652V8.82652C14.1176 9.15139 13.8543 9.41475 13.5294 9.41475H12.9411H6.47056C6.14569 9.41475 5.88232 9.15139 5.88232 8.82652V8.82652Z', fill='#788092')
+          path(d='M0 0.588235C0 0.263362 0.263362 0 0.588235 0H19.4118C19.7366 0 20 0.263362 20 0.588235V0.588235C20 0.913109 19.7366 1.17647 19.4118 1.17647H0.588236C0.263363 1.17647 0 0.913109 0 0.588235V0.588235Z', fill='#788092')
       ExplorePalettes(:showFilter="showFilter")
     ExplorePreviewBox
     ExplorePreviewOpen
@@ -21,6 +21,18 @@ const {preview} = storeToRefs(store)
 const showFilter = ref(false)
 onBeforeUnmount(() => {
   store.preview = 2
+})
+const showFilterOnResize = function() {
+  if (window.innerWidth > 768) {
+    showFilter.value = true
+  }
+}
+
+onMounted(() => {
+  window.addEventListener('resize', showFilterOnResize)
+})
+onUnmounted(() => {
+  window.removeEventListener('resize', showFilterOnResize)
 })
 </script>
 
