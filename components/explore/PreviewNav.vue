@@ -469,7 +469,7 @@ onMounted(() => {
   @media (min-width: 768px)
     width: 174px
   @media (min-width: 992px)
-    width: 174px
+    width: 235px
   @media (min-width: 1280px)
     width: 235px
   @media (min-width: 1920px)

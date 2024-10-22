@@ -4,7 +4,7 @@
         v-col.pa-0
           v-container.ma-0#paletteResults(fluid)
             v-row.colorRow(v-auto-animate="{ duration: 300 }" v-if="palettes.length")
-              v-col.colorCol(cols="12" xs="12" sm="6" md="6" lg="4" v-for='(palette, index) in palettes' :key='index')
+              v-col.colorCol(:cols="showFilter ? 12 : 6" xs="12" sm="6" md="6" lg="4" v-for='(palette, index) in palettes' :key='index')
                 v-container(fluid)
                   v-row
                     v-col.pa-0(cols="12")
@@ -31,6 +31,10 @@
 import InfiniteLoading from "v3-infinite-loading"
 import "v3-infinite-loading/lib/style.css"
 import {findClosestColor} from "~/composables/findClosestColor.js";
+const props = defineProps({
+  showFilter: Boolean
+})
+
 const renderKey = ref(0)
 const loading = ref(false)
 const { status } = useAuth()
@@ -188,6 +192,10 @@ watch([mode, style, qty, harmony, colors, wheel_color, colorTab], () => {
     width: calc(100vw - 350px)
     overflow: hidden
 
+  .colorRow
+    padding: 40px 4px 24px 12px
+  .colorCol
+    padding: 24px 12px 24px 12px
   @media (min-width: 576px)
     .colorRow
       padding: 24px 4px 24px 12px
