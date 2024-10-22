@@ -33,7 +33,9 @@ const selectPalette = () => {
   saturation.value = 0
   lightness.value = 0
   store.addRecentPalette(props.palette)
-  preview.value = 0
+  if (preview.value === 2) {
+    preview.value = 0
+  }
 }
 
 const isSelected = computed(() => {
