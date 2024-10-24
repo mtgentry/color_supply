@@ -8,7 +8,7 @@
         a(href="https://docs.google.com/document/d/1puqBgo1lgmq8Fw65LA1C8hWgwSEHo-FAW9K6CEBQutE/edit" target="_blank") Have ideas? We'd love to hear them.
       div(v-if="status === 'unauthenticated'")
         v-btn#login(@click="login") Login
-        v-btn#signup.ml-3(@click="signUp" color="primary" ) Sign Up
+        v-btn#signup.ml-3(@click="handleSignUp" color="primary") Sign Up
       div.centered(v-else)
         v-menu(open-on-hover open-delay="0" offset="10")
           template(v-slot:activator="{ props }")
@@ -33,23 +33,23 @@
       nuxt-link(to="/visualize") Visualize
   #mobileAuth
     div.half
-      v-btn#signup(@click="signUp" color="primary" width="100%" ) Sign Up
+      v-btn#signup(@click="handleSignUp" color="primary" width="100%") Sign Up
     div.half
       v-btn#login(@click="login" width="100%") Login
 </template>
 
 <script setup>
 const { status, signOut, data } = useAuth()
-const dialogStore = useDialogStore()
 const colorStore = useColorStore()
-const {changeLoginForm, changeSignUpForm} = dialogStore
-const snackbar = useSnackbar()
+const dialogStore = useDialogStore()
+const { changeLoginForm } = dialogStore
+const { handleSignUp } = useSignUp()  // Using the new composable
+
+// Keep login separate since it's navbar specific
 const login = () => {
   changeLoginForm(true)
 }
-const signUp = () => {
-  changeSignUpForm(true)
-}
+
 const logout = () => {
   signOut()
   const route = useRoute()

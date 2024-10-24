@@ -22,3 +22,9 @@ logs
 .env
 .env.*
 !.env.example
+
+# Ignore my virtual env setup
+
+venv/
+color_supply_backend/venv/
+

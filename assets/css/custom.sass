@@ -1,4 +1,5 @@
-\:root
+// ROOT VARIABLES
+:root
   --color1: #4175DF
   --color2: #1D1E20
   --color3: #788092
@@ -7,22 +8,21 @@
   --color6: #F6F6F5
   --color7: #FFF
   --color8: #F6F8FE
-  --color9: #E71D1D
-  --color10: #ECF1FC
-  --ghost-color: #ECF1FC
 
+
+// BREAKPOINTS
 $xl: 2560px
 $lg: 1902px
 $md: 1280px
 $sm: 960px
 $xs: 600px
 
+// FONTS
 @font-face
   font-family: 'ABCDiatypeRounded'
   src: url('/fonts/ABCDiatypeRounded-Bold-Trial.otf') format('opentype')
   font-weight: 700
   font-style: normal
-
 
 @font-face
   font-family: 'ABCDiatypeRounded'
@@ -30,13 +30,11 @@ $xs: 600px
   font-weight: 300
   font-style: normal
 
-
 @font-face
   font-family: 'ABCDiatypeRounded'
   src: url('/fonts/ABCDiatypeRounded-Medium-Trial.otf') format('opentype')
   font-weight: 500
   font-style: normal
-
 
 @font-face
   font-family: 'ABCDiatypeRounded'
@@ -44,13 +42,11 @@ $xs: 600px
   font-weight: 400
   font-style: normal
 
-
 @font-face
   font-family: 'ABCDiatypeRounded'
   src: url('/fonts/ABCDiatypeRounded-Thin-Trial.otf') format('opentype')
   font-weight: 100
   font-style: normal
-
 
 @font-face
   font-family: 'ABCDiatypeRounded'
@@ -58,10 +54,12 @@ $xs: 600px
   font-weight: 800
   font-style: normal
 
+// GLOBAL STYLES
 html
   overflow: auto
-  font-family: "ABCDiatypeRounded", sans-serif!important
+  font-family: "ABCDiatypeRounded", sans-serif !important
 
+// UTILITY CLASSES
 .clickable
   cursor: pointer
 
@@ -76,7 +74,7 @@ html
   flex-direction: column
 
 .router-link-exact-active
-    color: var(--color1)!important
+  color: var(--color1) !important
 
 a:visited
   color: var(--color1)
@@ -90,19 +88,19 @@ a:visited
 
     &.v-btn--disabled
       color: var(--color5)
-      background-color: var(--color7)!important
+      background-color: var(--color7) !important
 
     :deep(.v-btn__overlay)
-      opacity: 0!important
+      opacity: 0 !important
 
 .v-label
-  opacity: 1!important
+  opacity: 1 !important
 
 .vue3-snackbar-message-content
-  // snackbar width
-  width: 100%!important
+  width: 100% !important
 
 .v-main
+<<<<<<< Updated upstream
   transition-duration: 0.4s!important
 
 .iconBtn
@@ -113,3 +111,133 @@ a:visited
   background-color: transparent!important
   border-radius: 100%!important
   border: unset!important
+
+
+=======
+  transition-duration: 0.4s !important
+>>>>>>> Stashed changes
+
+// TYPOGRAPHY
+.h1
+  font-size: 72px !important
+  font-weight: 300
+  line-height: 1
+  letter-spacing: -0.015625em !important
+  text-transform: none !important
+
+.h2
+  font-size: 60px !important
+  font-weight: 300
+  line-height: 1
+  letter-spacing: -0.008333em !important
+  text-transform: none !important
+
+.h3
+  font-size: 48px !important
+  font-weight: 400
+  line-height: 1.05
+  letter-spacing: normal !important
+  text-transform: none !important
+
+.h4
+  font-size: 36px !important
+  font-weight: 400
+  line-height: 1.175
+  letter-spacing: 0.007353em !important
+  text-transform: none !important
+
+.h5
+  font-size: 30px !important
+  font-weight: 400
+  line-height: 1.333
+  letter-spacing: normal !important
+  text-transform: none !important
+
+.h6
+  font-size: 24px !important
+  font-weight: 500
+  line-height: 1.6
+  letter-spacing: 0.0125em !important
+  text-transform: none !important
+
+.text_xl
+  font-size: 20px
+  line-height: 30px
+
+.text_lg
+  font-size: 18px
+  line-height: 28px
+
+.p
+  font-size: 16px
+  line-height: 24px
+
+.text_sm
+  font-size: 14px
+  line-height: 20px
+
+.text_xs
+  font-size: 12px
+  line-height: 16px
+
+
+<<<<<<< Updated upstream
+
+#button
+      border: 1px solid #FF0000 !important
+
+#login
+      border: var(--color5) 1px solid
+
+=======
+  .plan-name
+    color: var(--color2)
+    font-weight: bold
+    font-size: 16px
+    margin-bottom: 20px
+
+  .price
+    height: 48px
+    align-items: flex-start
+    margin-bottom: 64px // Add space between price and features
+    
+    .currency
+      font-weight: 500
+      font-size: 16px
+      color: var(--color2)
+      margin-right: 4px
+    
+    .amount
+      font-weight: 500
+      font-size: 48px
+      color: var(--color2)
+
+    #button
+      border: 1px solid #FF0000 !important
+
+    #login
+      border: var(--color5) 1px solid
+     
+
+    .v-btn__content
+      border: 1px solid #FF0000 !important
+    
+    .period
+      font-weight: 500
+      font-size: 16px
+      color: var(--color2)
+      margin-left: 4px
+    
+    .free
+      font-weight: 500
+      font-size: 16px
+      color: var(--color2)
+
+  .plan-features
+    color: var(--color2)
+    font-size: 15px
+    line-height: 1.5
+    
+    p
+      margin-bottom: 16px
+>>>>>>> Stashed changes
