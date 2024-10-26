@@ -2,7 +2,6 @@
   v-row#visualize
     v-col#image.pa-0.centered(col="auto")
       VisualizeImage
-      VisualizeButtons
     v-col#palettes
       VisualizePalettes(select-first)
 </template>
