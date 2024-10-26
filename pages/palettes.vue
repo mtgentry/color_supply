@@ -18,7 +18,7 @@
 <script setup>
 const store = useFilterStore()
 const {preview} = storeToRefs(store)
-const showFilter = ref(false)
+const showFilter = ref(true)
 onBeforeUnmount(() => {
   store.preview = 2
 })
