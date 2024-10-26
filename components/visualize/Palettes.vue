@@ -10,7 +10,7 @@
         VisualizeSignUp
       v-col.centered(md="12" v-else-if="pending")
         v-progress-circular(indeterminate)
-      v-col(md="12" :key="index" v-for="(palette, index) in visualizePalettes" v-else)
+      v-col#colorRow(md="12" :key="index" v-for="(palette, index) in visualizePalettes" v-else)
         ColorsDisplay(:palette='palette' rounded)
 </template>
 
@@ -54,6 +54,7 @@ watch(toggle, async (value) => {
 
 <style scoped lang="sass">
 #paletteResults
+  padding: 16px 24px
   .v-col
     padding: 6px 0
 
@@ -83,4 +84,7 @@ watch(toggle, async (value) => {
   .v-label
     font-size: 15px
     letter-spacing: 0.3px
+
+#colorRow
+  padding: 24px
 </style>
