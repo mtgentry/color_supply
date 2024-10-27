@@ -193,26 +193,26 @@ watch([mode, style, qty, harmony, colors, wheel_color, colorTab], () => {
     overflow: hidden
 
   .colorRow
-    padding: 40px 4px 24px 12px
+    padding: 32px 4px 16px 12px
   .colorCol
-    padding: 24px 12px 24px 12px
+    padding: 32px 12px 32px 12px
   @media (min-width: 576px)
     .colorRow
-      padding: 24px 4px 24px 12px
+      padding: 16px 4px 16px 12px
     .colorCol
-      padding: 24px 12px 24px 12px
+      padding: 32px 12px 32px 12px
 
   @media (min-width: 768px)
     .colorRow
-      padding: 24px 12px 24px 12px
+      padding: 16px 12px 16px 12px
     .colorCol
-      padding: 24px 12px 24px 12px
+      padding: 32px 12px 32px 12px
 
   @media (min-width: 992px)
     .colorRow
-      padding: 24px 12px 24px 12px
+      padding: 16px 12px 16px 12px
     .colorCol
-      padding: 24px 12px 24px 12px
+      padding: 32px 12px 32px 12px
 
   @media (min-width: 1280px)
     .colorRow
@@ -226,7 +226,7 @@ watch([mode, style, qty, harmony, colors, wheel_color, colorTab], () => {
       padding: 32px 24px 32px 24px
   @media (min-width: 2568px)
     .colorRow
-      padding: 48px 32px 32px 16px
+      padding: 32px 32px 32px 16px
     .colorCol
-      padding: 16px 32px 32px 32px
+      padding: 32px 32px 32px 32px
 </style>
