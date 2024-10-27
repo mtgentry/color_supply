@@ -43,7 +43,7 @@ const disableColor = (event) => {
   padding: 0
   overflow-y: auto
   background-color: var(--color7)
-  min-width: 12rem
-  max-width: 17.375rem
+  min-width: 12em
+  max-width: 17.375em
 
 </style>

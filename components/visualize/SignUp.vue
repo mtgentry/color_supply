@@ -19,7 +19,7 @@ const signUp = () => {
   padding: 96px 24px 0 24px
 
   .title
-    font-size: 1.25rem
+    font-size: 1.25em
     font-style: normal
     font-weight: 500
     line-height: normal
@@ -30,7 +30,7 @@ const signUp = () => {
   .subtitle
     color: var(--Color-Supply-Color-2, #1D1E20)
     text-align: center
-    font-size: 0.75rem
+    font-size: 0.75em
     font-style: normal
     font-weight: 400
     line-height: normal

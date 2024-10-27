@@ -129,7 +129,7 @@ const logout = () => {
       .v-list-item--density-default.v-list-item--one-line
         min-height: 36px
 #feedback
-  font-size: 0.75rem
+  font-size: 0.75em
   font-weight: 400
   line-height: 16.38px
   text-align: center

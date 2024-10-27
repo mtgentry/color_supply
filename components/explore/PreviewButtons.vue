@@ -139,7 +139,7 @@ const changePreview = (value) => {
 .v-list-item
   min-height: 45px
   h2
-    font-size: 1.0625rem
+    font-size: 1.0625em
     font-weight: 500
     line-height: normal
     letter-spacing: 0.34px
@@ -167,7 +167,7 @@ const changePreview = (value) => {
     align-items: center
     border-bottom: var(--color5) 1px solid
     height: 100%
-    font-size: 0.875rem
+    font-size: 0.875em
     font-style: normal
     font-weight: 400
     line-height: 135%
