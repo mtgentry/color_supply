@@ -74,13 +74,14 @@ const { handleSignUp } = useSignUp()
 
 <style lang="sass" scoped>
 .pricing-container
-  width: 100%
-  max-width: 1088px
+
+  height: calc(100vh - 64px)
   margin: 0 auto
   background: var(--color7)
   display: flex
   flex-direction: column
   gap: 0px
+  margin: -16px
 
   @media (max-width: 600px)
     padding: 0 20px 100px  
@@ -262,4 +263,71 @@ const { handleSignUp } = useSignUp()
 .pricing-plans > .divider-line:last-child
   @media (max-width: 599px)
     display: none
+
+
+.iconBtn
+  padding: 0 10px
+  cursor: pointer
+  height: 34px
+  min-width: unset
+  background-color: transparent
+  border-radius: 100%
+  border: none
+
+// TYPOGRAPHY
+.h1, .h2, .h3, .h4, .h5, .h6
+  text-transform: none
+
+.h1
+  font-size: 72px
+  font-weight: 300
+  line-height: 1
+  letter-spacing: -0.015625em
+
+.h2
+  font-size: 60px
+  font-weight: 300
+  line-height: 1
+  letter-spacing: -0.008333em
+
+.h3
+  font-size: 48px
+  font-weight: 400
+  line-height: 1.05
+
+.h4
+  font-size: 36px
+  font-weight: 400
+  line-height: 1.175
+
+.h5
+  font-size: 30px
+  font-weight: 400
+  line-height: 1.333
+
+.h6
+  font-size: 24px
+  font-weight: 500
+  line-height: 1.6
+
+.text_xl
+  font-size: 20px
+  line-height: 30px
+
+.text_lg
+  font-size: 18px
+  line-height: 28px
+
+.p
+  font-size: 16px
+  line-height: 24px
+
+.text_sm
+  font-size: 14px
+  line-height: 20px
+
+.text_xs
+  font-size: 12px
+  line-height: 16px
+
 </style>

@@ -1,5 +1,4 @@
-// ROOT VARIABLES
-:root
+\:root
   --color1: #4175DF
   --color2: #1D1E20
   --color3: #788092
@@ -8,20 +7,22 @@
   --color6: #F6F6F5
   --color7: #FFF
   --color8: #F6F8FE
+  --color9: #E71D1D
+  --color10: #ECF1FC
+  --ghost-color: #ECF1FC
 
-// BREAKPOINTS
 $xl: 2560px
 $lg: 1902px
 $md: 1280px
 $sm: 960px
 $xs: 600px
 
-// FONTS
 @font-face
   font-family: 'ABCDiatypeRounded'
   src: url('/fonts/ABCDiatypeRounded-Bold-Trial.otf') format('opentype')
   font-weight: 700
   font-style: normal
+
 
 @font-face
   font-family: 'ABCDiatypeRounded'
@@ -29,11 +30,13 @@ $xs: 600px
   font-weight: 300
   font-style: normal
 
+
 @font-face
   font-family: 'ABCDiatypeRounded'
   src: url('/fonts/ABCDiatypeRounded-Medium-Trial.otf') format('opentype')
   font-weight: 500
   font-style: normal
+
 
 @font-face
   font-family: 'ABCDiatypeRounded'
@@ -41,11 +44,13 @@ $xs: 600px
   font-weight: 400
   font-style: normal
 
+
 @font-face
   font-family: 'ABCDiatypeRounded'
   src: url('/fonts/ABCDiatypeRounded-Thin-Trial.otf') format('opentype')
   font-weight: 100
   font-style: normal
+
 
 @font-face
   font-family: 'ABCDiatypeRounded'
@@ -53,17 +58,15 @@ $xs: 600px
   font-weight: 800
   font-style: normal
 
-// GLOBAL STYLES
 html
   overflow: auto
-  font-family: 'ABCDiatypeRounded', sans-serif
+  font-family: "ABCDiatypeRounded", sans-serif!important
 
-// UTILITY CLASSES
 .clickable
   cursor: pointer
 
 .v-btn--disabled
-  background-color: var(--color4)
+  background-color: var(--color4) !important
   color: var(--color3)
 
 .centered
@@ -73,12 +76,11 @@ html
   flex-direction: column
 
 .router-link-exact-active
-  color: var(--color1)
+    color: var(--color1)!important
 
 a:visited
   color: var(--color1)
 
-// MAIN STYLES
 #actions
   .actionBtn
     border: 1px solid var(--color4)
@@ -88,86 +90,20 @@ a:visited
 
     &.v-btn--disabled
       color: var(--color5)
-      background-color: var(--color7)
+      background-color: var(--color7)!important
 
     :deep(.v-btn__overlay)
-      opacity: 0
+      opacity: 0!important
 
 .v-label
-  opacity: 1
+  opacity: 1!important
 
 .vue3-snackbar-message-content
-  width: 100%
+  // snackbar width
+  width: 100%!important
 
 .v-main
-  transition-duration: 0.4s
-
-.iconBtn
-  padding: 0 10px
-  cursor: pointer
-  height: 34px
-  min-width: unset
-  background-color: transparent
-  border-radius: 100%
-  border: none
-
-// TYPOGRAPHY
-.h1, .h2, .h3, .h4, .h5, .h6
-  text-transform: none
-
-.h1
-  font-size: 72px
-  font-weight: 300
-  line-height: 1
-  letter-spacing: -0.015625em
-
-.h2
-  font-size: 60px
-  font-weight: 300
-  line-height: 1
-  letter-spacing: -0.008333em
-
-.h3
-  font-size: 48px
-  font-weight: 400
-  line-height: 1.05
-
-.h4
-  font-size: 36px
-  font-weight: 400
-  line-height: 1.175
-
-.h5
-  font-size: 30px
-  font-weight: 400
-  line-height: 1.333
-
-.h6
-  font-size: 24px
-  font-weight: 500
-  line-height: 1.6
-
-.text_xl
-  font-size: 20px
-  line-height: 30px
-
-.text_lg
-  font-size: 18px
-  line-height: 28px
-
-.p
-  font-size: 16px
-  line-height: 24px
-
-.text_sm
-  font-size: 14px
-  line-height: 20px
-
-.text_xs
-  font-size: 12px
-  line-height: 16px
-
-
+  transition-duration: 0.4s!important
 
 .iconBtn
   padding: 0 10px!important
@@ -177,3 +113,4 @@ a:visited
   background-color: transparent!important
   border-radius: 100%!important
   border: unset!important
+

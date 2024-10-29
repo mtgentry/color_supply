@@ -29,7 +29,7 @@ onBeforeMount(async () => {
 <style lang="sass">
 
 .v-application
-  background-color: var(--color7)
+  background-color: var(--color6)
   overflow: hidden
 
 .v-btn
