@@ -84,6 +84,7 @@ watch(toggle, async (value) => {
   .v-label
     font-size: 15px
     letter-spacing: 0.3px
+    opacity: 1
 
 #colorRow
   padding: 24px
