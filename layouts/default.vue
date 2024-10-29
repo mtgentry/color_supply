@@ -31,6 +31,7 @@ onBeforeMount(async () => {
 .v-application
   background-color: var(--color6)
   overflow: hidden
+  line-height: 1
 
 .v-btn
   font-size: 14px

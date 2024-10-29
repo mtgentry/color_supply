@@ -24,6 +24,7 @@ const { hue, saturation, lightness } = storeToRefs(colorStore)
     font-size: 15px
     letter-spacing: 0.3px
   #hue
+    line-height: 1!important
     :deep(.v-slider-track__background)
       opacity: 1
       background: linear-gradient(to right, #F00 0%, #FF0 16.66%, #0F0 33.33%, #0FF 50%, #00F 66.66%, #F0F 83.33%, #F00 100%)

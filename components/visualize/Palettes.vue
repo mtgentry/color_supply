@@ -57,10 +57,12 @@ watch(toggle, async (value) => {
   padding: 16px 24px
   .v-col
     padding: 6px 0
+    &:first-child
+      padding: 0 0 6px 0
 
   #toggleRow
     margin: 0
-    padding-top: 12px
+    padding-top: 16px
 
   .v-btn--size-default
     min-width: 0
