@@ -5,7 +5,11 @@
         v-list-item.pa-0
           nuxt-link(to="general") General
         v-list-item.pa-0
+          nuxt-link(to="password") Password
+        v-list-item.pa-0
           nuxt-link(to="plan") Plan
+        v-list-item.pa-0
+          nuxt-link(to="") Billing
       div.pa-0.centered
         v-dialog(max-width='500')
           template(v-slot:activator='{ props: activatorProps }')
@@ -22,11 +26,21 @@
                 v-spacer
                 v-btn(text='No' @click='isActive.value = false')
     v-col#content.pa-0(cols="10")
+      v-container#title(v-if="title")
+        v-row.ma-0
+          v-col.pa-0(cols="12")
+            .title {{ title }}
+          v-col.pa-0(cols="12" v-if="description")
+            .description {{ description }}
       slot
 </template>
 
 
 <script setup>
+const {props} = defineProps({
+  title: String,
+  description: String,
+})
 const { signOut } = useAuth()
 const initialState = {
   password: '',
@@ -73,7 +87,7 @@ const deleteAccount = async () => {
   background-color: var(--color7)
 
 a
-  text-decoration: none
+  text-decoration: none!important
   color: var(--color2)
 .router-link-active
   text-decoration: underline
@@ -83,4 +97,21 @@ a:hover
 
 #delete
   width: 100%
+
+#title
+  display: flex
+  flex-direction: column
+  padding: 120px 0 0 0
+  width: 500px
+  .title
+    font-size: 24px
+    font-style: normal
+    font-weight: 500
+    padding-bottom: 16px
+  .description
+    font-size: 18px
+    font-style: normal
+    font-weight: 500
+    color: var(--color3)
+    padding-bottom: 64px
 </style>
