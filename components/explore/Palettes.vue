@@ -22,8 +22,8 @@
                 v-row.colorRow
                   v-col.colorCol(cols="4" v-for='index in loadingNumber' :key='index')
                     ColorsDisplay(:palette='loadingPalette' noSelect readonly)
-            template(#complete)
-              div
+              template(#complete)
+                div
         ExplorePreviewNav(v-if="preview === 1")
 </template>
 
