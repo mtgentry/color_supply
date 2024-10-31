@@ -1,7 +1,7 @@
 <template lang="pug">
   #space.sameWidth
     #previewNav.sameWidth
-      ExplorePreviewButtons
+      ExplorePreviewButtons(:background="background")
       div#explorePreviewNav
         svg(width='100%' height='100%' viewBox='0 0 374 1760' fill='none' preserveAspectRatio='xMidYMid meet' xmlns='http://www.w3.org/2000/svg' @click="shufflePalette")
           path(d='M374 1854H0V-0.00012207H374V1854Z' :fill='background')
