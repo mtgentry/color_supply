@@ -20,17 +20,31 @@
               v-btn#plan(color="primary" variant="outlined" to="/manage/plan") {{ data.plan.name }} Plan
               v-divider
               v-list
-                v-list-item(to="/manage/general") Manage account
-                v-list-item
+                v-list-item(to="/manage/general" :ripple="false") Manage account
+                v-list-item(:ripple="false")
                   .d-flex.align-center
                     IconsHeart.mr-1.mb-1
                     span My Likes
-                v-list-item Bug report & feedback
-                v-list-item(@click="logout") Log Out
+                v-list-item(:ripple="false") Bug report & feedback
+                v-list-item(@click="logout" :ripple="false") Log Out
     v-toolbar-title
       nuxt-link(to="/palettes") Palettes
       nuxt-link(to="/create") Create
       nuxt-link(to="/visualize") Visualize
+      v-menu(open-on-hover open-delay="0" :offset="[-14,25]")
+        template(v-slot:activator="{ props }")
+          nuxt-link.clickable(v-bind="props")
+            .d-flex.align-center
+              span More
+              svg.menuIcon(width='10', height='6', viewBox='0 0 10 6', fill='none', xmlns='http://www.w3.org/2000/svg')
+                path(d='M4.76323 5.19995L8.81577e-05 0.399998L9.52637 0.399999L4.76323 5.19995Z', fill='#788092')
+        v-card#popup2(elevation="1")
+          v-card-text
+            v-list
+              v-list-item(:ripple="false")
+                nuxt-link.clickable(to="/pricing") Pricing
+              v-list-item(:ripple="false") About
+              v-list-item(:ripple="false") Contract
   #mobileAuth
     div.half
       v-btn#signup(@click="handleSignUp" color="primary" width="100%") Sign Up
@@ -65,6 +79,15 @@ const logout = () => {
 </script>
 
 <style scoped lang="sass">
+  a
+    text-decoration: none!important
+
+    &:hover
+      color: var(--color1) !important
+    &:visited
+      color: var(--color3)
+  .router-link-active
+    color: var(--color1) !important
   #logo
     height: 26px
     padding: 0 20px
@@ -84,6 +107,8 @@ const logout = () => {
       left: 190px
     :nth-child(3)
       left: 260px
+    :nth-child(4)
+      left: 348px
 
   .v-toolbar-title
     a
@@ -95,6 +120,7 @@ const logout = () => {
       padding: 17px 0
       position: fixed
       top: 1px
+      display: flex
 
       &:hover
         color: var(--color1)
@@ -126,8 +152,31 @@ const logout = () => {
       padding: 0
       .v-list-item
         padding: 0
+        color: var(--color3)
+        &:hover
+          color: var(--color1)
+        :deep(.v-list-item__overlay)
+          display: none
       .v-list-item--density-default.v-list-item--one-line
         min-height: 36px
+
+  #popup2
+    :deep(.v-card-text)
+      padding: 11px 20px
+    .v-list
+      padding: 0
+      .v-list-item
+        padding: 0
+        font-size: 17px
+        letter-spacing: 0.17px
+        color: var(--color3)
+        &:hover
+          color: var(--color1)
+        :deep(.v-list-item__overlay)
+          display: none
+      .v-list-item--density-default.v-list-item--one-line
+        min-height: 32px
+
 #feedback
   font-size: 0.75em
   font-weight: 400
@@ -158,4 +207,7 @@ const logout = () => {
     padding-right: 24px
     &:first-child
       padding-left: 24px
+.menuIcon
+  margin-left: 6px
+  margin-top: 3px
 </style>
