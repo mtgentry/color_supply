@@ -282,13 +282,13 @@ const { handleSignUp } = useSignUp()
   font-size: 72px
   font-weight: 300
   line-height: 1
-  letter-spacing: -0.015625em
+  letter-spacing: -0.015625rem
 
 .h2
   font-size: 60px
   font-weight: 300
   line-height: 1
-  letter-spacing: -0.008333em
+  letter-spacing: -0.008333rem
 
 .h3
   font-size: 48px

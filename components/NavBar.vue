@@ -178,7 +178,7 @@ const logout = () => {
         min-height: 32px
 
 #feedback
-  font-size: 0.75em
+  font-size: 0.75rem
   font-weight: 400
   line-height: 16.38px
   text-align: center
