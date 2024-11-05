@@ -1,16 +1,16 @@
 <template lang="pug">
   v-container#paletteResults(fluid :class="{'pa-0': !selectFirst}")
     v-row#toggleRow
-      v-col(md="12" :class="{'mb-5': !selectFirst}")
+      v-col(cols="12" :class="{'mb-5': !selectFirst}")
         v-btn-toggle(variant="text" rounded="0" mandatory v-model="toggle"  v-if="selectFirst")
           v-btn(value="recent").mr-5 Recent
           v-btn(value="favorites") Favorites
         v-label(v-else) Recent
-      v-col.pa-0(md="12" v-if="status === 'unauthenticated' && toggle === 'favorites'")
+      v-col.pa-0(cols="12" v-if="status === 'unauthenticated' && toggle === 'favorites'")
         VisualizeSignUp
-      v-col.centered(md="12" v-else-if="pending")
+      v-col.centered(cols="12" v-else-if="pending")
         v-progress-circular(indeterminate)
-      v-col#colorRow(md="12" :key="index" v-for="(palette, index) in visualizePalettes" v-else)
+      v-col#colorRow(cols="12" :key="index" v-for="(palette, index) in visualizePalettes" v-else)
         ColorsDisplay(:palette='palette' rounded)
 </template>
 
