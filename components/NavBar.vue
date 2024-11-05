@@ -31,7 +31,7 @@
       nuxt-link(to="/palettes") Palettes
       nuxt-link(to="/create") Create
       nuxt-link(to="/visualize") Visualize
-      v-menu(open-on-hover open-delay="0" :offset="[-14,25]")
+      v-menu(open-on-hover open-delay="0" :offset="[-14,25]" v-if="status === 'unauthenticated'")
         template(v-slot:activator="{ props }")
           nuxt-link.clickable(v-bind="props")
             .d-flex.align-center
@@ -45,7 +45,7 @@
                 nuxt-link.clickable(to="/pricing") Pricing
               v-list-item(:ripple="false") About
               v-list-item(:ripple="false") Contract
-  #mobileAuth
+  #mobileAuth(v-if="status === 'unauthenticated'")
     div.half
       v-btn#signup(@click="handleSignUp" color="primary" width="100%") Sign Up
     div.half
