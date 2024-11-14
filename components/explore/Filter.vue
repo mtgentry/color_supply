@@ -62,7 +62,9 @@ watch(style, (value, oldValue) => {
 
 <style scoped lang="sass">
 #panels
-  padding-left: 10px
+  padding-left: 24px
+  @media (max-width: 960px)
+    padding-top: 40px
 
 :deep(.v-expansion-panel-title)
   padding: 16px 24px 16px 0
@@ -149,7 +151,4 @@ watch(style, (value, oldValue) => {
   :deep(.v-expansion-panel-text)
     margin-left: -10px
 
-#panels
-  @media (min-width: 2568px)
-    padding-left: 24px
 </style>

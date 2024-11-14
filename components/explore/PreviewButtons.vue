@@ -116,6 +116,9 @@ const changePreview = (value) => {
   overflow-x: hidden
   opacity: 0.4
   transition: opacity 0.3s ease
+  width: 0
+  @media (min-width: 600px)
+    width: 164px
   &:hover
     opacity: 1
   #line

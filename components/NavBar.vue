@@ -187,12 +187,12 @@ const logout = () => {
     text-decoration: unset!important
 :deep(.v-toolbar__append)
   display: none
-  @media (min-width: 768px)
+  @media (min-width: 960px)
     display: flex
 
 #mobileAuth
   display: none
-  @media (max-width: 768px)
+  @media (max-width: 960px)
     position: fixed
     bottom: 0
     display: flex

@@ -4,7 +4,7 @@
         v-col.pa-0
           v-container.ma-0#paletteResults(fluid)
             v-row.colorRow(v-auto-animate="{ duration: 300 }" v-if="palettes.length")
-              v-col.colorCol(:cols="showFilter ? 12 : 6" xs="12" sm="6" md="6" lg="4" v-for='(palette, index) in palettes' :key='index')
+              v-col.colorCol(:cols="showFilter ? 12 : 6" xs="12" :sm="showFilter && preview === 1 ? 12 : 6" md="4" lg="4" v-for='(palette, index) in palettes' :key='index')
                 v-container(fluid)
                   v-row
                     v-col.pa-0(cols="12")
@@ -196,23 +196,23 @@ watch([mode, style, qty, harmony, colors, wheel_color, colorTab], () => {
     padding: 32px 4px 16px 12px
   .colorCol
     padding: 32px 12px 32px 12px
-  @media (min-width: 576px)
+  @media (min-width: 375px)
     .colorRow
-      padding: 16px 4px 16px 12px
+      padding: 31px 12px 16px 12px
     .colorCol
       padding: 32px 12px 32px 12px
 
-  @media (min-width: 768px)
+  @media (min-width: 600px)
     .colorRow
-      padding: 16px 12px 16px 12px
+      padding: 31px 12px 16px 12px
     .colorCol
       padding: 32px 12px 32px 12px
 
-  @media (min-width: 992px)
+  @media (min-width: 960px)
     .colorRow
-      padding: 16px 12px 16px 12px
+      padding: 24px 12px 24px 12px
     .colorCol
-      padding: 32px 12px 32px 12px
+      padding: 24px 12px 24px 12px
 
   @media (min-width: 1280px)
     .colorRow
@@ -224,9 +224,4 @@ watch([mode, style, qty, harmony, colors, wheel_color, colorTab], () => {
       padding: 32px 24px 32px 24px
     .colorCol
       padding: 32px 24px 32px 24px
-  @media (min-width: 2568px)
-    .colorRow
-      padding: 32px 32px 32px 16px
-    .colorCol
-      padding: 32px 32px 32px 32px
 </style>

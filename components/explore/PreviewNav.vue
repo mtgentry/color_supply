@@ -449,10 +449,10 @@ onMounted(() => {
 #space
   position: relative
   margin: 48px 24px 0 0
-  @media (min-width: 576px)
-  @media (min-width: 768px)
-
-  @media (min-width: 992px)
+  @media (min-width: 375px)
+  @media (min-width: 600px)
+    margin: 64px 24px 0 0
+  @media (min-width: 960px)
     margin: 48px 24px 0 0
   @media (min-width: 1280px)
     margin: 64px 24px 0 0
@@ -464,27 +464,22 @@ onMounted(() => {
   width: 0
   @media (min-width: 375px)
     width: 0
-  @media (min-width: 576px)
+  @media (min-width: 600px)
+    width: 164px
+  @media (min-width: 960px)
     width: 174px
-  @media (min-width: 768px)
-    width: 174px
-  @media (min-width: 992px)
-    width: 235px
   @media (min-width: 1280px)
-    width: 235px
+    width: 220px
   @media (min-width: 1920px)
     width: 261px
-  @media (min-width: 2568px)
-    width: 370px
 
 #explorePreviewNav
   margin: 48px 24px 0 0
   display: none
-  @media (min-width: 576px)
+  @media (min-width: 375px)
+  @media (min-width: 600px)
     display: initial
-  @media (min-width: 768px)
-
-  @media (min-width: 992px)
+  @media (min-width: 960px)
     margin: 48px 24px 0 0
   @media (min-width: 1280px)
     margin: 64px 24px 0 0
