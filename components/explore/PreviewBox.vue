@@ -1,7 +1,6 @@
 <template lang="pug">
   v-card#previewBox(v-if="preview === 0")
     v-card-text
-      ExplorePreviewClose
       svg(width='374' height='313' viewBox='0 0 374 313' fill='none' xmlns='http://www.w3.org/2000/svg' @click="shufflePalette")
         path(d='M374 313H0V0H374V313Z' :fill="background")
         path(d='M138.273 152H20V45.7912H138.273V152Z' fill='#1D1E20')

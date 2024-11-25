@@ -118,7 +118,7 @@ const changePreview = (value) => {
   transition: opacity 0.3s ease
   width: 0
   @media (min-width: 600px)
-    width: 164px
+    width: 137px
   &:hover
     opacity: 1
   #line
