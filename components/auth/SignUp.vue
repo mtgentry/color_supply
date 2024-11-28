@@ -120,6 +120,11 @@ onMounted(() => {
 
 <style scoped lang="sass">
 #signupForm
+
+  :deep(.v-input__details)
+    padding-top: 6px
+    padding-bottom: 6px
+
   :deep(.v-input:not(.v-input--error) #password-messages)
     color: var(--color1)!important
 
