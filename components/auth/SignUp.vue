@@ -87,19 +87,22 @@ if (['signup', 'private_invite'].includes(route.name)) {
 const signup = async () => {
   emailError.value = null
   pending.value = true
-  await signUp(state, signInOptions).catch((e) => {
+  await signUp(state, signInOptions).then(() => {
+    pending.value = false
+    changeSignUpForm(false)
+    if (loginFavorite.value) {
+      favorite(loginFavorite.value)
+    }
+    snackbar.add({
+      type: 'info',
+      text: 'Account created successfully!'
+    })
+  }).catch((e) => {
+    debugger
     if (e.data.email) {
       emailError.value = 'Email already in use.'
     }
-  })
-  pending.value = false
-  changeSignUpForm(false)
-  if (loginFavorite.value) {
-    favorite(loginFavorite.value)
-  }
-  snackbar.add({
-    type: 'info',
-    text: 'Account created successfully!'
+    pending.value = false
   })
 }
 
