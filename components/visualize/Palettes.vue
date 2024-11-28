@@ -45,10 +45,8 @@ watch(toggle, async (value) => {
   if (value === 'recent') {
     visualizePalettes.value = recentPalettes.value
   } else {
-    await refreshAuthExecute()
     visualizePalettes.value = favorites.value.results
   }
-
 })
 </script>
 
