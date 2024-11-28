@@ -11,7 +11,7 @@
         v-divider(v-if="t !== styles[styles.length - 1]")
     ExploreExpansionPanel#slider(title="QTY")
       v-range-slider.pb-5.pl-2(:min="2" :max="5" v-model="qtyLocal" :step="1" @end="changeQty"
-        thumb-label="always" show-ticks="always" width="140px"
+        thumb-label="always" show-ticks="always" width="120px"
         hide-details :disabled="colorTab !== 'color'")
     ExploreExpansionPanel#harmony(title="Color" eager)
       ExploreColor
