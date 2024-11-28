@@ -1,7 +1,7 @@
 <template lang="pug">
   v-container.pt-5
     v-row.py-1
-      v-col.pa-1(cols="3" v-for="(color, name) in colors")
+      v-col(cols="3" v-for="(color, name) in colors")
         ExploreHarmonyColor(:key="color" :color="color" :title="name")
 
 </template>
@@ -28,4 +28,7 @@ const colors = {
 #exploreColors
   display: flex
   flex-wrap: wrap
+
+.v-col
+  padding: 0 1px 24px 1px
 </style>
