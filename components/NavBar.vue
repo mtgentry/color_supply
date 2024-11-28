@@ -21,11 +21,11 @@
               v-divider
               v-list
                 v-list-item(to="/manage/general" :ripple="false") Manage account
-                v-list-item(:ripple="false")
-                  .d-flex.align-center
-                    IconsHeart.mr-1.mb-1
-                    span My Likes
-                v-list-item(:ripple="false") Bug report & feedback
+                //v-list-item(:ripple="false")
+                //  .d-flex.align-center
+                //    IconsHeart.mr-1.mb-1
+                //    span My Likes
+                //v-list-item(:ripple="false") Bug report & feedback
                 v-list-item(@click="logout" :ripple="false") Log Out
     v-toolbar-title
       nuxt-link(to="/palettes") Palettes
