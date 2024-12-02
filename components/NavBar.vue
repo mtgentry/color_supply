@@ -43,8 +43,8 @@
             v-list
               v-list-item(:ripple="false")
                 nuxt-link.clickable(to="/pricing") Pricing
-              v-list-item(:ripple="false") About
-              v-list-item(:ripple="false") Contact
+                v-list-item(:ripple="false") About
+                nuxt-link.clickable(to="/contact") Contact
   #mobileAuth(v-if="status === 'unauthenticated'")
     div.half
       v-btn#signup(@click="handleSignUp" color="primary" width="100%") Sign Up

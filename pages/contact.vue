@@ -1,79 +1,47 @@
 <template lang="pug">
-.pricing-container.d-flex.flex-column(role="main")
-  .nav-spacing
-  .pricing-header
-    h1.h2.pricing-title Pricing
-    p.text_xl.sub_head Pick a plan that's right for you.
-  
-  .pricing-plans
-    // Basic Plan
-    .pricing-card.d-flex.flex-column.pricing-divider
-      h2#basic.plan-name.text_base Basic
-      .price.d-flex
-        span.currency $
-        span.amount 0
-        span.period /month
-      .plan-features
-        p.text_sm For designers, illustrators, developers & small teams.
-        p.text_sm.bullet Save up to 20 favorites
-    
-    .divider-line
-    
-    // Hobbyist Plan
-    .pricing-card.d-flex.flex-column.pricing-divider
-      h2#hobbyist.plan-name.text_base Hobbyist
-      .price.d-flex
-        span.currency $
-        span.amount 3
-        span.period /month
-      .plan-features
-        p.text_sm For designers, illustrators, developers & small teams.
-        p.text_sm.bullet Save up to 50 favorites
-    
-    .divider-line
-    
-    // Professional Plan  
-    .pricing-card.d-flex.flex-column.pricing-divider
-      h2#professional.plan-name.text_base Professional
-      .price.d-flex
-        span.currency $
-        span.amount 9
-        span.period /month
-      .plan-features
-        p.text_sm For designers, illustrators, developers & small teams.
-        p.text_sm.bullet Save up to 100 favorites
-    
-    .divider-line
-    
-    // Business Plan
-    .pricing-card.d-flex.flex-column
-      h2#business.plan-name.text_base Business
-      .price.d-flex
-        span.currency $
-        span.amount 19
-        span.period /month
-      .plan-features
-        p.text_sm For designers, illustrators, developers & small teams.
-        p.text_sm.bullet Save up to 500 favorites
-  
-  .signup-container
-    v-btn#signup(color="primary" @click="handleSignUp") Sign Up Now
+  .contact-container.d-flex.flex-column(role="main")
+    .nav-spacing
+    .contact-header
+      h1.h2.contact-title Contact
+      p.text_xl.sub_head
+        a(:href="mailtoEmail") {{ email }}
 </template>
 
+
 <script setup>
+import { ref, computed, onMounted } from 'vue'
+
 definePageMeta({
   auth: false,
   layout: 'default',
 })
 useHead({
-  title: 'Pricing'
+  title: 'contact'
 })
 
-const { handleSignUp } = useSignUp()
+// Define parts of the email address
+const emailUser = 'hello'
+const emailDomain = 'colorsupplyyy'
+const emailTLD = 'com'
+
+// Reactive reference for the email
+const email = ref('')
+
+// Computed property for the mailto link
+const mailtoEmail = computed(() => `mailto:${email.value}`)
+
+// Assemble the email address when the component mounts
+onMounted(() => {
+  email.value = `${emailUser}@${emailDomain}.${emailTLD}`
+})
+
+// Optional: If `handleSignUp` is no longer used, you can remove the following line
+// const { handleSignUp } = useSignUp()
 </script>
 
+
 <style lang="sass" scoped>
-.pricing-container
+.contact-container
 
   height: calc(100vh - 64px)
   margin: 0 auto
@@ -89,16 +57,11 @@ const { handleSignUp } = useSignUp()
 .nav-spacing
   height: 90px
 
-.bullet::before
-  content: "•"
-  margin-right: 8px
-
 .signup-container
   display: flex
   justify-content: center
   margin-top: 32px
 
- 
   @media (max-width: 767px)
     display: none
 
@@ -109,25 +72,21 @@ const { handleSignUp } = useSignUp()
   letter-spacing: 0.32px
   text-transform: none
 
-.pricing-header
+.contact-header
   text-align: center
   
-.pricing-title
+.contact-title
   margin-bottom: 1px
-
 
   @media (max-width: 599px)
     padding: 0 20px
     margin-top: 0px
 
-
 .sub_head
   margin-top: 15px // Adjust the positioning as needed
   margin-bottom:20px
 
-
-
-.pricing-plans
+.contact-plans
   display: flex
   justify-content: center
   align-items: flex-start
@@ -145,15 +104,12 @@ const { handleSignUp } = useSignUp()
     margin: 37px auto 0
     max-width: 767px
 
-.pricing-card
+.contact-card
   width: 175px
   display: flex
   flex-direction: column
   gap: 10px
 
-
-  
-  
   @media (max-width: 599px)
     width: 100%
     max-width: 300px
@@ -204,8 +160,6 @@ const { handleSignUp } = useSignUp()
     margin: 0
     padding: 0
 
-
-    
 .period
   font-weight: 500
   font-size: 16px
@@ -221,32 +175,28 @@ const { handleSignUp } = useSignUp()
   color: var(--color2)
   font-size: 15px
   line-height: 1.5
-  p:first-child
-   margin-bottom: 8px  // Add this line inside the existing .plan-features
-    
-
 
 .plan-name
-    color: var(--color2)
-    font-weight: bold
-    font-size: 16px
-    margin-bottom: 20px
+  color: var(--color2)
+  font-weight: bold
+  font-size: 16px
+  margin-bottom: 20px
 
 .price
-    height: 48px
-    align-items: flex-start
-    margin-bottom: 64px // Add space between price and features
-    
+  height: 48px
+  align-items: flex-start
+  margin-bottom: 64px // Add space between price and features
+
 .currency
-      font-weight: 500
-      font-size: 16px
-      color: var(--color2)
-      margin-right: 4px
-    
+  font-weight: 500
+  font-size: 16px
+  color: var(--color2)
+  margin-right: 4px
+
 .amount
-      font-weight: 500
-      font-size: 48px
-      color: var(--color2)
+  font-weight: 500
+  font-size: 48px
+  color: var(--color2)
 
 .divider-line
   width: 1px
@@ -262,14 +212,13 @@ const { handleSignUp } = useSignUp()
     margin: 0
     background-color: var(--color5)
 
-.pricing-card:last-child
+.contact-card:last-child
   @media (max-width: 599px)
     padding-bottom: 0
 
-.pricing-plans > .divider-line:last-child
+.contact-plans > .divider-line:last-child
   @media (max-width: 599px)
     display: none
-
 
 .iconBtn
   padding: 0 10px
@@ -335,5 +284,4 @@ const { handleSignUp } = useSignUp()
 .text_xs
   font-size: 12px
   line-height: 16px
-
 </style>
