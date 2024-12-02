@@ -14,7 +14,7 @@
         span.amount 0
         span.period /month
       .plan-features
-        p.text_sm For designers, illustrators, developers & small teams.
+        p.text_sm Great for light, occasional use to experiment and explore colors.
         p.text_sm.bullet Save up to 20 favorites
     
     .divider-line
@@ -27,7 +27,7 @@
         span.amount 3
         span.period /month
       .plan-features
-        p.text_sm For designers, illustrators, developers & small teams.
+        p.text_sm Perfect for hobbyists exploring personal projects and creative side endeavors.
         p.text_sm.bullet Save up to 50 favorites
     
     .divider-line
@@ -40,7 +40,7 @@
         span.amount 9
         span.period /month
       .plan-features
-        p.text_sm For designers, illustrators, developers & small teams.
+        p.text_sm For designers & developers working on frequent, high-quality color projects.
         p.text_sm.bullet Save up to 100 favorites
     
     .divider-line
@@ -53,7 +53,7 @@
         span.amount 19
         span.period /month
       .plan-features
-        p.text_sm For designers, illustrators, developers & small teams.
+        p.text_sm Built for organizations that rely on consistent palette creation for their work.
         p.text_sm.bullet Save up to 500 favorites
   
   .signup-container
@@ -74,8 +74,7 @@ const { handleSignUp } = useSignUp()
 
 <style lang="sass" scoped>
 .pricing-container
-
-  height: calc(100vh - 64px)
+  min-height: calc(100vh - 64px)
   margin: 0 auto
   background: var(--color7)
   display: flex
