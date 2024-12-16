@@ -1,5 +1,5 @@
 <template lang="pug">
-  v-card#plan(:class="{selected: active || selected}" flat)
+  v-card#plan(:class="{selected: (active && !selectedPlan) || selected}" flat)
     v-card-title
       p {{plan.name}}
       v-btn#current(color="primary" size="small" disabled v-if="active") Current Plan
