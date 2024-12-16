@@ -8,6 +8,8 @@
       v-text-field#password(v-model="state.password" label="Password" :type="showPassword ? 'text' : 'password'" required placeholder="Colorfan19#"
         variant="outlined" :append-inner-icon="showPassword ? 'mdi-eye-off' : 'mdi-eye'"  @click:append-inner="showPassword = !showPassword"
         :error-messages="v$.password.$errors.map(e => e.$message)" @blur="v$.password.$touch" autocomplete="current-password")
+      v-alert.pa-1(v-if="error_message" type="error") {{ error_message }}
+        template(v-slot:prepend)
       v-btn#submit(color="primary" type="submit" :disabled="pending || v$.$invalid") Continue
       slot(name="footer")
         div#description
@@ -51,9 +53,6 @@ const rules = {
   },
   password: {
     required: helpers.withMessage('Password is required', required),
-    server_error: helpers.withMessage(() =>`${error_message.value}`, (value) => {
-      return !error_message.value.length
-    }),
   },
 }
 const v$ = useVuelidate(rules, state)
