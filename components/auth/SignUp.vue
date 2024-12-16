@@ -98,7 +98,6 @@ const signup = async () => {
       text: 'Account created successfully!'
     })
   }).catch((e) => {
-    debugger
     if (e.data.email) {
       emailError.value = 'Email already in use.'
     }

@@ -55,7 +55,7 @@ const createCheckout = async () => {
   if (checkout.url) {
     await navigateTo(checkout.url, {external: true})
   } else {
-    await getSession()
+    await navigateTo('/manage/plan?status=success', {external: false})
   }
   pending.value = false
   selectedPlan.value = null
