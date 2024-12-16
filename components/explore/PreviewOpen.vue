@@ -11,7 +11,7 @@ const {preview, previousPreview} = storeToRefs(filterStore)
 
 <style scoped lang="sass">
 #previewOpen
-  position: absolute
+  position: fixed
   bottom: 20px
   right: 30px
   cursor: pointer

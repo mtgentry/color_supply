@@ -67,7 +67,7 @@ const deleteAccount = async () => {
 <style scoped lang="sass">
 #nav
   background-color: var(--color6)
-  height: calc(100vh - 64px)
+
   display: flex
   flex-direction: column
   justify-content: space-between

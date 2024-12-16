@@ -1,5 +1,5 @@
 <template lang="pug">
-  v-app-bar(elevation="0" app)
+  v-app-bar(elevation="0" app absolute)
     template(v-slot:prepend)
       nuxt-link(to="/palettes")
         img#logo(src="/img/rainbow.svg" height="40" contain)

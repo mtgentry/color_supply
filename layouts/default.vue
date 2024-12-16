@@ -1,8 +1,16 @@
 <template lang="pug">
   v-app(dark)
-    NavBar
-    v-main(v-auto-animate="{ duration: 200 }")
-      v-container(fluid)
+    v-container.pa-0(fluid app)
+      v-row(v-if="status" app)
+        v-col(cols="12")
+          v-alert(type='info' v-if="status === 'success'" v-model="isAlertVisible" @click:close="onClose" icon="")
+            template(#text)
+            .d-flex.centered.flex-row
+              span.pr-5 {{alertMessage}}
+              v-btn(@click="closeAlert" color="primary" flat  variant="outlined" min-width="45" ) OK
+    v-main(v-auto-animate="{ duration: 200 }" app)
+      NavBar
+      v-container#content(fluid)
         slot
       DialogsSignUp
       DialogsLogin
@@ -24,6 +32,18 @@ onBeforeMount(async () => {
     await refreshToken()
   }
 })
+const isAlertVisible = ref(true)
+const closeAlert = () =>  {
+  isAlertVisible.value = false
+}
+const { data } = useAuth()
+const route = useRoute()
+const status = computed(() => route.query.status)
+const alertMessage = computed(() => {
+  if (status.value === 'success') {
+    return `Success! Your subscription plan has been changed to ${data.value.plan.name}`
+  }
+})
 </script>
 
 <style lang="sass">
@@ -32,6 +52,13 @@ onBeforeMount(async () => {
   background-color: var(--color6)
   overflow: hidden
   line-height: 1
+
+#content
+  display: flex
+  flex-direction: column
+  height: 100%
+  .v-row
+    flex-grow: 1
 
 .v-btn
   font-size: 14px
@@ -59,4 +86,16 @@ h2
 #preview-drawer
   .v-navigation-drawer__content
     overflow: hidden
+
+.v-application
+  height: 100vh
+
+.v-alert
+  text-align: center
+
+  .v-btn
+    background-color: var(--color1) !important
+    color: var(--color7) !important
+    padding: 0!important
+    font-weight: 100
 </style>
