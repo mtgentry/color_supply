@@ -16,7 +16,7 @@
                           :stroke="palette.favorite ? 'var(--color9)' : 'var(--color3)'",
                           @click="favorite(palette)")
                         #count {{ palette.favorite_count }}
-                        img(src='/img/icons/dots.svg')
+                        //img(src='/img/icons/dots.svg')
             InfiniteLoading#infinite(@infinite="load" :key="renderKey" distance="400" target="#palettes")
               template(#spinner)
                 v-row.colorRow
@@ -177,10 +177,11 @@ watch([mode, style, qty, harmony, colors, wheel_color, colorTab], () => {
     justify-content: flex-end
   .info
     color: var(--color3)
-    min-width: 70px
+    min-width: 40px
     display: flex
     align-items: center
     justify-content: space-between
+    padding-right: 3px
   #count
     margin-top: 3px
     padding-left: 4px
