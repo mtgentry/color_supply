@@ -4,13 +4,15 @@ export const useDialogStore = defineStore('dialog', () =>{
   const signUpForm = ref(false)
   const signUpFormPersistent = ref(false)
   const signUpInfluencer  = ref(false)
+  const signUpPromo = ref(false)
   const loginForm = ref(false)
   const source = ref('login')
   const loginFavorite = ref()
-  const changeSignUpForm = (value, persistent=false, influencer) => {
+  const changeSignUpForm = (value, persistent=false, influencer, promo) => {
     signUpForm.value = value
     signUpFormPersistent.value = persistent
     signUpInfluencer.value = influencer
+    signUpPromo.value = value
   }
   const changeLoginForm = (value) => {
     loginForm.value = value
@@ -27,6 +29,7 @@ export const useDialogStore = defineStore('dialog', () =>{
     source,
     changeSource,
     signUpInfluencer,
+    signUpPromo,
     loginFavorite
   }
 })

@@ -24,9 +24,9 @@
 import {useVuelidate} from '@vuelidate/core'
 import {email, helpers, minLength, required} from '@vuelidate/validators'
 const dialogStore = useDialogStore()
-const {loginFavorite} = storeToRefs(dialogStore)
-const {signUpInfluencer} = storeToRefs(dialogStore)
+const {loginFavorite, signUpInfluencer, signUpPromo} = storeToRefs(dialogStore)
 const snackbar = useSnackbar()
+const router = useRouter()
 const props = defineProps({
   source: {
     type: String,
@@ -46,6 +46,7 @@ const initialState = {
   email: '',
   password: null,
   influencer: signUpInfluencer.value,
+  promo: signUpPromo.value,
 }
 
 const state = reactive({
@@ -87,16 +88,17 @@ if (['signup', 'private_invite'].includes(route.name)) {
 const signup = async () => {
   emailError.value = null
   pending.value = true
-  await signUp(state, signInOptions).then(() => {
+  await signUp(state, signInOptions).then(async () => {
     pending.value = false
     changeSignUpForm(false)
     if (loginFavorite.value) {
-      favorite(loginFavorite.value)
+      await favorite(loginFavorite.value)
     }
     snackbar.add({
       type: 'info',
       text: 'Account created successfully!'
     })
+    window.location.href = '/promo/billing/'
   }).catch((e) => {
     if (e.data.email) {
       emailError.value = 'Email already in use.'

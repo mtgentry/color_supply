@@ -10,8 +10,8 @@ export const usePlanStore = defineStore('plan', () =>{
   const selectInterval = (cycle) => {
     selectedInterval.value = cycle
   }
-  const fetchPlans = async () => {
-    plans.value = await fetch('/plans/')
+  const fetchPlans = async (url='/plans/') => {
+    plans.value = await fetch(url)
     if (plans.value) {
       plans.value.sort((a, b) => a.metadata.order - b.metadata.order)
     }

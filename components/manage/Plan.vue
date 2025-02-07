@@ -1,8 +1,9 @@
 <template lang="pug">
-  v-card#plan(:class="{selected: (active && !selectedPlan) || selected}" flat)
+  v-card#plan(:class="{selected: (active && !selectedPlan && !badge) || selected}" flat)
     v-card-title
       p {{plan.name}}
       v-btn#current(color="primary" size="small" disabled v-if="active") Current Plan
+      v-btn#current.badge(color="primary" size="small" v-if="badge" flat) {{badge}}
     v-card-text#space
       div
         p(v-if="price?.value")
@@ -15,12 +16,16 @@
       v-btn#select(width="100%" variant="outlined" v-if="active && data.plan.stripe" @click="createCheckout" :disabled="pending") Manage
       v-btn#select(width="100%" variant="outlined" v-if="!active && !selected" @click="selectPlan(price.id)") Select Plan
   v-btn#upgrade(variant="outlined" width="100%" :class="{hide: active|| !selected}"
-    @click="createCheckout" :disabled="pending") {{action}} to {{plan.name}}
+    @click="createCheckout" :disabled="pending")
+      span(v-if="promo") Continue
+      span(v-else) {{action}} to {{plan.name}}
 </template>
 
 <script setup>
 const props = defineProps({
   plan: Object,
+  badge: String,
+  promo: Boolean,
 })
 const {data, getSession} = useAuth()
 const planStore = usePlanStore()
@@ -92,6 +97,8 @@ const createCheckout = async () => {
   .v-card-text
     font-size: 16px!important
     padding: 0 24px
+    justify-content: space-between
+    min-height: 245px
 
 h3
   color: var(--color2)
@@ -124,6 +131,12 @@ sup
   right: -15px
   :deep(.v-btn__overlay)
     opacity: 0
+
+.badge
+  cursor: default!important
+  text-transform: unset
+  font-weight: 400!important
+  font-size: 11px
 
 #space
   display: flex
