@@ -14,7 +14,7 @@ const signUp = () => {
 
 </script>
 
-<style lang="sass">
+<style lang="sass" scoped>
 #favoriteSignup
   padding: 96px 24px 0 24px
 

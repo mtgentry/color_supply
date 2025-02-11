@@ -98,7 +98,10 @@ const signup = async () => {
       type: 'info',
       text: 'Account created successfully!'
     })
-    window.location.href = '/promo/billing/'
+    if (signUpPromo.value) {
+       window.location.href = '/promo/billing/'
+    }
+
   }).catch((e) => {
     if (e.data.email) {
       emailError.value = 'Email already in use.'

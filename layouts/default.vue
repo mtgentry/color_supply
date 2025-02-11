@@ -46,7 +46,7 @@ const alertMessage = computed(() => {
 })
 </script>
 
-<style lang="sass">
+<style lang="sass" scoped>
 
 .v-application
   background-color: var(--color6)

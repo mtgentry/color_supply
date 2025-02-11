@@ -17,7 +17,7 @@ useHead({
 })
 </script>
 
-<style lang="sass">
+<style lang="sass" scoped>
 html
   overflow-x: hidden
   overflow-y: auto
