@@ -1,32 +1,36 @@
 <template lang="pug">
-  div#signupForm(:class="source")
-    slot(name="header")
-      h1 Sign up to access more colors
-    v-form
-      v-text-field(v-model="state.name" label="Name" required placeholder="Sara" variant="outlined"
-        :error-messages="v$.name.$errors.map(e => e.$message)" @blur="v$.name.$touch" @input="v$.name.$touch" autocomplete="name")
-      v-text-field(v-model="state.email" label="Email" required placeholder="sara.smith@gmail.com"  variant="outlined"
-        :error-messages="emailError || v$.email.$errors.map(e => e.$message)"  @blur="v$.email.$touch" autocomplete="email")
-      v-text-field#password(v-model="state.password" label="Password" :type="showPassword ? 'text' : 'password'" required
+div#signupForm(:class="source")
+  slot(name="header")
+    h1 Sign up to access more colors
+  v-form
+    v-text-field(v-model="state.name" label="Name" required placeholder="Sara" variant="outlined"
+      :error-messages="v$.name.$errors.map(e => e.$message)" @blur="v$.name.$touch" @input="v$.name.$touch" autocomplete="name")
+    v-text-field(v-model="state.email" label="Email" required placeholder="sara.smith@gmail.com"  variant="outlined"
+      :error-messages="emailError || v$.email.$errors.map(e => e.$message)"  @blur="v$.email.$touch" autocomplete="email")
+    v-text-field#password(v-model="state.password" label="Password" :type="showPassword ? 'text' : 'password'" required
       placeholder="Colorfan19#" :hint="!v$.password.$invalid ? '' : 'At least 8 characters, with a number or symbol'"  :error-messages="v$.password.$errors.map(e => e.$message)"
-        variant="outlined" :append-inner-icon="showPassword ? 'mdi-eye-off' : 'mdi-eye'"  @click:append-inner="showPassword = !showPassword"
-        @blur="v$.password.$touch" autocomplete="new-password")
-      v-checkbox(v-model="state.influencer" v-if="signUpInfluencer" v-show="false")
-      v-btn#submit(color="primary" text @click="signup" :disabled="pending || v$.$invalid" flat) Create Free Account
-      slot(name="footer")
-        div.text-center
-          p By continuing you agree to our Terms of Service and Privacy Policy.
-          v-divider
-          p Already have an account?  !{` `}
-            nuxt-link(to="/login") Log in
+      variant="outlined" :append-inner-icon="showPassword ? 'mdi-eye-off' : 'mdi-eye'"  @click:append-inner="showPassword = !showPassword"
+      @blur="v$.password.$touch" autocomplete="new-password")
+    v-checkbox(v-model="state.influencer" v-if="signUpInfluencer" v-show="false")
+    v-btn#submit(color="primary" text @click="signup" :disabled="pending || v$.$invalid" flat) Create Free Account
+    slot(name="footer")
+      div.text-center
+        p By continuing you agree to our Terms of Service and Privacy Policy.
+        v-divider
+        p Already have an account?  !{` `}
+          nuxt-link(to="/login") Log in
 </template>
+
 <script setup>
-import {useVuelidate} from '@vuelidate/core'
-import {email, helpers, minLength, required} from '@vuelidate/validators'
+import { ref, reactive } from 'vue'
+import { useVuelidate } from '@vuelidate/core'
+import { email, helpers, minLength, required } from '@vuelidate/validators'
+
 const dialogStore = useDialogStore()
-const {loginFavorite, signUpInfluencer, signUpPromo} = storeToRefs(dialogStore)
+const { loginFavorite, signUpInfluencer, signUpPromo } = storeToRefs(dialogStore)
 const snackbar = useSnackbar()
 const router = useRouter()
+
 const props = defineProps({
   source: {
     type: String,
@@ -34,7 +38,7 @@ const props = defineProps({
   }
 })
 
-const {data} = useAuth()
+const { data } = useAuth()
 if (data.value) {
   navigateTo('/palettes')
 }
@@ -52,11 +56,12 @@ const initialState = {
 const state = reactive({
   ...initialState,
 })
+
 const emailError = ref(null)
 const showPassword = ref(false)
 const symbol = helpers.regex(/[^a-zA-Z0-9\s]/)
 const number = helpers.regex(/[0-9]/)
-const {changeSignUpForm} = dialogStore
+const { changeSignUpForm } = dialogStore
 const route = useRoute()
 
 const rules = {
@@ -79,11 +84,6 @@ const v$ = useVuelidate(rules, state)
 let signInOptions = {
   redirect: false,
 }
-if (['signup', 'private_invite'].includes(route.name)) {
-  signInOptions = {
-    callbackUrl: '/palettes'
-  }
-}
 
 const signup = async () => {
   emailError.value = null
@@ -98,7 +98,16 @@ const signup = async () => {
       type: 'info',
       text: 'Account created successfully!'
     })
-    window.location.href = '/promo/billing/'
+    
+    // Redirect based on whether this is a promotional signup
+    if (signUpPromo.value) {
+      window.location.href = '/promo/billing/'
+    } else {
+      // Keep the original palettes redirect for non-promo signups
+      if (['signup', 'private_invite'].includes(route.name)) {
+        navigateTo('/palettes')
+      }
+    }
   }).catch((e) => {
     if (e.data.email) {
       emailError.value = 'Email already in use.'
@@ -116,12 +125,10 @@ onMounted(() => {
     })
   }
 })
-
 </script>
 
 <style scoped lang="sass">
 #signupForm
-
   :deep(.v-input__details)
     padding-top: 6px
     padding-bottom: 6px
