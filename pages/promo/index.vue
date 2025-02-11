@@ -1,22 +1,14 @@
 <template lang="pug">
 #invite.d-flex.flex-column
   h1 The easiest way to pick the perfect colors—at the lowest price you'll ever pay
-
   p Picking colors shouldn't be this hard. But between complicated color theory rules, endless choices, and the nagging feeling that you might not have picked the right one, it often feels like guesswork.You're stuck second-guessing every shade, tweaking endlessly, and hoping it just works.
-
   p Imagine knowing exactly which colors work together—with zero stress. No overthinking, no struggling with color wheels, and no more wondering if your palette is clashing.
-
   p That's exactly why we built Color Supply—to take the guesswork out of color. It helps you instantly create harmonious, professional-looking color palettes, without needing a degree in design.
-
   p And here's the best part: because we're still improving it, we're offering a limited-time early adopter price.
-
   p It's already powerful, easy to use, and saving designers time—and it's only getting better. 
-
   p But after three days, the doors close...
-
   v-btn#button(color="primary" width="226" flat @click="signUp")
     | Get Early Access Now
-
   DialogsSignUp
 </template>
 
@@ -35,8 +27,8 @@ const dialogStore = useDialogStore()
 const { changeSignUpForm } = dialogStore
 
 const signUp = () => {
-  dialogStore.changeSource('promo')  // Set the source to 'promo'
-  changeSignUpForm(true, false, false)  // Show the form
+  dialogStore.changeSource('promo')  // Set source to 'promo' to show promotional headlines
+  changeSignUpForm(true, false, false, true)  // Show form with promo flag set
 }
 </script>
 
@@ -62,7 +54,6 @@ const signUp = () => {
     font-weight: 700
     line-height: 120%
   
-
   p
     padding-bottom: 20px
     font-size: 17px
@@ -71,7 +62,6 @@ const signUp = () => {
     line-height: 130%
     letter-spacing: 0.28px
    
-
   #button
     background-color: var(--color1) !important
     margin-top: 20px
