@@ -37,10 +37,10 @@ const signUp = () => {
 
   p
     padding-bottom: 20px
-    font-size: 14px
+    font-size: 17px
     font-style: normal
-    font-weight: 500
-    line-height: normal
+    font-weight: 400
+    line-height: 130%
     letter-spacing: 0.28px
 
   #button

@@ -60,15 +60,17 @@ const signUp = () => {
     font-size: 30px
     font-style: normal
     font-weight: 700
-    line-height: normal
+    line-height: 120%
+  
 
   p
     padding-bottom: 20px
-    font-size: 14px
+    font-size: 17px
     font-style: normal
-    font-weight: 500
-    line-height: normal
+    font-weight: 400
+    line-height: 130%
     letter-spacing: 0.28px
+   
 
   #button
     background-color: var(--color1) !important

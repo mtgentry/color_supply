@@ -146,12 +146,14 @@ onMounted(() => {
       font-size: 30px
       letter-spacing: 0.6px
       font-weight: 500
+      line-height: 120%
       padding-top: 30px
 
     :deep(h2)
-      font-size: 16px
+      font-size: 17px
       letter-spacing: 0.32px
       padding: 0 30px 40px 30px
+      font-weight: 400
 
     :deep(#terms)
       padding-top: 24px
