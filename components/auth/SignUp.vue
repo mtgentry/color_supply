@@ -161,4 +161,3 @@ onMounted(() => {
       font-size: 14px
       letter-spacing: 0.28px
 </style>
-

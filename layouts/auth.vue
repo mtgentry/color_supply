@@ -19,41 +19,59 @@ useHead({
 
 <style lang="sass">
 html
-  overflow: hidden
+  overflow-x: hidden
+  overflow-y: auto
 
 #auth
   margin: -16px
-
+  min-height: 100vh
   display: flex
   align-items: center
   justify-content: center
-
   h1
     margin-bottom: 22px
+  @media (max-width: 768px)
+    min-height: auto
+    flex-direction: column
+    margin: 0  // Remove negative margin on mobile
+    .branding
+      order: -1
+      height: 40vh
+      width: 100%
+    > .v-col
+      flex: 1
+      padding: 0
+      width: 100%
+      max-width: 100%  // Allow column to be full width
 
-  .branding
-    background-color: #DEDCE1
+.branding
+  background-color: #DEDCE1
+  min-height: 100vh
+  display: flex
+  align-items: center
 
-  .form
-    max-width: 550px
-    min-width: 550px
+.form
+  max-width: 550px
+  min-width: 550px
+  @media (max-width: 768px)
+    min-width: 100%
+    max-width: 100%
+    padding: 0 16px  // Add some padding on the sides
 
-  .v-divider
-    margin: 27px 200px
+.v-divider
+  margin: 27px 200px
 
-  .v-btn--disabled
-    background-color: var(--color4) !important
-    color: var(--color3)
+.v-btn--disabled
+  background-color: var(--color4) !important
+  color: var(--color3)
 
-  .v-input__details
-    padding-bottom: 5px
-
+.v-input__details
+  padding-bottom: 5px
 
 #cover
   width: 100%
   height: auto
   margin: 0 auto
-
 
 #submit
   width: 100%
@@ -64,6 +82,4 @@ html
 
 #description
   text-align: center
-
-
 </style>
