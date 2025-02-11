@@ -75,7 +75,7 @@ const signUp = () => {
     margin-top: 20px
     font-size: 16px
     font-style: normal
-    font-weight: 300
+    font-weight: 400
     line-height: normal
     letter-spacing: 0.32px
     text-transform: none

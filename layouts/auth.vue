@@ -33,30 +33,51 @@ html
   @media (max-width: 768px)
     min-height: auto
     flex-direction: column
-    margin: 0  // Remove negative margin on mobile
+    margin: 0
     .branding
       order: -1
-      height: 40vh
+      height: auto  // Remove fixed height
       width: 100%
+      background: none  // Remove background from container
     > .v-col
       flex: 1
       padding: 0
       width: 100%
-      max-width: 100%  // Allow column to be full width
+      max-width: 100%
 
 .branding
   background-color: #DEDCE1
   min-height: 100vh
   display: flex
   align-items: center
+  @media (max-width: 768px)
+    min-height: auto
+    background: none  // Remove background from branding
+    position: relative
+    &:before    // Add background only behind the image
+      content: ''
+      position: absolute
+      top: 0
+      left: 0
+      right: 0
+      bottom: 0
+      background-color: #DEDCE1
+      z-index: -1
 
+#cover
+  width: 100%
+  height: auto
+  margin: 0 auto
+  display: block
+
+// Rest of the styles remain the same...
 .form
   max-width: 550px
   min-width: 550px
   @media (max-width: 768px)
     min-width: 100%
     max-width: 100%
-    padding: 0 16px  // Add some padding on the sides
+    padding: 0 16px
 
 .v-divider
   margin: 27px 200px
@@ -67,11 +88,6 @@ html
 
 .v-input__details
   padding-bottom: 5px
-
-#cover
-  width: 100%
-  height: auto
-  margin: 0 auto
 
 #submit
   width: 100%
