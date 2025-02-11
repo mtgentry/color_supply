@@ -1,30 +1,25 @@
-import { defineStore } from 'pinia'
-import { ref } from 'vue'
+import {defineStore} from 'pinia'
 
-export const useDialogStore = defineStore('dialog', () => {
+export const useDialogStore = defineStore('dialog', () =>{
   const signUpForm = ref(false)
   const signUpFormPersistent = ref(false)
-  const signUpInfluencer = ref(false)
+  const signUpInfluencer  = ref(false)
   const signUpPromo = ref(false)
   const loginForm = ref(false)
   const source = ref('login')
   const loginFavorite = ref()
-  
-  const changeSignUpForm = (value, persistent=false, influencer=false, promo=false) => {
+  const changeSignUpForm = (value, persistent=false, influencer, promo) => {
     signUpForm.value = value
     signUpFormPersistent.value = persistent
     signUpInfluencer.value = influencer
-    signUpPromo.value = promo
+    signUpPromo.value = value
   }
-  
   const changeLoginForm = (value) => {
     loginForm.value = value
   }
-  
   const changeSource = (value) => {
     source.value = value
   }
-  
   return {
     signUpForm,
     changeSignUpForm,
