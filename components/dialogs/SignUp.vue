@@ -9,6 +9,8 @@
                 h2(v-if="source === 'favorite'")  Sign up now to save and access your favorite color palettes anytime.
                 h1(v-if="source === 'login'") Get Started for Free
                 h2(v-if="source === 'login'") Sign up for free to save your palettes. Upgrade for advanced features.
+                h1(v-if="source === 'promo'") Promo Sign Up
+                h2(v-if="source === 'promo'") Promo description
             template(#footer)
               div#signupFooter.text-center
                 p Already have an account?  !{` `}

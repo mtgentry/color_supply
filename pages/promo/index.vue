@@ -18,6 +18,7 @@ useHead({
   title: 'Private Invite',
 })
 const dialogStore = useDialogStore()
+dialogStore.changeSource('promo')
 const {changeSignUpForm} = dialogStore
 const signUp = () => {
   changeSignUpForm(true, false, false, true)
