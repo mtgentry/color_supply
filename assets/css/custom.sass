@@ -65,6 +65,32 @@ html
 .clickable
   cursor: pointer
 
+
+.v-btn
+  font-size: 19px
+  font-style: normal
+  font-weight: 500
+  line-height: normal
+  letter-spacing: 0.28px
+  text-transform: none
+
+.v-row
+  margin: -16px
+
+
+
+  #button2
+    background-color: var(--color1)!important
+    margin-top: 20px
+    font-size: 16px
+    font-style: normal
+    font-weight: 400
+    line-height: normal
+    letter-spacing: 0.32px
+    text-transform: none
+
+
+
 .v-btn--disabled
   background-color: var(--color4) !important
   color: var(--color3)
@@ -86,7 +112,7 @@ a:visited
     border: 1px solid var(--color4)
     color: var(--color4)
     font-size: 13px
-    letter-spacing: 0.26px
+    letter-spacing: .26px
 
     &.v-btn--disabled
       color: var(--color5)
@@ -97,6 +123,81 @@ a:visited
 
 .v-label
   opacity: 1!important
+
+
+
+  // this is the checkbox in the palettes filters. 
+  // It is a material design icon and the thickness can't be modifed. 
+  // note: entire panel is in components/Filter.vue
+.v-application
+  .v-selection-control
+    .mdi-checkbox-blank-outline.v-icon
+     color: var(--color4)
+
+  
+  // this is the divider line btwn the filters
+.v-application
+  .v-divider.v-theme--light
+    color: var(--color6)
+    opacity: 1
+    margin-right: 7px
+
+
+  // this controls the text in the style filter in palettes
+.v-application
+  .v-selection-control
+    .v-label.v-label--clickable
+      font-size: 15px
+      letter-spacing: .5px
+      line-height: 2.9
+      margin-left: 5px
+
+
+// this is the style carat in /palletes
+
+.v-application
+  .v-expansion-panel-title__icon
+    color: var(--color1)
+    margin-inline-start: 110px 
+
+
+
+// this is the QTY carat in /palletes
+.v-application
+  #slider .v-expansion-panel-title 
+    .v-expansion-panel-title__icon
+      color: var(--color1)
+      margin-inline-start: 125px
+
+
+
+// moves the sliders starting position in QTY to the left
+.v-slider__container
+// moves the first dot in QTY to the right
+
+
+
+ // moves the first dot in QTY to the left
+.v-slider.v-input--horizontal .v-slider-track__tick--first
+  margin-left: 2px ! important
+
+
+// hide the scroll that appears over the filters in /palettes 
+.v-application
+  #filter.v-col  // targeting the specific div with ID "filter" and class v-col
+    &::-webkit-scrollbar
+      display: none  // hide scrollbar in Chrome/Safari
+    scrollbar-width: none  // hide scrollbar in Firefox
+    -ms-overflow-style: none  // hide scrollbar in IE/Edge
+
+
+.v-expansion-panel-title__overlay
+  color: #ff0000
+
+
+.v-expansion-panel-title
+ color: #ff000
+
 
 .vue3-snackbar-message-content
   // snackbar width

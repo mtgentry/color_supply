@@ -13,6 +13,11 @@
         @blur="v$.password.$touch" autocomplete="new-password")
       v-checkbox(v-model="state.influencer" v-if="signUpInfluencer" v-show="false")
       v-btn#submit(color="primary" text @click="signup" :disabled="pending || v$.$invalid" flat) Create Free Account
+
+
+   
+
+
       slot(name="footer")
         div.text-center
           p By continuing you agree to our Terms of Service and Privacy Policy.

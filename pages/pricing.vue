@@ -24,7 +24,7 @@
       h2#hobbyist.plan-name.text_base Hobbyist
       .price.d-flex
         span.currency $
-        span.amount 3
+        span.amount 4
         span.period /month
       .plan-features
         p.text_sm Perfect for hobbyists exploring personal projects and creative side endeavors.

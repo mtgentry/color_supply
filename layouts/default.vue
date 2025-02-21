@@ -60,16 +60,6 @@ const alertMessage = computed(() => {
   .v-row
     flex-grow: 1
 
-.v-btn
-  font-size: 14px
-  font-style: normal
-  font-weight: 500
-  line-height: normal
-  letter-spacing: 0.28px
-  text-transform: none
-
-.v-row
-  margin: -16px
 
 h2
   font-size: 22px
@@ -93,9 +83,9 @@ h2
 .v-alert
   text-align: center
 
-  .v-btn
-    background-color: var(--color1) !important
-    color: var(--color7) !important
-    padding: 0!important
-    font-weight: 100
+.v-btn
+  background-color: var(--color1) !important
+  color: var(--color7) !important
+  padding: 0!important
+  font-weight: 100
 </style>
