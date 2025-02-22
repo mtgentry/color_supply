@@ -7,7 +7,7 @@
             :color="selectedInterval === interval ? 'primary': 'gray'"
             @click="selectInterval(interval)") {{capitalized(interval)}}ly
       v-row.plans
-        v-col.centered(:lg="12/plans.length" md="6" sm="6" sx="12" cols="12" v-for="plan in plans" :key="plan.name")
+        v-col.centered.plan-col(:lg="12/plans.length" md="6" sm="6" sx="12" cols="12" v-for="plan in plans" :key="plan.name")
           ManagePlan(:plan="plan" :badge="plan.name === 'VIP Beta' ? 'Exclusive Offer' : undefined" :promo="true")
 </template>
 
@@ -30,6 +30,14 @@ selectedPlan.value = plans.value[0].prices[0].id
 
 <style lang="sass" scoped>
 #toggle
-  button:first-child
-    margin-right: 15px
+  button
+    width: 80px
+    &:first-child
+      margin-right: 15px
+
+:deep(.v-card)
+  width: 244px
+
+.plan-col
+  padding: 40px 16px 12px 16px
 </style>
