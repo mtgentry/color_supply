@@ -200,30 +200,30 @@ watch([mode, style, qty, harmony, colors, wheel_color, colorTab], () => {
     padding: 32px 12px 32px 12px
   @media (min-width: 375px)
     .colorRow
-      padding: 11px 12px 16px 12px
+      padding: 31px 12px 16px 12px
     .colorCol
-      padding: 32px 12px 32px 12px
+      padding: 18px 12px 32px 12px
 
   @media (min-width: 600px)
     .colorRow
-      padding: 11px 12px 16px 12px
+      padding: 31px 12px 16px 12px
     .colorCol
-      padding: 32px 12px 32px 12px
+      padding: 18px 12px 32px 12px
 
   @media (min-width: 960px)
     .colorRow
-      padding: 10px 12px 24px 12px
-    .colorCol
       padding: 24px 12px 24px 12px
+    .colorCol
+      padding: 19px 12px 24px 12px
 
   @media (min-width: 1280px)
     .colorRow
-      padding: 18px 24px 32px 8px
+      padding: 32px 24px 32px 8px
     .colorCol
-      padding: 32px 24px 32px 24px
+      padding: 18px 24px 32px 24px
   @media (min-width: 1920px)
     .colorRow
-      padding: 18px 24px 32px 24px
-    .colorCol
       padding: 32px 24px 32px 24px
+    .colorCol
+      padding: 18px 24px 32px 24px
 </style>
