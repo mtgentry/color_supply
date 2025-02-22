@@ -3,8 +3,8 @@
     v-row#toggleRow
       v-col(cols="12" :class="{'mb-5': !selectFirst}")
         v-btn-toggle(variant="text" rounded="0" mandatory v-model="toggle"  v-if="selectFirst")
-          v-btn(value="recent").mr-5 Recent
-          v-btn(value="favorites") Favorites
+          v-btn.toggle(value="recent").mr-5 Recent
+          v-btn.toggle(value="favorites") Favorites
         v-label(v-else) Recent
       v-col.pa-0(cols="12" v-if="status === 'unauthenticated' && toggle === 'favorites'")
         VisualizeSignUp
@@ -70,9 +70,15 @@ watch(toggle, async (value) => {
   .v-btn
     height: 20px!important
     padding: 0!important
-    line-height: 23px
+    color: var(--color4)
+    font-size: 15px!important
+    font-style: normal!important
+    font-weight: 400!important
+    line-height: normal!important
+    letter-spacing: 0.15px!important
 
     &.v-btn--active
+      color: var(--color2)
       border-bottom: 1px solid var(--color2)
 
   :deep(.v-btn__overlay)

@@ -74,7 +74,7 @@ const isSelected = computed(() => {
     outline: none
 
   &.color-row:hover
-    transform: scale(1.03)
+    transform: scale(1.09)
     transition: transform 0.1s ease-in-out
 
   .color-box
