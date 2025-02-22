@@ -52,7 +52,7 @@ watch(toggle, async (value) => {
 
 <style scoped lang="sass">
 #paletteResults
-  padding: 16px 24px
+  padding: 12px 24px
   .v-col
     padding: 6px 0
     &:first-child
