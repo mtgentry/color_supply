@@ -13,11 +13,6 @@
         @blur="v$.password.$touch" autocomplete="new-password")
       v-checkbox(v-model="state.influencer" v-if="signUpInfluencer" v-show="false")
       v-btn#submit(color="primary" text @click="signup" :disabled="pending || v$.$invalid" flat) Create Free Account
-
-
-
-
-
       slot(name="footer")
         div.text-center
           p By continuing you agree to our Terms of Service and Privacy Policy.
@@ -98,15 +93,17 @@ const signup = async () => {
     if (loginFavorite.value) {
       await favorite(loginFavorite.value)
     }
-    snackbar.add({
-      type: 'info',
-      text: 'Account created successfully!'
-    })
     let redirect = signUpPromo.value
     changeSignUpForm(false)
     if (redirect) {
       window.location.href = '/promo/billing/'
+    } else {
+      snackbar.add({
+        type: 'info',
+        text: 'Account created successfully!'
+      })
     }
+
   }).catch((e) => {
     if (e.data.email) {
       emailError.value = 'Email already in use.'
