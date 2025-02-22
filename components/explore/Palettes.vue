@@ -9,7 +9,7 @@
                   v-row
                     v-col.pa-0(cols="12")
                       ColorsDisplay(:palette='palette')
-                    v-col#actions.pa-0(cols="12")
+                    v-col#actions(cols="12")
                       .info
                         IconsHeart.clickable(
                           :fill="palette.favorite ? 'var(--color9)' : 'transparent'",
@@ -175,6 +175,7 @@ watch([mode, style, qty, harmony, colors, wheel_color, colorTab], () => {
   #actions
     display: flex
     justify-content: flex-end
+    padding: 8px 0 0 0
   .info
     color: var(--color3)
     min-width: 40px
