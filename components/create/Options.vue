@@ -16,7 +16,7 @@ const { selectedColor } = storeToRefs(colorStore)
 <style scoped lang="sass">
 #options
   background-color: var(--color7)
-  padding: 32px 24px
+  padding: 30px 24px
   :deep(h2)
     padding-bottom: 20px
 </style>
