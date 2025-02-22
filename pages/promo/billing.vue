@@ -21,6 +21,7 @@ if (!data.value?.promo) {
 }
 const planStore = usePlanStore()
 const {selectInterval} = planStore
+selectInterval('year')
 const { plans, selectedInterval, selectedPlan } = storeToRefs(planStore)
 const intervals = ['month', 'year']
 await planStore.fetchPlans('/promo/')
