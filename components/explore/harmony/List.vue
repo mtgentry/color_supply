@@ -13,5 +13,6 @@ const harmonies = ['complementary', 'split-complementary', 'analogous', 'triad',
 </script>
 
 <style scoped lang="sass">
-
+:deep(.v-label)
+  font-size: 13px!important
 </style>
