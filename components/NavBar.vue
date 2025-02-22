@@ -15,17 +15,16 @@
             img.clickable(src="/img/icons/user.svg" height="40" v-bind="props")
           v-card#popup(elevation="0")
             v-card-text
-              div.profile {{data.name }}
-              div.profile#email {{data.email }}
+              div#name {{data.name }}
+              div#email {{data.email }}
               v-btn#plan(color="primary" variant="outlined" to="/manage/plan") {{ data.plan.name }} Plan
               v-divider
               v-list
+                v-list-item(:ripple="false")
+                    .d-flex.align-center
+                      IconsHeart.mr-1
+                      span Favorites
                 v-list-item(to="/manage/general" :ripple="false") Manage account
-                //v-list-item(:ripple="false")
-                //  .d-flex.align-center
-                //    IconsHeart.mr-1.mb-1
-                //    span My Likes
-                //v-list-item(:ripple="false") Bug report & feedback
                 v-list-item(@click="logout" :ripple="false") Log Out
     v-toolbar-title
       nuxt-link(to="/palettes") Palettes
@@ -137,11 +136,30 @@ const logout = () => {
     font-size: 14px
     .v-card-text
       padding: 25px
+    #name
+      color: var(--color11)
+      font-size: 14px
+      font-style: normal
+      font-weight: 400
+      line-height: normal
     #email
       color: var(--color3)
+      font-size: 14px
+      font-style: normal
+      font-weight: 400
+      line-height: normal
+
     #plan
       width: 100%
       margin-top: 16px
+      color: var(--color1)
+      text-align: center
+      font-size: 12px
+      font-style: normal
+      font-weight: 500
+      line-height: normal
+      letter-spacing: 0.24px
+      text-transform: none
       :deep(.v-btn__overlay)
         // disable active page color
         opacity: 0
@@ -151,8 +169,13 @@ const logout = () => {
     .v-list
       padding: 0
       .v-list-item
+        font-size: 14px
+        font-style: normal
+        font-weight: 400
+        line-height: 245%
         padding: 0
-        color: var(--color3)
+        color: var(--color11)
+        cursor: pointer
         &:hover
           color: var(--color1)
         :deep(.v-list-item__overlay)
