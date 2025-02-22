@@ -40,6 +40,8 @@ const { colorTab } = storeToRefs(filterStore)
 </script>
 
 <style scoped lang="sass">
+:deep(.v-slide-group__content)
+  align-items: center
 
 :deep(.v-slide-group-item--active)
   svg
