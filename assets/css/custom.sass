@@ -179,11 +179,13 @@ a:visited
 
  // moves the first dot in QTY to the left
 .v-slider.v-input--horizontal .v-slider-track__tick--first
-  margin-left: 2px ! important
+  margin-left: 2px !important
 
 
 // hide the scroll that appears over the filters in /palettes 
 .v-application
+  .v-container
+    padding: 12px
   #filter.v-col  // targeting the specific div with ID "filter" and class v-col
     &::-webkit-scrollbar
       display: none  // hide scrollbar in Chrome/Safari
@@ -196,7 +198,7 @@ a:visited
 
 
 .v-expansion-panel-title
- color: #ff000
+  color: #ff0000
 
 
 .vue3-snackbar-message-content
