@@ -15,7 +15,7 @@
       v-btn#submit(color="primary" text @click="signup" :disabled="pending || v$.$invalid" flat) Create Free Account
 
 
-   
+
 
 
       slot(name="footer")
@@ -95,7 +95,6 @@ const signup = async () => {
   pending.value = true
   await signUp(state, signInOptions).then(async () => {
     pending.value = false
-    changeSignUpForm(false)
     if (loginFavorite.value) {
       await favorite(loginFavorite.value)
     }
@@ -103,10 +102,11 @@ const signup = async () => {
       type: 'info',
       text: 'Account created successfully!'
     })
-    if (signUpPromo.value) {
-       window.location.href = '/promo/billing/'
+    let redirect = signUpPromo.value
+    changeSignUpForm(false)
+    if (redirect) {
+      window.location.href = '/promo/billing/'
     }
-
   }).catch((e) => {
     if (e.data.email) {
       emailError.value = 'Email already in use.'

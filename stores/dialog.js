@@ -12,7 +12,7 @@ export const useDialogStore = defineStore('dialog', () =>{
     signUpForm.value = value
     signUpFormPersistent.value = persistent
     signUpInfluencer.value = influencer
-    signUpPromo.value = value
+    signUpPromo.value = promo
   }
   const changeLoginForm = (value) => {
     loginForm.value = value
