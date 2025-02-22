@@ -107,6 +107,7 @@ const changePreview = (value) => {
 
 <style scoped lang="sass">
 #actions
+  overflow: hidden
   display: flex
   flex-direction: row
   position: absolute
