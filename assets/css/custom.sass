@@ -59,6 +59,39 @@ $xs: 600px
   font-weight: 800
   font-style: normal
 
+@font-face
+  font-family: 'IBM Plex Sans'
+  src: url('/fonts/IBMPlexSans-Bold.ttf') format('opentype')
+  font-weight: 700
+  font-style: normal
+
+@font-face
+  font-family: 'IBM Plex Sans'
+  src: url('/fonts/IBMPlexSans-Medium.ttf') format('opentype')
+  font-weight: 500
+  font-style: normal
+
+@font-face
+  font-family: 'IBM Plex Sans'
+  src: url('/fonts/IBMPlexSans-Regular.ttf') format('opentype')
+  font-weight: 400
+  font-style: normal
+@font-face
+  font-family: 'IBM Plex Sans'
+  src: url('/fonts/IBMPlexSans-Thin.ttf') format('opentype')
+  font-weight: 100
+  font-style: normal
+@font-face
+  font-family: 'IBM Plex Sans'
+  src: url('/fonts/IBMPlexSans-SemiBold.ttf') format('opentype')
+  font-weight: 600
+  font-style: normal
+@font-face
+  font-family: 'IBM Plex Sans'
+  src: url('/fonts/IBMPlexSans-ExtraLight.ttf') format('opentype')
+  font-weight: 200
+  font-style: normal
+
 html
   overflow: auto
   font-family: "ABCDiatypeRounded", sans-serif!important
@@ -103,7 +136,7 @@ html
   flex-direction: column
 
 .router-link-exact-active
-    color: var(--color1)!important
+  color: var(--color1)!important
 
 a:visited
   color: var(--color1)
@@ -127,16 +160,16 @@ a:visited
 
 
 
-  // this is the checkbox in the palettes filters. 
-  // It is a material design icon and the thickness can't be modifed. 
-  // note: entire panel is in components/Filter.vue
+// this is the checkbox in the palettes filters.
+// It is a material design icon and the thickness can't be modifed.
+// note: entire panel is in components/Filter.vue
 .v-application
   .v-selection-control
     .mdi-checkbox-blank-outline.v-icon
-     color: var(--color4)
+      color: var(--color4)
 
-  
-  // this is the divider line btwn the filters
+
+// this is the divider line btwn the filters
 .v-application
   .v-divider.v-theme--light
     color: var(--color6)
@@ -144,7 +177,7 @@ a:visited
     margin-right: 7px
 
 
-  // this controls the text in the style filter in palettes
+// this controls the text in the style filter in palettes
 .v-application
   .v-selection-control
     .v-label.v-label--clickable
@@ -159,13 +192,13 @@ a:visited
 .v-application
   .v-expansion-panel-title__icon
     color: var(--color1)
-    margin-inline-start: 110px 
+    margin-inline-start: 110px
 
 
 
 // this is the QTY carat in /palletes
 .v-application
-  #slider .v-expansion-panel-title 
+  #slider .v-expansion-panel-title
     .v-expansion-panel-title__icon
       color: var(--color1)
       margin-inline-start: 125px
@@ -218,3 +251,38 @@ a:visited
   border-radius: 100%!important
   border: unset!important
 
+.v-btn
+  text-align: center!important
+  font-style: normal!important
+  line-height: normal!important
+
+.v-btn--size-default
+  font-size: 14px!important
+  font-weight: 500!important
+  letter-spacing: 0.28px!important
+  height: 32px!important
+  text-transform: none!important
+
+.v-btn--size-large
+  font-size: 16px!important
+  font-weight: 500!important
+  letter-spacing: 0.32px!important
+  height: 40px!important
+  text-transform: none!important
+
+.v-btn--size-small
+  font-family: "IBM Plex Sans", serif!important
+  font-size: 10px!important
+  font-weight: 400!important
+  letter-spacing: 0.5px!important
+  text-transform: uppercase!important
+  height: 25px!important
+
+.bg-default
+  background-color: var(--color1)!important
+  color: var(--color7)!important
+
+.bg-outlined
+  border: var(--color2) 1px solid!important
+  background-color: var(--color7)!important
+  color: var(--color2)!important

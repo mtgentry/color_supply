@@ -49,14 +49,4 @@ const signUp = () => {
     line-height: 130%
     letter-spacing: 0.28px
 
-  #button
-    background-color: var(--color1)!important
-    margin-top: 20px
-    font-size: 16px
-    font-style: normal
-    font-weight: 300
-    line-height: normal
-    letter-spacing: 0.32px
-    text-transform: none
-
 </style>
