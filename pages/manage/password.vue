@@ -12,7 +12,7 @@
           :error-messages="v$.password.$errors.map(e => e.$message)"
           variant="outlined" :append-inner-icon="showPassword ? 'mdi-eye-off' : 'mdi-eye'"  @click:append-inner="showPassword = !showPassword"
           @blur="v$.password.$touch" auto)
-        v-text-field(v-model="state.password_confirm" label="New Password" :type="showNewPassword ? 'text' : 'password'" required name="confirm=password"
+        v-text-field(v-model="state.password_confirm" label="Confirm New Password" :type="showNewPassword ? 'text' : 'password'" required name="confirm=password"
           placeholder="Colorfan19#" :hint="!v$.password_confirm.$invalid ? '' : 'At least 8 characters, with a number or symbol'"
           :error-messages="v$.password_confirm.$errors.map(e => e.$message)"
           variant="outlined" :append-inner-icon="showNewPassword ? 'mdi-eye-off' : 'mdi-eye'"  @click:append-inner="showNewPassword = !showNewPassword"
