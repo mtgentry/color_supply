@@ -6,7 +6,6 @@
       ExplorePalettes(favorites)
     ExplorePreviewBox
     ExplorePreviewOpen
-
 </template>
 
 <script setup>

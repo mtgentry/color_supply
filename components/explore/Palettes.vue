@@ -3,7 +3,7 @@
       v-row
         v-col.pa-0
           v-container.ma-0#paletteResults(fluid)
-            v-row.colorRow(v-auto-animate="{ duration: 300 }" v-if="palettes.length")
+            v-row.colorRow(v-auto-animate="{ duration: 300 }" v-if="palettes.length || loading")
               v-col.colorCol(:cols="showFilter ? 12 : 6" xs="12" :sm="showFilter && preview === 1 ? 12 : 6" md="4" lg="4" v-for='(palette, index) in palettes' :key='index')
                 v-container(fluid)
                   v-row
@@ -17,6 +17,9 @@
                           @click="favorite(palette)")
                         #count {{ palette.favorite_count }}
                         //img(src='/img/icons/dots.svg')
+            v-row(v-else)
+              v-col(cols="12")
+                div.text-center No palettes found
             InfiniteLoading#infinite(@infinite="load" :key="renderKey" distance="400" target="#palettes")
               template(#spinner)
                 v-row.colorRow
