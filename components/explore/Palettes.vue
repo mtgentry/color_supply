@@ -32,7 +32,8 @@ import InfiniteLoading from "v3-infinite-loading"
 import "v3-infinite-loading/lib/style.css"
 import {findClosestColor} from "~/composables/findClosestColor.js";
 const props = defineProps({
-  showFilter: Boolean
+  showFilter: Boolean,
+  favorites: Boolean
 })
 
 const renderKey = ref(0)
@@ -112,6 +113,7 @@ const load = async ($state) => {
   }
   last_next.value =  next.value === 'palettes/list/' ? null : next.value
   const response = await fetch(next.value, 'get', {
+    favorites: props.favorites,
     mode: mode.value,
     style: style.value,
     qty: harmony_arg ? undefined : qty.value,

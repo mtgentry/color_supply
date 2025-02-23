@@ -20,7 +20,7 @@
               v-btn#plan(color="primary" variant="outlined" to="/manage/plan") {{ data.plan.name }} Plan
               v-divider
               v-list
-                v-list-item(:ripple="false")
+                v-list-item(:ripple="false" to="/favorites")
                     .d-flex.align-center
                       IconsHeart.mr-1
                       span Favorites
