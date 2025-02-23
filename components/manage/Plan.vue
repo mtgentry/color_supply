@@ -15,8 +15,8 @@
         p · Save up to {{plan.metadata.favorites}} favorites
       v-btn#select(width="100%" variant="outlined" v-if="active && data.plan.stripe" @click="createCheckout" :disabled="pending") Manage
       v-btn#select(width="100%" variant="outlined" v-if="!active && !selected" @click="selectPlan(price.id)") Select Plan
-  v-btn#upgrade(variant="outlined" width="100%" :class="{hide: active|| !selected}"
-    @click="createCheckout" :disabled="pending")
+  v-btn#upgrade(color="primary" width="100%" :class="{hide: active|| !selected}"
+    @click="createCheckout" :disabled="pending" flat)
       span(v-if="promo") Continue
       span(v-else) {{action}} to {{plan.name}}
 </template>

@@ -25,7 +25,7 @@ selectInterval('year')
 const { plans, selectedInterval, selectedPlan } = storeToRefs(planStore)
 const intervals = ['month', 'year']
 await planStore.fetchPlans('/promo/')
-selectedPlan.value = plans.value[0].prices[0].id
+selectedPlan.value = plans.value[0].prices[1].id
 
 </script>
 
