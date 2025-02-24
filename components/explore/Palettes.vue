@@ -20,7 +20,7 @@
             v-row(v-else)
               v-col(cols="12")
                 div.text-center No palettes found
-            InfiniteLoading#infinite(@infinite="load" :key="renderKey" distance="400" target="#palettes")
+            InfiniteLoading#infinite(@infinite="load" :key="renderKey" distance="300" target="#palettes")
               template(#spinner)
                 v-row.colorRow
                   v-col.colorCol(cols="4" v-for='index in loadingNumber' :key='index')
