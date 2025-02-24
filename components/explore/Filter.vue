@@ -125,9 +125,9 @@ watch(style, (value, oldValue) => {
 .v-input--density-default
   --v-input-control-height: 40px
 
-.alignedLeft :deep(.v-selection-control__input)
+.alignedLeft :deep(.v-selection-control__wrapper)
   //width: 0px !important
-  justify-content: start
+  left: -4px
 
 :deep(.v-slider-thumb)
   color: var(--color1)!important
