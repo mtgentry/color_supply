@@ -48,9 +48,10 @@ const alertMessage = computed(() => {
 
 <style lang="sass" scoped>
 
+
+// removed "overflow: hidden" because it broke the pricing page.  
 .v-application
   background-color: var(--color6)
-  overflow: hidden
   line-height: 1
 
 #content

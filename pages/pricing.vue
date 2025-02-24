@@ -1,63 +1,63 @@
 <template lang="pug">
-.pricing-container.d-flex.flex-column(role="main")
-  .nav-spacing
-  .pricing-header
-    h1.h2.pricing-title Pricing
-    p.text_xl.sub_head Pick a plan that's right for you.
-  
-  .pricing-plans
-    // Basic Plan
-    .pricing-card.d-flex.flex-column.pricing-divider
-      h2#basic.plan-name.text_base Basic
-      .price.d-flex
-        span.currency $
-        span.amount 0
-        span.period /month
-      .plan-features
-        p.text_sm Great for light, occasional use to experiment and explore colors.
-        p.text_sm.bullet Save up to 20 favorites
+  .pricing-container.d-flex.flex-column(role="main")
+    .nav-spacing
+    .pricing-header
+      h1.h2.pricing-title Pricing
+      p.text_xl.sub_head Pick a plan that's right for you.
     
-    .divider-line
+    .pricing-plans
+      // Basic Plan
+      .pricing-card.d-flex.flex-column.pricing-divider
+        h2#basic.plan-name.text_base Basic
+        .price.d-flex
+          span.currency $
+          span.amount 0
+          span.period /month
+        .plan-features
+          p.text_sm Great for light, occasional use to experiment and explore colors.
+          p.text_sm.bullet Save up to 20 favorites
+      
+      .divider-line
+      
+      // Hobbyist Plan
+      .pricing-card.d-flex.flex-column.pricing-divider
+        h2#hobbyist.plan-name.text_base Hobbyist
+        .price.d-flex
+          span.currency $
+          span.amount 4
+          span.period /month
+        .plan-features
+          p.text_sm Perfect for hobbyists exploring personal projects and creative side endeavors.
+          p.text_sm.bullet Save up to 50 favorites
+      
+      .divider-line
+      
+      // Professional Plan  
+      .pricing-card.d-flex.flex-column.pricing-divider
+        h2#professional.plan-name.text_base Professional
+        .price.d-flex
+          span.currency $
+          span.amount 9
+          span.period /month
+        .plan-features
+          p.text_sm For designers & developers working on frequent, high-quality color projects.
+          p.text_sm.bullet Save up to 100 favorites
+      
+      .divider-line
+      
+      // Business Plan
+      .pricing-card.d-flex.flex-column
+        h2#business.plan-name.text_base Business
+        .price.d-flex
+          span.currency $
+          span.amount 19
+          span.period /month
+        .plan-features
+          p.text_sm Built for organizations that rely on consistent palette creation for their work.
+          p.text_sm.bullet Save up to 500 favorites
     
-    // Hobbyist Plan
-    .pricing-card.d-flex.flex-column.pricing-divider
-      h2#hobbyist.plan-name.text_base Hobbyist
-      .price.d-flex
-        span.currency $
-        span.amount 4
-        span.period /month
-      .plan-features
-        p.text_sm Perfect for hobbyists exploring personal projects and creative side endeavors.
-        p.text_sm.bullet Save up to 50 favorites
-    
-    .divider-line
-    
-    // Professional Plan  
-    .pricing-card.d-flex.flex-column.pricing-divider
-      h2#professional.plan-name.text_base Professional
-      .price.d-flex
-        span.currency $
-        span.amount 9
-        span.period /month
-      .plan-features
-        p.text_sm For designers & developers working on frequent, high-quality color projects.
-        p.text_sm.bullet Save up to 100 favorites
-    
-    .divider-line
-    
-    // Business Plan
-    .pricing-card.d-flex.flex-column
-      h2#business.plan-name.text_base Business
-      .price.d-flex
-        span.currency $
-        span.amount 19
-        span.period /month
-      .plan-features
-        p.text_sm Built for organizations that rely on consistent palette creation for their work.
-        p.text_sm.bullet Save up to 500 favorites
-  
-  .signup-container
-    v-btn#signup(color="primary" @click="handleSignUp") Sign Up Now
+    .signup-container
+      v-btn#signup(color="primary" @click="handleSignUp") Sign Up Now
 </template>
 
 <script setup>
@@ -73,6 +73,16 @@ const { handleSignUp } = useSignUp()
 </script>
 
 <style lang="sass" scoped>
+/* Optional: Define breakpoint variables */
+// $bp1-max: 599px
+// $bp2-min: 600px
+// $bp2-max: 959px
+// $bp3-min: 960px
+// $bp3-max: 1263px
+// $bp4-min: 1264px
+// $bp4-max: 1903px
+// $bp5-min: 1904px
+
 .pricing-container
   min-height: calc(100vh - 64px)
   margin: 0 auto
@@ -80,9 +90,12 @@ const { handleSignUp } = useSignUp()
   display: flex
   flex-direction: column
   gap: 0px
+  padding-bottom: 100px
+  margin-bottom: 100px
   margin: -16px
 
-  @media (max-width: 600px)
+  // Breakpoint 1: below 600px
+  @media (max-width: 599px)
     padding: 0 20px 100px  
 
 .nav-spacing
@@ -97,8 +110,8 @@ const { handleSignUp } = useSignUp()
   justify-content: center
   margin-top: 32px
 
- 
-  @media (max-width: 767px)
+  // Hide on smaller screens (Breakpoints 1 & 2: below 960px)
+  @media (max-width: 959px)
     display: none
 
 #signup
@@ -110,21 +123,18 @@ const { handleSignUp } = useSignUp()
 
 .pricing-header
   text-align: center
-  
+
 .pricing-title
   margin-bottom: 1px
 
-
+  // For mobile (<600px)
   @media (max-width: 599px)
     padding: 0 20px
     margin-top: 0px
 
-
 .sub_head
   margin-top: 15px // Adjust the positioning as needed
-  margin-bottom:20px
-
-
+  margin-bottom: 20px
 
 .pricing-plans
   display: flex
@@ -132,9 +142,11 @@ const { handleSignUp } = useSignUp()
   align-items: flex-start
   gap: 0
   margin-top: 37px
-  margin-bottom:30px
+  margin-bottom: 30px
 
-  @media (max-width: 767px)
+
+  // Switch to grid layout for smaller screens (Breakpoints 1 & 2: below 960px)
+  @media (max-width: 959px)
     display: grid
     grid-template-columns: 1fr
     gap: 32px
@@ -142,7 +154,7 @@ const { handleSignUp } = useSignUp()
     flex-wrap: wrap
     justify-content: center
     margin: 37px auto 0
-    max-width: 767px
+    max-width: 959px
 
 .pricing-card
   width: 175px
@@ -150,9 +162,7 @@ const { handleSignUp } = useSignUp()
   flex-direction: column
   gap: 10px
 
-
-  
-  
+  // For mobile (<600px)
   @media (max-width: 599px)
     width: 100%
     max-width: 300px
@@ -164,7 +174,7 @@ const { handleSignUp } = useSignUp()
     font-size: 16px
     line-height: 24px
     margin: 0
-  
+
   .price
     margin: 0
     position: relative
@@ -203,8 +213,6 @@ const { handleSignUp } = useSignUp()
     margin: 0
     padding: 0
 
-
-    
 .period
   font-weight: 500
   font-size: 16px
@@ -221,31 +229,29 @@ const { handleSignUp } = useSignUp()
   font-size: 15px
   line-height: 1.5
   p:first-child
-   margin-bottom: 8px  // Add this line inside the existing .plan-features
-    
-
+    margin-bottom: 8px  // Add this line inside the existing .plan-features
 
 .plan-name
-    color: var(--color2)
-    font-weight: bold
-    font-size: 16px
-    margin-bottom: 20px
+  color: var(--color2)
+  font-weight: bold
+  font-size: 16px
+  margin-bottom: 20px
 
 .price
-    height: 48px
-    align-items: flex-start
-    margin-bottom: 64px // Add space between price and features
-    
+  height: 48px
+  align-items: flex-start
+  margin-bottom: 64px // Add space between price and features
+  
 .currency
-      font-weight: 500
-      font-size: 16px
-      color: var(--color2)
-      margin-right: 4px
-    
+  font-weight: 500
+  font-size: 16px
+  color: var(--color2)
+  margin-right: 4px
+
 .amount
-      font-weight: 500
-      font-size: 48px
-      color: var(--color2)
+  font-weight: 500
+  font-size: 48px
+  color: var(--color2)
 
 .divider-line
   width: 1px
@@ -254,7 +260,8 @@ const { handleSignUp } = useSignUp()
   margin: 0 32px
   align-self: center
 
-  @media (max-width: 767px)
+  // For smaller screens (Breakpoints 1 & 2: below 960px), display as horizontal divider
+  @media (max-width: 959px)
     display: block
     width: 100%
     height: 1px
@@ -262,13 +269,14 @@ const { handleSignUp } = useSignUp()
     background-color: var(--color5)
 
 .pricing-card:last-child
+  // For mobile (<600px)
   @media (max-width: 599px)
     padding-bottom: 0
 
 .pricing-plans > .divider-line:last-child
+  // For mobile (<600px)
   @media (max-width: 599px)
     display: none
-
 
 .iconBtn
   padding: 0 10px
@@ -334,5 +342,4 @@ const { handleSignUp } = useSignUp()
 .text_xs
   font-size: 12px
   line-height: 16px
-
 </style>
