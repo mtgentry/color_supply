@@ -20,7 +20,8 @@ const {preview} = storeToRefs(store)
   #header
     height: calc(152px)
   #palettes
-    height: 100%
+    overflow-y: auto
+    height: calc(100vh - 152px)
   h1
     font-size: 36px
     font-style: normal

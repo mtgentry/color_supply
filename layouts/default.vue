@@ -56,7 +56,7 @@ const alertMessage = computed(() => {
 #content
   display: flex
   flex-direction: column
-  height: 100%
+
   .v-row
     flex-grow: 1
 

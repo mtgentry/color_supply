@@ -74,16 +74,17 @@ const { handleSignUp } = useSignUp()
 
 <style lang="sass" scoped>
 .pricing-container
-  min-height: calc(100vh - 64px)
+  height: calc(100vh - 64px)
   margin: 0 auto
   background: var(--color7)
   display: flex
   flex-direction: column
   gap: 0px
   margin: -16px
+  overflow-y: auto
 
-  @media (max-width: 600px)
-    padding: 0 20px 100px  
+  @media (max-width: 767px)
+    padding: 85px 20px 100px
 
 .nav-spacing
   height: 90px
