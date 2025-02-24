@@ -83,6 +83,14 @@ const { handleSignUp } = useSignUp()
 // $bp4-max: 1903px
 // $bp5-min: 1904px
 
+
+
+
+// this is needed because the global setting for this selector in default.vue, cuts off the prices 
+:global(.v-application)
+  overflow-y: auto !important
+
+
 .pricing-container
   min-height: calc(100vh - 64px)
   margin: 0 auto
