@@ -48,13 +48,10 @@ const alertMessage = computed(() => {
 
 <style lang="sass" scoped>
 
-
 .v-application
   background-color: var(--color6)
-  overflow: hidden 
+  overflow: hidden
   line-height: 1
-
-
 
 #content
   display: flex
