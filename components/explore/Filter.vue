@@ -61,10 +61,33 @@ watch(style, (value, oldValue) => {
 </script>
 
 <style scoped lang="sass">
-#panels
-  padding-left: 17px
-  @media (max-width: 960px)
-    padding-top: 40px
+
+@media (min-width: 375px)
+  #panels
+    padding-left: 21px
+    padding-top: 30px
+
+@media (min-width: 600px)
+  #panels
+    padding-left: 21px
+    padding-top: 30px
+
+@media (min-width: 960px)
+  #panels
+    padding-left: 21px
+    padding-top: 30px
+
+@media (min-width: 1280px)
+  #panels
+    padding-left: 21px
+    padding-top: 30px
+
+@media (min-width: 1920px)
+  #panels
+    padding-left: 21px
+    padding-top: 30px
+
+
 
 
 :deep(.v-expansion-panel-title)
