@@ -7,7 +7,7 @@
     //      v-divider(v-if="m !== modes[modes.length - 1]")
     ExploreExpansionPanel(title="Style")
       div(v-for="t in styles" :key="t")
-        v-checkbox(v-model="style"  :label="t.title" :value="t.value" hide-details true-icon="mdi-close-box-outline" density="compact" )
+        v-checkbox.alignedLeft(v-model="style"  :label="t.title" :value="t.value" hide-details true-icon="mdi-close-box-outline" density="compact" )
         v-divider(v-if="t !== styles[styles.length - 1]")
     ExploreExpansionPanel#slider(title="QTY")
       v-range-slider.pb-5.pl-2(:min="2" :max="5" v-model="qtyLocal" :step="1" @end="changeQty"
@@ -125,7 +125,7 @@ watch(style, (value, oldValue) => {
 .v-input--density-default
   --v-input-control-height: 40px
 
-:deep(.v-selection-control__input)
+.alignedLeft :deep(.v-selection-control__input)
   //width: 0px !important
   justify-content: start
 
