@@ -126,17 +126,17 @@ const load = async ($state) => {
   if (!response) {
     return
   }
-  if (colorTab.value === 'wheel') {
-    response.results = response.results.map(p => {
-      p.colors = reorderColorsWheel(wheel_color.value, p.colors)
-      return p
-    })
-  } else if (colors.value.length && colorTab.value === 'color') {
-    response.results = response.results.map(p => {
-      p.colors = reorderColorsByParent(colors.value, p.colors)
-      return p
-    })
-  }
+  // if (colorTab.value === 'wheel') {
+  //   response.results = response.results.map(p => {
+  //     p.colors = reorderColorsWheel(wheel_color.value, p.colors)
+  //     return p
+  //   })
+  // } else if (colors.value.length && colorTab.value === 'color') {
+  //   response.results = response.results.map(p => {
+  //     p.colors = reorderColorsByParent(colors.value, p.colors)
+  //     return p
+  //   })
+  // }
   if (next.value === 'palettes/list/') {
     setTimeout(() => {
       // if (recentPalettes.value.length) {
