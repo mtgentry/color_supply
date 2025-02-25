@@ -1,5 +1,5 @@
 <template lang="pug">
-  v-row
+  v-row#manageLayout
     v-col#nav(cols="2")
       v-list.pa-0(density="compact" )
         v-list-item.pa-0
@@ -114,4 +114,7 @@ a:hover
     font-weight: 500
     color: var(--color3)
     padding-bottom: 64px
+
+#manageLayout
+  height: calc(100vh - 64px)
 </style>
