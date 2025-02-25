@@ -116,8 +116,8 @@ const load = async ($state) => {
   }
   last_next.value =  next.value === 'palettes/list/' ? null : next.value
   const response = await fetch(next.value, 'get', {
-    favorites: props.favorites,
-    mode: mode.value,
+    toggle: props.favorites ? 'favorites' : undefined,
+    // mode: mode.value,
     style: style.value,
     qty: harmony_arg ? undefined : qty.value,
     harmony: harmony_arg,

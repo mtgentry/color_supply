@@ -39,7 +39,7 @@ onMounted(() => {
   colorStore.selectPalette(visualizePalettes.value[0])
 })
 const {data: favorites, pending, refreshAuthExecute} = useApi('palettes/list/',  {
-  toggle: toggle
+  toggle: 'favorites',
 }, 'get', {immediate: false})
 watch(toggle, async (value) => {
   if (value === 'recent') {
