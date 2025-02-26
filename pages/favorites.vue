@@ -9,6 +9,9 @@
 </template>
 
 <script setup>
+definePageMeta({
+  middleware: ['auth'],
+})
 const store = useFilterStore()
 const {preview} = storeToRefs(store)
 

@@ -26,7 +26,6 @@ import { useVuelidate } from '@vuelidate/core'
 import {required, helpers, minLength} from '@vuelidate/validators'
 definePageMeta({
   middleware: ['auth'],
-  auth: { unauthenticatedOnly: false },
 })
 const snackbar = useSnackbar()
 const showPassword = ref(false)

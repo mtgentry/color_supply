@@ -16,7 +16,6 @@ const {data} = useAuth()
 
 definePageMeta({
   middleware: ['auth'],
-  auth: { unauthenticatedOnly: false },
 })
 
 const planStore = usePlanStore()

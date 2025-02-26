@@ -88,7 +88,7 @@ h2
   opacity: 0
 #preview-drawer
   .v-navigation-drawer__content
-  overflow: hidden
+    overflow: hidden
 .v-application
   height: 100vh
 .v-alert

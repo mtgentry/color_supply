@@ -15,7 +15,6 @@ import { useVuelidate } from '@vuelidate/core'
 import {email, required, helpers, minLength} from '@vuelidate/validators'
 definePageMeta({
   middleware: ['auth'],
-  auth: { unauthenticatedOnly: false },
 })
 const snackbar = useSnackbar()
 const symbol = helpers.regex(/[^a-zA-Z0-9\s]/)
