@@ -1,6 +1,13 @@
 <template lang="pug">
   v-app(dark)
     v-container.pa-0(fluid app)
+      v-row(app)
+        v-col(cols="12")
+          v-alert(type='info' v-model="promo" @click:close="onClosePromo"  icon="close" closable)
+            template(#text)
+            .d-flex.centered.flex-row
+              span.pr-5 Thanks for trying Colorsupply! Upgrade to VIP beta for $28/yr (25% off)
+              v-btn(@click="goToBilling" color="primary" flat  variant="outlined" width="150" ) Upgrade Now
       v-row(v-if="status" app)
         v-col(cols="12")
           v-alert(type='info' v-if="status === 'success'" v-model="isAlertVisible" @click:close="onClose" icon="")
@@ -36,7 +43,19 @@ const isAlertVisible = ref(true)
 const closeAlert = () =>  {
   isAlertVisible.value = false
 }
+const onClosePromo = () => {
+  localStorage.setItem('hidePromo', 'true')
+  promo.value = false
+}
+const goToBilling = () => {
+  window.location.href = '/promo'
+}
 const { data } = useAuth()
+const showPromo = () => {
+  if (data.value?.plan?.name === 'VIP Beta') return false
+  return !localStorage.getItem('hidePromo');
+}
+const promo = ref(showPromo())
 const route = useRoute()
 const status = computed(() => route.query.status)
 const alertMessage = computed(() => {
