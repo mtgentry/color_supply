@@ -13,12 +13,11 @@
 
 <script setup>
 definePageMeta({
+  middleware: ['auth'],
   layout: 'auth',
 })
 const { data } = useAuth()
-if (!data.value?.promo) {
-  navigateTo('/login')
-}
+
 const planStore = usePlanStore()
 const {selectInterval} = planStore
 selectInterval('year')

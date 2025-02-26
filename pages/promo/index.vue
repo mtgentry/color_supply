@@ -17,18 +17,18 @@
 
   #invite.d-flex.flex-column
     h1 The easiest way to pick the perfect colors—at the lowest price you'll ever pay
-    
+
     p Picking colors shouldn't be this hard. But between complicated color theory rules, endless choices, 
       | and the nagging feeling that you might not have picked the right one, 
       | it often feels like guesswork. You're stuck second-guessing every shade, 
       | tweaking endlessly, and hoping it just works.
-    
+
     p Imagine knowing exactly which colors work together—with zero stress. No overthinking, no struggling 
       | with color wheels, and no more wondering if your palette is clashing.
-    
+
     p That's why I built Color Supply—to take the guesswork out of color. It helps you instantly create 
       | harmonious, professional-looking color palettes, without needing a degree in design.
-    
+
     p Stop second-guessing and start feeling confident about your color choices.
 
     v-btn#button(color="primary" width="226" flat @click="signUp") Get VIP Access
@@ -118,19 +118,22 @@ onUnmounted(() => {
 // Additional code from your existing setup (auth, dialogs, etc.)
 // ----------------------------------------------------------------------
 definePageMeta({
-  middleware: ['auth'],
-  auth: { unauthenticatedOnly: true, navigateAuthenticatedTo: '/palettes' },
   layout: 'auth',
 })
 
 useHead({
   title: 'Private Invite',
 })
-
+const { data } = useAuth()
+const router = useRouter()
 const dialogStore = useDialogStore()
 dialogStore.changeSource('promo')
 const { changeSignUpForm } = dialogStore
 const signUp = () => {
+  if (data.value) {
+    window.location.href = '/promo/billing'
+    return
+  }
   changeSignUpForm(true, false, false, true)
 }
 </script>
