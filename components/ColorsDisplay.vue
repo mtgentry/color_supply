@@ -1,5 +1,5 @@
 <template lang="pug">
-  .color-row(@click='selectPalette' :class='{clickable: !props.readonly, active: isSelected, round: props.rounded}' ref='colorRow')
+  .color-row(@click='selectPalette' :class='{clickable: !props.readonly, active: isSelected, round: props.rounded}' ref='colorRow' :palette="palette.id")
     .color-box(v-for='(color, index) in palette.colors' :key='index' :style='{backgroundColor: color}')
 
 </template>
