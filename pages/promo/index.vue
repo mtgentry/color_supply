@@ -4,7 +4,7 @@
     | Promotion Ends in:
     .time-section
       span.countdown-time {{ daysLeft }}
-      span.HRS DAYS
+      span.HRS DAY
       |
       span.countdown-time {{ hoursLeft }}
       span.HRS HRS
