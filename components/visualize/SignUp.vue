@@ -4,6 +4,7 @@
     p.subtitle Sign up now to save and access your favorite color palettes anytime.
     v-btn#button(color="primary" width="226" flat @click="signUp") Create Free Account
   DialogsSignUp
+  DialogsLogin
 </template>
 
 <script setup>

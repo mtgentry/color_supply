@@ -31,7 +31,9 @@
 
     p Stop second-guessing and start feeling confident about your color choices.
 
-
+    v-btn#button(color="primary" width="226" flat @click="signUp") Get VIP Access
+  DialogsSignUp
+  DialogsLogin
 </template>
 
 <script setup>

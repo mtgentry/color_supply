@@ -6,6 +6,7 @@
     p The sign-up link is just for you, so please keep it private.
     v-btn#button2(color="primary" width="226" flat @click="signUp") Get Unlimited Access
   DialogsSignUp
+  DialogsLogin
 </template>
 
 <script setup>

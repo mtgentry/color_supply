@@ -6,9 +6,11 @@
             template(#header)
               div.text-center
                 h1(v-if="source === 'favorite'") Log in to Save Favorites
+                h1(v-else-if="source === 'login'") Log In to Your Account
+                h1(v-else) Log In to Your Account
                 h2(v-if="source === 'favorite'") Log in now to save and access your favorite color palettes anytime.
-                h1(v-if="source === 'login'") Log In to Your Account
-                h2(v-if="source === 'login'") Welcome back! Access your saved palettes and continue creating.
+                h2(v-else-if="source === 'login'") Welcome back! Access your saved palettes and continue creating.
+                h2(v-else) Log in now to save and access your favorite color palettes anytime.
             template(#footer)
               div#signupFooter.text-center
                 p Don’t have an account?  !{` `}
