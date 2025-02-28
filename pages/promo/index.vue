@@ -1,7 +1,7 @@
 <template lang="pug">
   // Countdown Bar at the very top
   .countdown-bar
-    | Promotion Ends in:
+    | Promotion has Ended:
     .time-section
       span.countdown-time {{ daysLeft }}
       span.HRS DAY
@@ -31,8 +31,7 @@
 
     p Stop second-guessing and start feeling confident about your color choices.
 
-    v-btn#button(color="primary" width="226" flat @click="signUp") Get VIP Access
-  DialogsSignUp
+
 </template>
 
 <script setup>
