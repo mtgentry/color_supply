@@ -1,18 +1,6 @@
 <template lang="pug">
   v-app(dark)
     v-container.pa-0(fluid app)
-      v-row(app)
-        v-col(cols="12")
-          v-alert(type='info' v-model="promo" @click:close="onClosePromo"  icon="close" closable)
-            template(#text)
-            .d-flex.flex-row.justify-space-between.align-items-center.w-100.px-4.pr-16
-              .text-container.text-left.mr-4.mr-md-6.mr-lg-8
-                | Thanks for trying Color Supply! 
-                | Upgrade to VIP beta for 
-                strong $28/yr 
-                | (25% off)
-              .button-container.d-flex.align-items-center
-                v-btn.flex-shrink-0(@click="goToBilling" color="primary" flat variant="outlined" width="150" class="ml-auto ml-md-8") Upgrade Now
       v-row(v-if="status" app)
         v-col(cols="12")
           v-alert(type='info' v-if="status === 'success'" v-model="isAlertVisible" @click:close="onClose" icon="")
