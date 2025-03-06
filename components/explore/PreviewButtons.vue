@@ -17,7 +17,7 @@
           v-list-item(@click="changePreview(1)" :class="{ 'activePreview': preview === 1 }")
             IconsSide(stroke="var(--color5)" fill="var(--color5)")
             span.pl-2 Side
-          v-list-item(@click="changePreview(2)" :class="{ 'activePreview': preview === 2 }")
+          v-list-item(@click="changePreview(3)" :class="{ 'activePreview': preview === 2 }")
             IconsBottom(stroke="var(--color5)" fill="var(--color5)")
             span.pl-2 Bottom
     //v-btn.actionBtn(flat @click="shufflePalette" :disabled="!palette" )

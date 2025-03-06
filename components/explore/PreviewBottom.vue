@@ -1,5 +1,5 @@
 <template lang="pug">
-  #previewBottom
+  #previewBottom(v-if="preview === 3")
     ExplorePreviewButtons(:background="background")
     div#explorePreviewBottom
       svg(width='100%' height='100%' viewBox='0 0 1660 192' fill='none' preserveAspectRatio='xMidYMid meet' xmlns='http://www.w3.org/2000/svg' @click="shufflePalette")
@@ -291,7 +291,7 @@
         path(d='M459.685 45.4483L462.085 81.3547L470.459 74.3767L484.019 97.9766L489.378 94.196L476.329 70.9103L478.065 60.4608L459.685 45.4483', fill='#1D1E20')
         path(d='M462.755 39.2608L465.155 75.1672L473.528 68.1892L487.088 91.7891L492.447 88.0085L479.398 64.7238L488.271 60.1033L462.755 39.2608', fill='white')
         path(d='M473.671 67.3922L487.254 91.0344L491.764 87.853L478.682 64.5099L487.329 60.0062L463.354 40.4216L465.606 74.1124L473.671 67.3922ZM486.921 92.543L473.385 68.9854L464.703 76.2202L462.155 38.0982L489.211 60.1996L480.115 64.9369L493.13 88.1622L486.921 92.543', fill='#1D1E20')
-      ExplorePreviewInfo#button-overlay(isNav)
+      ExplorePreviewInfo#button-overlay()
 
 </template>
 
