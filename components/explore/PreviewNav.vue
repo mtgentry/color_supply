@@ -450,12 +450,13 @@ onMounted(() => {
   position: relative
   margin: 48px 24px 0 0
   @media (min-width: 375px)
+
   @media (min-width: 600px)
-    margin: 64px 24px 0 0
-  @media (min-width: 960px)
     margin: 48px 24px 0 0
+  @media (min-width: 960px)
+    margin: 42px 24px 0 0
   @media (min-width: 1280px)
-    margin: 64px 24px 0 0
+    margin: 50px 24px 0 0
 
 #previewNav
   position: fixed
