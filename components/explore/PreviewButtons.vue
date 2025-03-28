@@ -17,9 +17,9 @@
           v-list-item(@click="changePreview(1)" :class="{ 'activePreview': preview === 1 }")
             IconsSide(stroke="var(--color5)" fill="var(--color5)")
             span.pl-2 Side
-          v-list-item(@click="changePreview(3)" :class="{ 'activePreview': preview === 2 }")
-            IconsBottom(stroke="var(--color5)" fill="var(--color5)")
-            span.pl-2 Bottom
+          //v-list-item(@click="changePreview(3)" :class="{ 'activePreview': preview === 2 }")
+          //  IconsBottom(stroke="var(--color5)" fill="var(--color5)")
+          //  span.pl-2 Bottom
     //v-btn.actionBtn(flat @click="shufflePalette" :disabled="!palette" )
     //  svg.mr-1(width='13' height='12' viewbox='0 0 13 12' fill='none' xmlns='http://www.w3.org/2000/svg')
     //    path(d='M0.963379 10.0742L1.82243 7.35995' :stroke="palette ? 'var(--color4)' : 'var(--color5)'")
