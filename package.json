@@ -7,7 +7,8 @@
     "dev": "nuxt dev",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
-    "postinstall": "nuxt prepare"
+    "postinstall": "nuxt prepare",
+    "test:unit": "node --test lib/mix/tests/"
   },
   "dependencies": {
     "@formkit/auto-animate": "^0.8.1",
@@ -16,6 +17,7 @@
     "@sidebase/nuxt-auth": "^0.9.2",
     "@vuelidate/core": "^2.0.3",
     "@vuelidate/validators": "^2.0.4",
+    "culori": "^4.0.2",
     "gsap": "^3.12.5",
     "nuxt": "3.10.3",
     "nuxt-snackbar": "^1.0.4",
@@ -24,7 +26,6 @@
     "vite-plugin-pug": "^0.3.2",
     "vue": "^3.4.19",
     "vue-router": "^4.2.5",
-    "vuedraggable": "^4.1.0",
     "vuetify-nuxt-module": "^0.18.3"
   }
 }
