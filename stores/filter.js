@@ -11,6 +11,9 @@ export const useFilterStore = defineStore('filter', () =>{
   const wheel_color = ref('#F15957')
   const colorTab = ref('color')
   const showPreviews = ref(false)
+  // true after the user closes the preview with its X: clicking palettes then won't reopen it,
+  // only the open icon (PreviewOpen) does. Closing it automatically (filter changes) doesn't set this.
+  const previewDismissed = ref(false)
 
   const changeFilter = (ref, value) => {
     ref.value = value
@@ -39,6 +42,7 @@ export const useFilterStore = defineStore('filter', () =>{
     wheel_color,
     colorTab,
     showPreviews,
-    previousPreview
+    previousPreview,
+    previewDismissed
   }
 })

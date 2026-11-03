@@ -208,14 +208,13 @@ watch([mode, style, qty, harmony, colors, wheel_color, colorTab], () => {
     padding: 8px 0 0 0
   .info
     color: var(--color3)
-    min-width: 40px
     display: flex
     align-items: center
-    justify-content: space-between
+    // fixed gap between heart and count (was min-width + space-between, which spread single digits apart)
+    gap: 7px
     padding-right: 3px
   #count
-    margin-top: 3px
-    padding-left: 4px
+    margin-top: 1px
   #paletteResults
     height: calc(100vh - 88px)
     overflow-y: auto

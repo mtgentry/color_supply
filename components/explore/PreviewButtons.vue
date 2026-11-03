@@ -57,7 +57,7 @@ const props = defineProps(
 const colorStore = useColorStore()
 const actions = ref(null)
 const filterStore = useFilterStore()
-const {preview, showPreviews, previousPreview} = storeToRefs(filterStore)
+const {preview, showPreviews, previousPreview, previewDismissed} = storeToRefs(filterStore)
 const { palette, info  } = storeToRefs(colorStore)
 const togglePreviews = () => {
   if (!showPreviews.value) {
@@ -87,6 +87,7 @@ onMounted(() => {
 const closePreview = () => {
   previousPreview.value = preview.value
   preview.value = 2
+  previewDismissed.value = true
 }
 
 const closeColor = computed(() => {
