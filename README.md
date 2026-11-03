@@ -48,6 +48,4 @@ CSS files are mainly in the /components folder.
 
 The explore filters are here: /components/explore/Filter.vue
 
-The palette name that appears on the right side in 'Create' is here: /components/Options.vue
-
 Some other general classes are defined here: /layouts/default.vue

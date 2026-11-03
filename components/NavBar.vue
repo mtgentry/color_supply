@@ -26,22 +26,8 @@
                 v-list-item(@click="logout" :ripple="false") Log Out
     v-toolbar-title
       nuxt-link(to="/palettes") Palettes
-      nuxt-link(to="/create") Create
+      nuxt-link(to="/mix") Mix
       nuxt-link(to="/visualize") Visualize
-      v-menu(open-on-hover open-delay="0" :offset="[-14,25]" v-if="status === 'unauthenticated'")
-        template(v-slot:activator="{ props }")
-          nuxt-link.clickable(v-bind="props")
-            .d-flex.align-center
-              span More
-              svg.menuIcon(width='10', height='6', viewBox='0 0 10 6', fill='none', xmlns='http://www.w3.org/2000/svg')
-                path(d='M4.76323 5.19995L8.81577e-05 0.399998L9.52637 0.399999L4.76323 5.19995Z', fill='#788092')
-        v-card#popup2(elevation="1")
-          v-card-text
-            v-list
-              v-list-item(:ripple="false")
-                nuxt-link.clickable(to="/pricing") Pricing
-              v-list-item(:ripple="false")
-                nuxt-link.clickable(to="/contact") Contact
   #mobileAuth(v-if="status === 'unauthenticated'")
     div.half
       v-btn#signup(@click="handleSignUp" color="primary" width="100%") Sign Up
@@ -76,127 +62,109 @@ const logout = () => {
 </script>
 
 <style scoped lang="sass">
+a
+  text-decoration: none!important
+
+  &:hover
+    color: var(--color1) !important
+  &:visited
+    color: var(--color3)
+.router-link-active
+  color: var(--color1) !important
+#logo
+  height: 26px
+  padding: 0 20px
+.v-toolbar
+  border-bottom: var(--color5) 1px solid
+#login
+  border: var(--color3) 1px solid
+#signup
+  background-color: var(--color1)
+  color: var(--color6)!important
+:deep(.v-toolbar-title__placeholder)
+  height: 64px
+  display: flex
+  align-items: center
+
+  // links are position: fixed, so each needs its own left (17px gaps): Palettes, Mix, Visualize
+  :nth-child(2)
+    left: 190px
+  :nth-child(3)
+    left: 236px
+
+.v-toolbar-title
   a
-    text-decoration: none!important
+    color: var(--color3)
+    text-decoration: none
+    font-size: 17px
+    font-weight: 400
+    margin-right: 20px
+    padding: 17px 0
+    position: fixed
+    top: 1px
+    display: flex
 
     &:hover
-      color: var(--color1) !important
-    &:visited
-      color: var(--color3)
-  .router-link-active
-    color: var(--color1) !important
-  #logo
-    height: 26px
-    padding: 0 20px
-  .v-toolbar
-    border-bottom: var(--color5) 1px solid
-  #login
-    border: var(--color3) 1px solid
-  #signup
-    background-color: var(--color1)
-    color: var(--color6)!important
-  :deep(.v-toolbar-title__placeholder)
-    height: 64px
-    display: flex
-    align-items: center
+      color: var(--color1)
 
-    :nth-child(2)
-      left: 190px
-    :nth-child(3)
-      left: 260px
-    :nth-child(4)
-      left: 348px
-
-  .v-toolbar-title
-    a
-      color: var(--color3)
-      text-decoration: none
-      font-size: 17px
-      font-weight: 400
-      margin-right: 20px
-      padding: 17px 0
-      position: fixed
-      top: 1px
-      display: flex
+    &.router-link-active
+      border-bottom: var(--color1) 3px solid
 
       &:hover
         color: var(--color1)
 
-      &.router-link-active
-        border-bottom: var(--color1) 3px solid
 
-        &:hover
-          color: var(--color1)
-
-
-  #popup
-    border: var(--color4) 1px solid
+#popup
+  border: var(--color4) 1px solid
+  font-size: 14px
+  .v-card-text
+    padding: 25px
+  #name
+    color: var(--color11)
     font-size: 14px
-    .v-card-text
-      padding: 25px
-    #name
+    font-style: normal
+    font-weight: 400
+    line-height: normal
+  #email
+    color: var(--color3)
+    font-size: 14px
+    font-style: normal
+    font-weight: 400
+    line-height: normal
+
+  #plan
+    width: 100%
+    margin-top: 16px
+    color: var(--color1)
+    text-align: center
+    font-size: 12px
+    font-style: normal
+    font-weight: 500
+    line-height: normal
+    letter-spacing: 0.24px
+    text-transform: none
+    :deep(.v-btn__overlay)
+      // disable active page color
+      opacity: 0
+  .v-divider
+    margin: 26px 0 8px 0
+
+  .v-list
+    padding: 0
+    .v-list-item
+      font-size: 14px
+      font-style: normal
+      font-weight: 400
+      line-height: 245%
+      padding: 0
       color: var(--color11)
-      font-size: 14px
-      font-style: normal
-      font-weight: 400
-      line-height: normal
-    #email
-      color: var(--color3)
-      font-size: 14px
-      font-style: normal
-      font-weight: 400
-      line-height: normal
-
-    #plan
-      width: 100%
-      margin-top: 16px
-      color: var(--color1)
-      text-align: center
-      font-size: 12px
-      font-style: normal
-      font-weight: 500
-      line-height: normal
-      letter-spacing: 0.24px
-      text-transform: none
-      :deep(.v-btn__overlay)
-        // disable active page color
-        opacity: 0
-    .v-divider
-      margin: 26px 0 8px 0
-
-    .v-list
-      padding: 0
-      .v-list-item
-        font-size: 14px
-        font-style: normal
-        font-weight: 400
-        line-height: 245%
-        padding: 0
-        color: var(--color11)
-        cursor: pointer
-        &:hover
-          color: var(--color1)
-        :deep(.v-list-item__overlay)
-          display: none
-      .v-list-item--density-default.v-list-item--one-line
-        min-height: 36px
-
-  #popup2
-    :deep(.v-card-text)
-      padding: 11px 20px
-    .v-list
-      padding: 0
-      .v-list-item
-        padding: 0
-        font-size: 17px
-        letter-spacing: 0.17px
-        color: var(--color3)
-        &:hover
-          color: var(--color1)
-        :deep(.v-list-item__overlay)
-          display: none
-      .v-list-item--density-default.v-list-item--one-line
-        min-height: 32px
+      cursor: pointer
+      &:hover
+        color: var(--color1)
+      :deep(.v-list-item__overlay)
+        display: none
+    .v-list-item--density-default.v-list-item--one-line
+      min-height: 36px
 
 :deep(.v-toolbar__append)
   display: none
@@ -220,7 +188,4 @@ const logout = () => {
     padding-right: 24px
     &:first-child
       padding-left: 24px
-.menuIcon
-  margin-left: 6px
-  margin-top: 3px
 </style>

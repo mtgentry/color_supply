@@ -1,7 +1,5 @@
 <template lang="pug">
   #favoriteSignup
-    .heart-badge
-      IconsHeart(stroke="var(--color1)")
     p.title Sign Up to Save Favorites
     p.subtitle Save the palettes you love and find them here anytime.
     v-btn#button(color="primary" flat block @click="signUp") Create Free Account
@@ -33,21 +31,6 @@ const login = () => {
   max-width: 260px
   margin: 0 auto
   padding: 80px 8px 0
-
-  // soft circle with the same heart used on palettes, so the empty state reads as "favorites go here"
-  .heart-badge
-    display: flex
-    align-items: center
-    justify-content: center
-    width: 56px
-    height: 56px
-    border-radius: 50%
-    background-color: var(--color10)
-    margin-bottom: 20px
-    :deep(svg)
-      width: 24px
-      height: 21px
-      cursor: default
 
   .title
     font-size: 1.25rem

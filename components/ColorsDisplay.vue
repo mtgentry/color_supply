@@ -24,14 +24,11 @@ const props = defineProps({
 const filterStore = useFilterStore()
 const {preview, previewDismissed} = storeToRefs(filterStore)
 const store = useColorStore()
-const {palette: storePalette, paletteHighlighted, hue, saturation, lightness} = storeToRefs(store)
+const {palette: storePalette, paletteHighlighted} = storeToRefs(store)
 
 const selectPalette = () => {
   if (props.readonly) return
   store.selectPalette(props.palette)
-  hue.value = 179
-  saturation.value = 0
-  lightness.value = 0
   store.addRecentPalette(props.palette)
   // reopen the preview if it was closed automatically, but not if the user closed it with its X
   if (preview.value === 2 && !previewDismissed.value) {
