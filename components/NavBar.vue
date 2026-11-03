@@ -4,8 +4,6 @@
       nuxt-link(to="/palettes")
         img#logo(src="/img/rainbow.svg" height="40" contain)
     template(v-slot:append)
-      div#feedback
-        a(href="https://docs.google.com/document/d/1puqBgo1lgmq8Fw65LA1C8hWgwSEHo-FAW9K6CEBQutE/edit" target="_blank") Have ideas? We'd love to hear them.
       div(v-if="status === 'unauthenticated'")
         v-btn#login(@click="login") Login
         v-btn#signup.ml-3(@click="handleSignUp" color="primary") Sign Up
@@ -42,7 +40,7 @@
             v-list
               v-list-item(:ripple="false")
                 nuxt-link.clickable(to="/pricing") Pricing
-                v-list-item(:ripple="false") About
+              v-list-item(:ripple="false")
                 nuxt-link.clickable(to="/contact") Contact
   #mobileAuth(v-if="status === 'unauthenticated'")
     div.half
@@ -200,14 +198,6 @@ const logout = () => {
       .v-list-item--density-default.v-list-item--one-line
         min-height: 32px
 
-#feedback
-  font-size: 0.75rem
-  font-weight: 400
-  line-height: 16.38px
-  text-align: center
-  padding: 0 10px
-  a
-    text-decoration: unset!important
 :deep(.v-toolbar__append)
   display: none
   @media (min-width: 960px)

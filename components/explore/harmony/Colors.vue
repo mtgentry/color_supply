@@ -30,5 +30,5 @@ const colors = {
   flex-wrap: wrap
 
 .v-col
-  padding: 0 1px 24px 1px
+  padding: 0 1px 19px 1px
 </style>

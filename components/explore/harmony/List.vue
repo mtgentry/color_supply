@@ -13,6 +13,8 @@ const harmonies = ['complementary', 'split-complementary', 'analogous', 'triad',
 </script>
 
 <style scoped lang="sass">
+// 12px + nowrap so "Split-Complementary" fits on one line in the 188px filter column
 :deep(.v-label)
-  font-size: 13px!important
+  font-size: 12px!important
+  white-space: nowrap
 </style>

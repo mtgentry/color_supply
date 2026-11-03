@@ -4,12 +4,15 @@
       h1 Sign up to access more colors
     v-form
       v-text-field(v-model="state.name" label="Name" required placeholder="Sara" variant="outlined"
+        :hide-details="source === 'explore' ? 'auto' : false"
         :error-messages="v$.name.$errors.map(e => e.$message)" @blur="v$.name.$touch" @input="v$.name.$touch" autocomplete="name")
       v-text-field(v-model="state.email" label="Email" required placeholder="sara.smith@gmail.com"  variant="outlined"
+        :hide-details="source === 'explore' ? 'auto' : false"
         :error-messages="emailError || v$.email.$errors.map(e => e.$message)"  @blur="v$.email.$touch" autocomplete="email")
       v-text-field#password(v-model="state.password" label="Password" :type="showPassword ? 'text' : 'password'" required
       placeholder="Colorfan19#" :hint="!v$.password.$invalid ? '' : 'At least 8 characters, with a number or symbol'"  :error-messages="v$.password.$errors.map(e => e.$message)"
         variant="outlined" :append-inner-icon="showPassword ? 'mdi-eye-off' : 'mdi-eye'"  @click:append-inner="showPassword = !showPassword"
+        :hide-details="source === 'explore' ? 'auto' : false"
         @blur="v$.password.$touch" autocomplete="new-password")
       v-checkbox(v-model="state.influencer" v-if="signUpInfluencer" v-show="false")
       v-btn#submit(color="primary" text @click="signup" :disabled="pending || v$.$invalid" flat) Create Free Account
@@ -134,7 +137,8 @@ onMounted(() => {
   :deep(.v-input:not(.v-input--error) #password-messages)
     color: var(--color1)!important
 
-  #submit
+  // standalone /signup page only — the dialog version (source="explore") is styled by components/dialogs/AuthShell.vue
+  &:not(.explore) #submit
     background-color: var(--color1)!important
     font-size: 16px
     font-style: normal
@@ -143,26 +147,4 @@ onMounted(() => {
     letter-spacing: 0.32px
     width: 100%
     margin: 14px 0
-
-  &.explore
-    padding: 0 40px
-
-    :deep(h1)
-      font-size: 30px
-      letter-spacing: 0.6px
-      font-weight: 500
-      padding-top: 30px
-
-    :deep(h2)
-      font-size: 16px
-      letter-spacing: 0.32px
-      padding: 0 30px 40px 30px
-
-    :deep(#terms)
-      padding-top: 24px
-      margin: 0 -35px
-
-    :deep(#signupFooter)
-      font-size: 14px
-      letter-spacing: 0.28px
 </style>

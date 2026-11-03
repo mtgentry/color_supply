@@ -4,8 +4,10 @@
       h1 Log in
     v-form(@submit.prevent="login")
       v-text-field(v-model="state.email" label="Email" required email="sara.smith@gmail.com"  variant="outlined"
+        :hide-details="source === 'explore' ? 'auto' : false"
         :error-messages="v$.email.$errors.map(e => e.$message)" @blur="v$.email.$touch" autocomplete="email")
       v-text-field#password(v-model="state.password" label="Password" :type="showPassword ? 'text' : 'password'" required placeholder="Colorfan19#"
+        :hide-details="source === 'explore' ? 'auto' : false"
         variant="outlined" :append-inner-icon="showPassword ? 'mdi-eye-off' : 'mdi-eye'"  @click:append-inner="showPassword = !showPassword"
         :error-messages="v$.password.$errors.map(e => e.$message)" @blur="v$.password.$touch" autocomplete="current-password")
       v-alert.pa-1(v-if="error_message" type="error") {{ error_message }}
@@ -93,7 +95,8 @@ const login = async () => {
   :deep(.v-input:not(.v-input--error) #password-messages)
     color: var(--color1)!important
 
-  #submit
+  // standalone /login page only — the dialog version (source="explore") is styled by components/dialogs/AuthShell.vue
+  &:not(.explore) #submit
     background-color: var(--color1)!important
     font-size: 16px
     font-style: normal
@@ -102,26 +105,4 @@ const login = async () => {
     letter-spacing: 0.32px
     width: 100%
     margin: 14px 0
-
-  &.explore
-    padding: 0 40px
-
-    :deep(h1)
-      font-size: 30px
-      letter-spacing: 0.6px
-      font-weight: 500
-      padding-top: 30px
-
-    :deep(h2)
-      font-size: 16px
-      letter-spacing: 0.32px
-      padding: 0 30px 40px 30px
-
-    :deep(#terms)
-      padding-top: 24px
-      margin: 0 -35px
-
-    :deep(#signupFooter)
-      font-size: 14px
-      letter-spacing: 0.28px
 </style>

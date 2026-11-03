@@ -24,6 +24,6 @@ const select = () => {
 <style scoped lang="sass">
 .color-name
   margin-top: 8px
-  font-size: 0.813rem
+  font-size: 0.75rem
   line-height: 0.4
 </style>

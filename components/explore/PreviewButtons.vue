@@ -4,8 +4,6 @@
       IconsHeart(:stroke="!palette.colors ?  'var(--color5)' : palette?.favorite ? 'var(--color9)' : changeColorForBackground(props.background)"
         :fill="!palette.colors ? 'var(--color5)' : palette?.favorite ? 'var(--color9)' : 'transparent'")
     v-btn.pa-0(flat)
-      IconsShare(:stroke='changeColorForBackground(props.background)')
-    v-btn.pa-0(flat)
       IconsPositions(:fill='changeColorForBackground(props.background)')
       v-menu(activator='parent')
         v-list.pa-0
@@ -119,7 +117,8 @@ const changePreview = (value) => {
   transition: opacity 0.3s ease
   width: 0
   @media (min-width: 600px)
-    width: 137px
+    // heart (36) + positions (33) + close (34); was 137px before the share button was removed
+    width: 103px
   &:hover
     opacity: 1
   #line

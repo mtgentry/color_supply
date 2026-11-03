@@ -119,6 +119,12 @@ watch(style, (value, oldValue) => {
 
 :deep(.v-expansion-panel-text__wrapper)
   padding: 0!important
+
+// dividers between Style options and the harmony List items: a touch darker than
+// Vuetify's default (the gray label color at 12% opacity, ~#F0F1F2); --color5 was too dark
+:deep(.v-divider)
+  border-color: #E6E8EB
+  opacity: 1
 //#panels
 //  width: 300px
 

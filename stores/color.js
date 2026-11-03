@@ -28,8 +28,17 @@ export const useColorStore = defineStore('color', () =>{
     modifiedColors.value = [...createColors.value]
   }
 
+  // whether the palette grid should outline (and scroll to) the selected palette.
+  // Filter changes turn it off so the old selection isn't re-highlighted in new results,
+  // without clearing `palette`, which Create / Visualize also use.
+  const paletteHighlighted = ref(true)
+  const clearPaletteHighlight = () => {
+    paletteHighlighted.value = false
+  }
+
   const selectPalette = (new_palette) => {
     palette.value = new_palette
+    paletteHighlighted.value = true
     selectColor(null)
   }
 
@@ -75,6 +84,8 @@ export const useColorStore = defineStore('color', () =>{
     updateSelectedColor,
     palette,
     selectPalette,
+    paletteHighlighted,
+    clearPaletteHighlight,
     palettes,
     shufflePalette,
     info,

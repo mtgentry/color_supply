@@ -1,39 +1,90 @@
 <template lang="pug">
   #favoriteSignup
+    .heart-badge
+      IconsHeart(stroke="var(--color1)")
     p.title Sign Up to Save Favorites
-    p.subtitle Sign up now to save and access your favorite color palettes anytime.
-    v-btn#button(color="primary" width="226" flat @click="signUp") Create Free Account
+    p.subtitle Save the palettes you love and find them here anytime.
+    v-btn#button(color="primary" flat block @click="signUp") Create Free Account
+    p.login Already have an account? !{` `}
+      a(@click="login") Log in
   DialogsSignUp
   DialogsLogin
 </template>
 
 <script setup>
-const {changeSignUpForm} = useDialogStore()
+const dialogStore = useDialogStore()
+const {changeSignUpForm, changeLoginForm, changeSource} = dialogStore
 const signUp = () => {
   changeSignUpForm(true, false, true)
+}
+const login = () => {
+  changeSource('favorite')
+  changeLoginForm(true)
 }
 
 </script>
 
 <style lang="sass" scoped>
 #favoriteSignup
-  padding: 96px 24px 0 24px
+  display: flex
+  flex-direction: column
+  align-items: center
+  text-align: center
+  max-width: 260px
+  margin: 0 auto
+  padding: 80px 8px 0
+
+  // soft circle with the same heart used on palettes, so the empty state reads as "favorites go here"
+  .heart-badge
+    display: flex
+    align-items: center
+    justify-content: center
+    width: 56px
+    height: 56px
+    border-radius: 50%
+    background-color: var(--color10)
+    margin-bottom: 20px
+    :deep(svg)
+      width: 24px
+      height: 21px
+      cursor: default
 
   .title
     font-size: 1.25rem
-    font-style: normal
-    font-weight: 500
-    line-height: normal
-    letter-spacing: 0.4px
-    text-align: center
-    padding-bottom: 16px
+    font-weight: 600
+    line-height: 1.25
+    letter-spacing: -0.2px
+    color: var(--color2)
+    text-wrap: balance
+    margin-bottom: 8px
 
   .subtitle
-    color: var(--Color-Supply-Color-2, #1D1E20)
-    text-align: center
-    font-size: 0.75rem
-    font-style: normal
+    font-size: 0.875rem
     font-weight: 400
-    line-height: normal
-    padding-bottom: 32px
+    line-height: 1.5
+    color: var(--color3)
+    text-wrap: balance
+    margin-bottom: 24px
+
+  #button
+    // !important: assets/css/custom.sass forces .v-btn--size-default to 32px!important
+    height: 44px!important
+    border-radius: 8px
+    background-color: var(--color1)!important
+    font-size: 0.9375rem
+    font-weight: 500
+    letter-spacing: 0
+    text-transform: none
+
+  .login
+    margin-top: 16px
+    font-size: 0.8125rem
+    color: var(--color3)
+    a
+      color: var(--color1)
+      font-weight: 500
+      cursor: pointer
+      text-decoration: none
+      &:hover
+        text-decoration: underline
 </style>

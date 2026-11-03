@@ -57,7 +57,7 @@ $xs: 600px
 
 html
   overflow: auto
-  font-family: "Quicksand", sans-serif!important
+  font-family: "Inter", sans-serif!important
 
 .clickable
   cursor: pointer
@@ -150,21 +150,20 @@ a:visited
       margin-left: 5px
 
 
-// this is the style carat in /palletes
-
+// filter panel carats in /palettes
+// anchored -2px past the right edge of the title row so every panel's carat lines up
+// (only the svg's empty padding overflows; #filter in pages/palettes.vue has overflow-x: hidden
+// so this doesn't cause sideways scroll), and stacked above the Color panel's tabs (z-index 1)
+// so it isn't hidden behind them
 .v-application
   .v-expansion-panel-title__icon
     color: var(--color1)
-    margin-inline-start: 110px
-
-
-
-// this is the QTY carat in /palletes
-.v-application
-  #slider .v-expansion-panel-title
-    .v-expansion-panel-title__icon
-      color: var(--color1)
-      margin-inline-start: 125px
+    position: absolute
+    right: -2px
+    top: 50%
+    transform: translateY(-50%)
+    margin: 0
+    z-index: 2
 
 
 

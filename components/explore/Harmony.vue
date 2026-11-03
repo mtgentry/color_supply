@@ -15,9 +15,9 @@
       path.scale(d='M91.4604 91.4604L172.115 113.072C168.322 127.23 160.868 140.14 150.504 150.504L91.4604 91.4604Z' fill='#F8EA56' @mousedown="selectColor(4)")
       path(d='M82.4005 125.268C101.072 130.271 120.264 119.19 125.267 100.519C130.27 81.8477 119.189 62.6559 100.518 57.6529C81.8465 52.6499 62.6547 63.7303 57.6518 82.4016C52.6488 101.073 63.7292 120.265 82.4005 125.268Z' fill='white')
       ExploreHarmonyCircle(:selectedColor="selectedColor" :harmony="harmony")
-  v-carousel(hide-delimiters height="50px" v-model="harmony")
+  v-carousel.harmony-carousel(hide-delimiters height="50px" v-model="harmony")
     v-carousel-item(v-for="h in harmonies" :key="h" :value="h")
-      div.centered.h-100 {{ capitalized(h) }}
+      div.centered.h-100.harmony-name {{ capitalized(h) }}
 
 </template>
 
@@ -36,12 +36,23 @@ const selectColor = (i) => {
 
 :deep(.v-window__controls)
   padding: 0
+  // above the slide text so the arrows' extended click area isn't covered by the label
+  z-index: 2
 
 :deep(.v-btn--variant-elevated)
   box-shadow: unset
+// carousel arrows: slim (20px) so the harmony name has room, but the click target
+// extends 8px inward over the empty space beside each chevron
 :deep(.v-btn--icon.v-btn--density-default)
-  width: 30px
+  width: 20px
   height: 30px
+  overflow: visible
+  // ::before, not ::after: Vuetify uses ::after for the focus ring (with pointer-events: none)
+  &::before
+    content: ''
+    position: absolute
+    inset: 0 -8px
+    pointer-events: auto
 
 .dot
   position: absolute
@@ -53,6 +64,15 @@ const selectColor = (i) => {
 
 .relative
   position: relative
+
+// pulls the harmony name + arrows 10px closer to the wheel
+.harmony-carousel
+  margin-top: -10px
+
+// 13px so the longest name ("Split-Complementary") fits between the slim carousel arrows
+.harmony-name
+  font-size: 0.8125rem
+  white-space: nowrap
 
 .scale
   cursor: pointer

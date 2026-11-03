@@ -11,20 +11,17 @@
         v-list-item.pa-0
           nuxt-link(to="") Billing
       div.pa-0.centered
-        v-dialog(max-width='500')
-          template(v-slot:activator='{ props: activatorProps }')
-            v-btn#delete(color="red" variant="outlined" v-bind='activatorProps') Delete Account
-          template(v-slot:default='{ isActive }')
-            v-card
-              v-card-text
-                div Are you sure you want to delete your account?
-                v-text-field.pt-3#password(v-model="state.password" label="Password" :type="showPassword ? 'text' : 'password'" required autocomplete="false"
-                  variant="outlined" :append-inner-icon="showPassword ? 'mdi-eye-off' : 'mdi-eye'"  @click:append-inner="showPassword = !showPassword"
-                  :error="error" :error-messages="error ? [error] : []")
-              v-card-actions
-                v-btn#delete(color='red' text @click='deleteAccount') Delete Account
-                v-spacer
-                v-btn(text='No' @click='isActive.value = false')
+        v-btn#delete(color="red" variant="outlined" @click="deleteDialog = true") Delete Account
+        //- same shell as the login / sign-up dialogs (components/dialogs/AuthShell.vue)
+        DialogsAuthShell(v-model="deleteDialog")
+          div.text-center
+            h1 Delete Your Account?
+            h2 Enter your password to confirm.
+          v-text-field#password(v-model="state.password" label="Password" :type="showPassword ? 'text' : 'password'" required autocomplete="false"
+            variant="outlined" :append-inner-icon="showPassword ? 'mdi-eye-off' : 'mdi-eye'"  @click:append-inner="showPassword = !showPassword"
+            hide-details="auto" :error="!!error" :error-messages="error ? [error] : []")
+          v-btn#confirmDelete(flat @click='deleteAccount') Delete Account
+          v-btn#cancelDelete(variant="text" @click='deleteDialog = false') Cancel
     v-col#content.pa-0(cols="10")
       v-container#title(v-if="title")
         v-row.ma-0
@@ -50,6 +47,15 @@ const state = reactive({
   ...initialState,
 })
 const error = ref(null)
+const deleteDialog = ref(false)
+// clear the typed password and any error when the dialog closes
+watch(deleteDialog, (open) => {
+  if (!open) {
+    state.password = ''
+    error.value = null
+    showPassword.value = false
+  }
+})
 const deleteAccount = async () => {
   try {
     await fetch('users/delete/', 'delete', {password: state.password});
@@ -97,6 +103,31 @@ a:hover
 
 #delete
   width: 100%
+
+// delete-account dialog buttons (frame + heading + field styles come from AuthShell)
+// height !important: assets/css/custom.sass forces .v-btn--size-default to 32px!important
+#confirmDelete
+  width: 100%
+  height: 48px!important
+  margin-top: 10px
+  border-radius: 8px
+  background-color: var(--color9)!important
+  color: var(--color7)!important
+  font-size: 16px
+  font-weight: 500
+  letter-spacing: 0
+  text-transform: none
+
+#cancelDelete
+  width: 100%
+  height: 44px!important
+  margin-top: 8px
+  border-radius: 8px
+  color: var(--color3)!important
+  font-size: 15px
+  font-weight: 500
+  letter-spacing: 0
+  text-transform: none
 
 #title
   display: flex

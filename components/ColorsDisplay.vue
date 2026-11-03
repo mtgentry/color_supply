@@ -24,7 +24,7 @@ const props = defineProps({
 const filterStore = useFilterStore()
 const {preview} = storeToRefs(filterStore)
 const store = useColorStore()
-const {palette: storePalette, hue, saturation, lightness} = storeToRefs(store)
+const {palette: storePalette, paletteHighlighted, hue, saturation, lightness} = storeToRefs(store)
 
 const selectPalette = () => {
   if (props.readonly) return
@@ -40,7 +40,7 @@ const selectPalette = () => {
 
 const isSelected = computed(() => {
   if (props.noSelect) return false
-  let selected = storePalette.value?.id === props.palette.id
+  let selected = paletteHighlighted.value && storePalette.value?.id === props.palette.id
   if (selected) {
     colorRow.value?.scrollIntoView({ behavior: 'smooth', block: "center"});
   }

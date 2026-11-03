@@ -3,7 +3,9 @@
       v-row
         v-col.pa-0
           v-container.ma-0#paletteResults(fluid)
-            v-row.colorRow(v-auto-animate="{ duration: 300 }" v-if="palettes.length || loading")
+            //- the whole grid fades (see `refreshing`) instead of v-auto-animate growing it item by item,
+            //- which pushed the loading placeholders down the page
+            v-row.colorRow.grid(:class="{ refreshing }" v-if="palettes.length || loading")
               v-col.colorCol(:cols="showFilter ? 12 : 6" xs="12" :sm="showFilter && preview === 1 ? 12 : 6" md="4" lg="4" v-for='(palette, index) in palettes' :key='index')
                 v-container(fluid)
                   v-row
@@ -17,14 +19,18 @@
                           @click="favorite(palette)")
                         #count {{ palette.favorite_count }}
                         //img(src='/img/icons/dots.svg')
-            v-row(v-else)
+            //- not while refreshing, or it flashes between clearing the old results and loading the new
+            v-row(v-else-if="!refreshing")
               v-col(cols="12")
                 div.text-center No palettes found
             InfiniteLoading#infinite(@infinite="load" :key="renderKey" distance="200" target="#palettes")
+              //- placeholders only while loading more on scroll; a filter change is covered by the grid fade
+              //- always render the wrapper div: an empty slot makes Vue fall back to the library's spinning wheel
               template(#spinner)
-                v-row.colorRow
-                  v-col.colorCol(cols="4" v-for='index in loadingNumber' :key='index')
-                    ColorsDisplay(:palette='loadingPalette' noSelect readonly)
+                div
+                  v-row.colorRow.loading-row(v-if="palettes.length")
+                    v-col.colorCol(cols="4" v-for='index in 3' :key='index')
+                      ColorsDisplay(:palette='loadingPalette' noSelect readonly)
               template(#complete)
                 div
         ExplorePreviewNav(v-if="preview === 1")
@@ -44,16 +50,18 @@ const loading = ref(false)
 const { status } = useAuth()
 const filterStore = useFilterStore()
 const colorStore = useColorStore()
-const { mode, style, qty, harmony, colors, wheel_color, colorTab, preview } = storeToRefs(filterStore)
+const { mode, style, qty, harmony, colors, wheel_color, colorTab, preview, previousPreview } = storeToRefs(filterStore)
 const { palettes, recentPalettes } = storeToRefs(colorStore)
 const next = ref('palettes/list/')
 const state = ref()
 const last_next = ref()
-const loadingPalette = ref({colors: ['#FBFBFA', ], id: 'none'})
-
-const loadingNumber = computed(() => {
-  return palettes.value.length ? 3 : 30
-})
+const loadingPalette = ref({colors: ['#EEEFF1', ], id: 'none'})
+// true while the grid is faded out for a filter change, until the new first page is in
+const refreshing = ref(false)
+// bumped on every filter change so a response for the old filters is ignored
+let generation = 0
+const GRID_FADE_MS = 150
+let fadeTimer
 
 const reorderColorsWheel = (color_arg, colors) => {
   const closestColor = findClosestColor(color_arg, colors)
@@ -89,10 +97,12 @@ const load = async ($state) => {
   if (loading.value) {
     return
   }
-  loading.value = true
+  // (checked before setting loading, so an early return can't leave loading stuck at true)
   if (last_next.value === next.value) {
     return
   }
+  loading.value = true
+  const requestGeneration = generation
   if ($state) {
     state.value = $state
   } else {
@@ -123,7 +133,12 @@ const load = async ($state) => {
     harmony: harmony_arg,
     colors: color_arg
   })
+  // filters changed while this was in flight: drop it (the watcher already reset `loading`)
+  if (requestGeneration !== generation) {
+    return
+  }
   if (!response) {
+    loading.value = false
     return
   }
   // if (colorTab.value === 'wheel') {
@@ -137,23 +152,17 @@ const load = async ($state) => {
   //     return p
   //   })
   // }
+  // results go in right away (the old 300ms delay was only there for v-auto-animate),
+  // and before $state.loaded() so the loader measures the real list height
   if (next.value === 'palettes/list/') {
-    setTimeout(() => {
-      // if (recentPalettes.value.length) {
-      //   palettes.value = [recentPalettes.value[0], ...response.results]
-      // } else {
-      //
-      // }
-      palettes.value = response.results
-      loading.value = false
-    }, 300)
+    palettes.value = response.results
+    // fade the new first page in
+    refreshing.value = false
   } else {
-    setTimeout(() => {
-      let filtered = response.results.filter(p => !palettes.value.find(p2 => p2.id === p.id))
-      palettes.value = [...palettes.value, ...filtered]
-      loading.value = false
-    }, 300)
+    let filtered = response.results.filter(p => !palettes.value.find(p2 => p2.id === p.id))
+    palettes.value = [...palettes.value, ...filtered]
   }
+  loading.value = false
 
   if (!response.next) {
     $state.complete()
@@ -164,9 +173,25 @@ const load = async ($state) => {
 }
 
 watch([mode, style, qty, harmony, colors, wheel_color, colorTab], () => {
-  next.value = 'palettes/list/'
-  renderKey.value += 1
-  palettes.value = []
+  generation += 1
+  // fade the current results out, then reset; the remounted loader fetches page 1 and load() fades it in
+  refreshing.value = true
+  clearTimeout(fadeTimer)
+  fadeTimer = setTimeout(() => {
+    next.value = 'palettes/list/'
+    last_next.value = undefined
+    loading.value = false
+    palettes.value = []
+    renderKey.value += 1
+  }, GRID_FADE_MS)
+  // don't re-highlight (or scroll to) the old selection when it shows up in the new results
+  colorStore.clearPaletteHighlight()
+  // the selected palette is usually no longer in the new results, so fade the corner preview out
+  // with the grid (same as clicking its X; clicking a new palette or the open-preview button reopens it)
+  if (preview.value === 0) {
+    previousPreview.value = 0
+    preview.value = 2
+  }
 })
 
 </script>
@@ -198,6 +223,16 @@ watch([mode, style, qty, harmony, colors, wheel_color, colorTab], () => {
   #loading
     width: calc(100vw - 350px)
     overflow: hidden
+
+  // whole-grid fade on filter changes (GRID_FADE_MS in the script matches the fade-out)
+  .grid
+    transition: opacity 0.15s ease
+    &.refreshing
+      opacity: 0
+
+  // "loading more" placeholders while scrolling: a visible light gray with a soft pulse
+  .loading-row :deep(.color-row)
+    animation: placeholder-pulse 1.2s ease-in-out infinite
 
   .colorRow
     padding: 32px 4px 16px 12px
@@ -231,4 +266,11 @@ watch([mode, style, qty, harmony, colors, wheel_color, colorTab], () => {
       padding: 32px 24px 32px 24px
     .colorCol
       padding: 18px 24px 19px 24px
+
+// (kept at the end: in indented Sass, rules after a root-level @keyframes would nest inside it)
+@keyframes placeholder-pulse
+  0%, 100%
+    opacity: 1
+  50%
+    opacity: 0.5
 </style>

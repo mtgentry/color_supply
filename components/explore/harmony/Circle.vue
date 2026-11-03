@@ -46,7 +46,8 @@ const props = defineProps({
 const circle_svg = ref(null)
 const drag = ref(null)
 watch(() => props.selectedColor, (value) => {
-  gsap.to(circle_svg.value, {rotation: `${value * 30}_short`})
+  // 0.15s (GSAP's default is 0.5s)
+  gsap.to(circle_svg.value, {rotation: `${value * 30}_short`, duration: 0.15})
 })
 gsap.registerPlugin(Draggable)
 onUpdated(() => {

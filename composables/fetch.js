@@ -3,7 +3,9 @@ export const fetch = async (path, method='get', query) => {
   const dialogStore = useDialogStore()
   const {changeSignUpForm} = dialogStore
   const auth = useCookie('auth.token')
-  const headers = {
+  // no Content-Type on GET (there's no body): it's a non-"simple" header, so it forced a CORS
+  // preflight (an extra OPTIONS request) before every GET
+  const headers = method === 'get' ? {} : {
     'Content-Type': 'application/json'
   }
   if (auth.value) {

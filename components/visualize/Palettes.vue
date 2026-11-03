@@ -3,7 +3,7 @@
     v-row#toggleRow
       v-col(cols="12" :class="{'mb-5': !selectFirst}")
         v-btn-toggle(variant="text" rounded="0" mandatory v-model="toggle"  v-if="selectFirst")
-          v-btn.toggle(value="recent").mr-5 Recent
+          v-btn.toggle(value="recent").mr-3 Recent
           v-btn.toggle(value="favorites") Favorites
         v-label(v-else) Recent
       v-col.pa-0(cols="12" v-if="status === 'unauthenticated' && toggle === 'favorites'")
