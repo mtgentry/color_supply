@@ -211,7 +211,7 @@ watch([mode, style, qty, harmony, colors, wheel_color, colorTab], () => {
     display: flex
     align-items: center
     // fixed gap between heart and count (was min-width + space-between, which spread single digits apart)
-    gap: 7px
+    gap: 6px
     padding-right: 3px
   #count
     margin-top: 1px
@@ -221,6 +221,12 @@ watch([mode, style, qty, harmony, colors, wheel_color, colorTab], () => {
 
   #loading
     width: calc(100vw - 350px)
+    overflow: hidden
+
+  // slightly rounded swatches (and loading placeholders), to match the rounded cards, dialogs and
+  // sidebar palettes; the selected outline follows the radius
+  .colorCol :deep(.color-row)
+    border-radius: 4px
     overflow: hidden
 
   // whole-grid fade on filter changes (GRID_FADE_MS in the script matches the fade-out)

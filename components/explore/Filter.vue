@@ -10,8 +10,8 @@
         v-checkbox.alignedLeft(v-model="style"  :label="t.title" :value="t.value" hide-details true-icon="mdi-close-box-outline" density="compact" )
         v-divider(v-if="t !== styles[styles.length - 1]")
     ExploreExpansionPanel#slider(title="QTY")
-      v-range-slider.pb-5.pl-2(:min="2" :max="5" v-model="qtyLocal" :step="1" @end="changeQty"
-        thumb-label="always" show-ticks="always" width="120px"
+      v-range-slider.pb-5.pl-2.pr-4(:min="2" :max="5" v-model="qtyLocal" :step="1" @end="changeQty"
+        thumb-label="always" show-ticks="always"
         hide-details :disabled="colorTab !== 'color'")
     ExploreExpansionPanel#harmony(title="Color" eager)
       ExploreColor
@@ -146,9 +146,18 @@ watch(style, (value, oldValue) => {
 
 :deep(.v-slider-track__tick)
   background-color: var(--color4)!important
+  // round dots (Vuetify's are 2px-rounded squares)
+  border-radius: 50%
 
 :deep(.v-slider-track__tick--filled)
   background-color: var(--color1)!important
+
+// Vuetify insets the first/last ticks (expecting a thumb on top); put them exactly at the track
+// ends so they line up with the thumb centers when no thumb covers them
+:deep(.v-slider.v-input--horizontal .v-slider-track__tick--first)
+  margin-inline-start: 0!important
+:deep(.v-slider.v-input--horizontal .v-slider-track__tick--last)
+  margin-inline-start: 100%
 :deep(.v-slider-track)
   --v-slider-track-size: 5px!important
   --v-slider-tick-size: 5px !important

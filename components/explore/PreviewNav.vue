@@ -448,20 +448,19 @@ onMounted(() => {
 </script>
 
 <style lang="sass" scoped>
+// --nav-gap: the gap above the side preview (below the 64px navbar). Same 24px on the top,
+// right and bottom, so the box floats with white showing all around it.
 #space
   position: relative
-  margin: 48px 24px 0 0
-  @media (min-width: 375px)
-
-  @media (min-width: 600px)
-    margin: 48px 24px 0 0
-  @media (min-width: 960px)
-    margin: 42px 24px 0 0
-  @media (min-width: 1280px)
-    margin: 50px 24px 0 0
+  --nav-gap: 24px
+  margin: var(--nav-gap) 24px 0 0
 
 #previewNav
   position: fixed
+  height: calc(100vh - 64px - var(--nav-gap) - 24px)
+  display: flex
+  flex-direction: column
+  overflow: hidden
 
 .sameWidth
   width: 0
@@ -476,20 +475,23 @@ onMounted(() => {
   @media (min-width: 1920px)
     width: 261px
 
+// (the old margins here never applied while this was display: inline; dropped now that it's a block)
 #explorePreviewNav
-  margin: 48px 24px 0 0
   display: none
-  @media (min-width: 375px)
   @media (min-width: 600px)
-    display: initial
-  @media (min-width: 960px)
-    margin: 48px 24px 0 0
-  @media (min-width: 1280px)
-    margin: 64px 24px 0 0
+    // fills the box; the illustration is clipped at the bottom, the hex bar pinned over it
+    display: block
+    position: relative
+    flex: 1
+    min-height: 0
+    overflow: hidden
+    svg
+      height: auto
 
 #button-overlay
-  position: sticky
+  position: absolute
   bottom: 0
+  left: 0
   width: 100%
 
 

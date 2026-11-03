@@ -21,12 +21,15 @@ const colorFormat = (color) => {
 
 <style scoped lang="sass">
 .PreviewInfo
+  // the hex text scales with the bar's width: 12px in the corner box and the widest side bar,
+  // down to 10px when the side bar narrows with the window (it got cramped at 3 per row)
+  container-type: inline-size
   .v-row
     border-top: black 1px solid
     padding: 0
-    font-size: 0.75rem
+    font-size: clamp(10px, 5.5cqi, 12px)
     font-weight: normal
-    letter-spacing: 1.08px
+    letter-spacing: 0.09em
     line-height: 133.316%
     -webkit-user-select: none
     -moz-user-select: none

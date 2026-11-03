@@ -40,10 +40,15 @@ onUnmounted(() => {
 #explore
   position: relative
 
+// 188px of content, plus 8px of padding that overlaps the palettes column's empty left margin
+// (margin-right pulls it back), so the QTY thumb's hover halo isn't clipped by this scroll box
 #filter
-  min-width: 188px
-  max-width: 188px
-  padding: 0
+  min-width: 196px
+  max-width: 196px
+  padding: 0 8px 0 0
+  margin-right: -8px
+  position: relative
+  z-index: 1
   background-color: var(--color7)
   height: calc(100vh - 64px)
   overflow-y: auto
