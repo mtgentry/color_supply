@@ -25,6 +25,9 @@
 - Composables for shared logic
 - Auth handled via @sidebase/nuxt-auth
 
+## Docs
+- `docs/growth-and-analytics.md`: traffic, retention, signups, paid plans, Stripe accounts, Amplitude setup and custom events, known checkout issues. Read it before working on analytics, pricing, or checkout.
+
 ## Styling
 - Scoped Sass for component styles
 - CSS variables for theme colors (--color1, --color2, etc.)
