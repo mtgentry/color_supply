@@ -8,7 +8,7 @@
         v-label(v-else) Recent
       v-col.pa-0(cols="12" v-if="status === 'unauthenticated' && toggle === 'favorites'")
         VisualizeSignUp
-      v-col.centered(cols="12" v-else-if="pending")
+      v-col.centered(cols="12" v-else-if="favoritesLoading")
         v-progress-circular(indeterminate)
       v-col#colorRow(cols="12" :key="index" v-for="(palette, index) in visualizePalettes" v-else)
         ColorsDisplay(:palette='palette' rounded)
@@ -33,20 +33,32 @@ if (!recentPalettes.value.length) {
   palette.value = response
   boxColors.value = response.colors
 }
-const visualizePalettes = ref(recentPalettes.value)
+// Recent is shown as it was when the tab opened, so clicking a palette (which
+// moves it to the front of the store's list) doesn't reorder the list under
+// the pointer. A palette new to the list, like one just saved on Mix, is added
+// at the top straight away.
+const recentShown = ref(recentPalettes.value)
+watch(recentPalettes, (latest) => {
+  const shown = new Set(recentShown.value.map(p => p.id))
+  const added = latest.filter(p => !shown.has(p.id))
+  if (added.length) recentShown.value = [...added, ...recentShown.value]
+})
+
+// Favorites come from the store, which every heart in the app keeps up to date
+const { favoritePalettes } = storeToRefs(colorStore)
+const visualizePalettes = computed(() =>
+  toggle.value === 'favorites' ? (favoritePalettes.value || []) : recentShown.value)
+// A spinner only before the first load; after that the stored list shows at once
+const favoritesLoading = computed(() => toggle.value === 'favorites' && !favoritePalettes.value)
 
 onMounted(() => {
   colorStore.selectPalette(visualizePalettes.value[0])
 })
-const {data: favorites, pending, refreshAuthExecute} = useApi('palettes/list/',  {
-  toggle: 'favorites',
-}, 'get', {immediate: false})
-watch(toggle, async (value) => {
-  if (value === 'recent') {
-    visualizePalettes.value = recentPalettes.value
-  } else {
-    visualizePalettes.value = favorites.value.results
-  }
+
+// Opening Favorites (or logging in while it's open) syncs it with the server, in the background
+watch([toggle, status], ([value, auth]) => {
+  if (value === 'recent') recentShown.value = recentPalettes.value
+  else if (auth === 'authenticated') colorStore.loadFavorites()
 })
 </script>
 

@@ -36,17 +36,54 @@ export const useColorStore = defineStore('color', () =>{
   }
   const recentPalettes = ref(JSON.parse(localStorage.getItem('recentPalettes')) || [])
   const addRecentPalette = (color) => {
-    if (recentPalettes.value.includes(color)) {
-      // move color to the front
-      recentPalettes.value = recentPalettes.value.filter(c => c !== color)
-    }
-    recentPalettes.value = [color, ...recentPalettes.value].slice(0, 20)
+    // move it to the front (matched by id: the same palette can come from different lists as different objects)
+    const same = (c) => c === color || (color?.id && c?.id === color.id)
+    recentPalettes.value = [color, ...recentPalettes.value.filter(c => !same(c))].slice(0, 20)
     localStorage.setItem('recentPalettes', JSON.stringify(recentPalettes.value))
   }
   const palette = ref(recentPalettes.value[0] || {})
   const boxColors = ref(recentPalettes.value[0]?.colors || [])
   const unfavoritePalettes = () => {
     palettes.value.forEach(palette => palette.favorite = false)
+    favoritePalettes.value = null
+  }
+
+  // The signed-in user's favorites, most recently favorited first: the first page
+  // of palettes/list/?toggle=favorites, or null until loaded (and after logout).
+  // A heart anywhere in the app updates it as soon as the server confirms
+  // (addFavorite / removeFavorite), so lists showing it never need a reload;
+  // loadFavorites() syncs it with the server again.
+  const favoritePalettes = ref(null)
+  let favoritesVersion = 0 // Bumped by every change, so a load that started before one is dropped
+  const loadFavorites = async () => {
+    const version = ++favoritesVersion
+    const response = await fetch('palettes/list/', 'get', { toggle: 'favorites' }).catch(() => null)
+    if (version !== favoritesVersion) {
+      // A favorite changed while this was loading, so it may be out of date. Nothing is
+      // shown yet, so load again (an already-shown list has the change applied to it).
+      if (!favoritePalettes.value) return loadFavorites()
+      return
+    }
+    if (response) favoritePalettes.value = response.results
+    else if (!favoritePalettes.value) favoritePalettes.value = [] // Failed: an empty list, not an endless spinner
+  }
+  const addFavorite = (palette) => {
+    if (!palette?.id) return
+    favoritesVersion += 1
+    if (!favoritePalettes.value) return // Not loaded yet: the first load will include it
+    const index = favoritePalettes.value.findIndex(p => p.id === palette.id)
+    if (index === -1) {
+      favoritePalettes.value = [palette, ...favoritePalettes.value]
+    } else {
+      // Already a favorite (re-saving the same colors): stays where it is, as on the server
+      favoritePalettes.value = favoritePalettes.value.map((p, i) => i === index ? palette : p)
+    }
+  }
+  const removeFavorite = (palette) => {
+    if (!palette?.id) return
+    favoritesVersion += 1
+    if (!favoritePalettes.value) return
+    favoritePalettes.value = favoritePalettes.value.filter(p => p.id !== palette.id)
   }
   return {
     palette,
@@ -60,6 +97,10 @@ export const useColorStore = defineStore('color', () =>{
     boxColors,
     recentPalettes,
     addRecentPalette,
-    unfavoritePalettes
+    unfavoritePalettes,
+    favoritePalettes,
+    loadFavorites,
+    addFavorite,
+    removeFavorite
   }
 })

@@ -3,16 +3,35 @@ export const favorite = async (palette) => {
   const { status } = useAuth()
   const dialogStore = useDialogStore()
   const { loginFavorite } = storeToRefs(dialogStore)
+  // The heart flips at once; the shared favorites list (the Recent / Favorites
+  // sidebar) changes once the server confirms, and the heart flips back if it fails
   const favoritePost = async (id) => {
-    if (palette.favorite) {
-      palette.favorite_count -= 1
-      palette.favorite = !palette.favorite
-      await fetch(`favorites/${id}/`,  'delete')
-    } else {
-      palette.favorite_count += 1
-      palette.favorite = !palette.favorite
-      await fetch(`favorites/`, 'post', {
-        palette: id
+    const colorStore = useColorStore()
+    const adding = !palette.favorite
+    const flip = (on) => {
+      palette.favorite = on
+      palette.favorite_count = Math.max(0, (palette.favorite_count || 0) + (on ? 1 : -1))
+    }
+    flip(adding)
+    try {
+      if (adding) {
+        await fetch(`favorites/`, 'post', { palette: id })
+        colorStore.addFavorite(palette)
+      } else {
+        await fetch(`favorites/${id}/`, 'delete')
+        colorStore.removeFavorite(palette)
+      }
+    } catch (error) {
+      if (adding && error?.status === 400) {
+        // Already one of their favorites (this page's heart was out of date): it is one, just not counted twice
+        palette.favorite_count = Math.max(0, palette.favorite_count - 1)
+        colorStore.addFavorite(palette)
+        return
+      }
+      flip(!adding)
+      useSnackbar().add({
+        type: 'error',
+        text: adding ? 'The palette could not be saved to your favorites' : 'The palette could not be removed from your favorites'
       })
     }
   }

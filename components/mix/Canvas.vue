@@ -75,7 +75,9 @@ const favoriteFor = (hexes) => {
   const key = colorKey(hexes)
   const here = savedHere.value[key]
   if (here) return here.favorite ? here : null
-  return colorStore.recentPalettes.find((p) => p.favorite && colorKey(p.colors || []) === key) || null
+  const isIt = (p) => p.favorite !== false && colorKey(p.colors || []) === key
+  return (colorStore.favoritePalettes || []).find(isIt) ||
+    colorStore.recentPalettes.find((p) => p.favorite && colorKey(p.colors || []) === key) || null
 }
 
 // Where the heart goes: under the right end of a selection of two or more
@@ -99,8 +101,10 @@ const save = async (hexes) => {
   saving.value = true
   try {
     const saved = await fetch('palettes/', 'post', { colors: hexes })
+    if (!saved?.id) throw new Error('No palette in the response')
     savedHere.value = { ...savedHere.value, [colorKey(hexes)]: saved }
-    colorStore.addRecentPalette(saved) // Shows up at the top of Recent (and in Favorites)
+    colorStore.addRecentPalette(saved) // Shows up at the top of Recent
+    colorStore.addFavorite(saved)      // and of Favorites, without a reload
     snackbar.add({ type: 'info', text: 'Saved to your favorites' })
   } catch (error) {
     snackbar.add({ type: 'error', text: 'The palette could not be saved' })
@@ -115,6 +119,7 @@ const unfavorite = async (saved) => {
     saved.favorite = false
     saved.favorite_count = Math.max(0, (saved.favorite_count || 1) - 1)
     savedHere.value = { ...savedHere.value, [colorKey(saved.colors)]: saved }
+    colorStore.removeFavorite(saved)
     snackbar.add({ type: 'info', text: 'Removed from your favorites' })
   } catch (error) {
     snackbar.add({ type: 'error', text: 'The palette could not be removed' })
