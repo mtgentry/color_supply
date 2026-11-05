@@ -261,16 +261,18 @@ watch([mode, style, qty, harmony, colors, wheel_color, colorTab], () => {
     .colorCol
       padding: 19px 12px 2px 12px
 
+  // from 1280px the columns get 16px padding (32px gutters); the row adds 8px on the right,
+  // so the grid stays 24px from the window's right edge, lined up with the avatar in the nav bar
   @media (min-width: 1280px)
     .colorRow
-      padding: 32px 24px 32px 8px
+      padding: 32px 8px 32px 16px
     .colorCol
-      padding: 18px 24px 19px 24px
+      padding: 18px 16px 19px 16px
   @media (min-width: 1920px)
     .colorRow
-      padding: 32px 24px 32px 24px
+      padding: 32px 8px 32px 32px
     .colorCol
-      padding: 18px 24px 19px 24px
+      padding: 18px 16px 19px 16px
 
 // (kept at the end: in indented Sass, rules after a root-level @keyframes would nest inside it)
 @keyframes placeholder-pulse

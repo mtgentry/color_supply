@@ -10,7 +10,7 @@
       div.centered(v-else)
         v-menu(open-on-hover open-delay="0" offset="10")
           template(v-slot:activator="{ props }")
-            img.clickable(src="/img/icons/user.svg" height="40" v-bind="props")
+            img#avatar.clickable(src="/img/icons/user.svg" height="40" v-bind="props")
           v-card#popup(elevation="0")
             v-card-text
               div#name {{data.name }}
@@ -74,6 +74,9 @@ a
 #logo
   height: 26px
   padding: 0 20px
+#avatar
+  // 24px from the window's right edge, in line with the palette grid and the Mix / Visualize sidebars
+  margin-right: 20px
 .v-toolbar
   border-bottom: var(--color5) 1px solid
 #login
