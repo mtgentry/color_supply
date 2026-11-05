@@ -23,6 +23,10 @@ const { plans, selectedInterval } = storeToRefs(planStore)
 const {selectInterval} = planStore
 
 onMounted(async () => {
+  // Stripe sends people back here with ?status=success or ?status=cancel
+  const status = useRoute().query.status
+  if (status === 'success') trackEvent('Checkout Completed', { plan: data.value?.plan?.name })
+  else if (status === 'cancel') trackEvent('Checkout Canceled')
   await planStore.fetchPlans()
   selectInterval(data.value?.plan?.interval || 'month')
 })

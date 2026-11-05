@@ -93,6 +93,11 @@ const signup = async () => {
   pending.value = true
   await signUp(state, signInOptions).then(async () => {
     pending.value = false
+    trackEvent('Sign Up Completed', {
+      source: dialogStore.source,
+      from_favorite: !!loginFavorite.value,
+      promo: !!signUpPromo.value,
+    })
     if (loginFavorite.value) {
       await favorite(loginFavorite.value)
     }

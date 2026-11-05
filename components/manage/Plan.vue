@@ -14,7 +14,7 @@
         p#description {{plan.description}}
         p · Save up to {{plan.metadata.favorites}} favorites
       v-btn#select(width="100%" variant="outlined" v-if="active && data.plan.stripe" @click="createCheckout" :disabled="pending") Manage
-      v-btn#select(width="100%" variant="outlined" v-if="!active && !selected" @click="selectPlan(price.id)") Select Plan
+      v-btn#select(width="100%" variant="outlined" v-if="!active && !selected" @click="choosePlan") Select Plan
   v-btn#upgrade(color="primary" width="100%" :class="{hide: active|| !selected}"
     @click="createCheckout" :disabled="pending" flat)
       span(v-if="promo") Continue
@@ -52,8 +52,25 @@ const action = computed(() => {
     return 'Downgrade'
   }
 })
+// Plan, price and the user's current plan, for analytics events
+const planDetails = () => ({
+  plan: props.plan.name,
+  interval: price.value?.interval,
+  price: price.value?.value,
+  current_plan: data.value?.plan?.name,
+  promo: props.promo,
+})
+const choosePlan = () => {
+  selectPlan(price.value.id)
+  trackEvent('Plan Selected', planDetails())
+}
 const createCheckout = async () => {
   pending.value = true
+  // "Manage" on the current paid plan opens Stripe's billing portal instead of a checkout
+  trackEvent(active.value ? 'Billing Portal Opened' : 'Checkout Started', {
+    ...planDetails(),
+    action: active.value ? 'Manage' : action.value,
+  })
   const checkout = await fetch('/plans/checkout/', 'post', {
     price_id: price.value.id,
   })

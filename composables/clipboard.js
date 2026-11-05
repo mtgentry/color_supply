@@ -3,6 +3,7 @@ export const clipboard = async (text, snackbar) => {
   try {
     snackbar.clear()
     await navigator.clipboard.writeText(text)
+    trackEvent('Color Copied', { value: text })
     snackbar.add({
       type: 'info',
       text: 'Copied to clipboard.',

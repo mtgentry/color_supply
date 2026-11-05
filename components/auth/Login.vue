@@ -71,6 +71,7 @@ const login = async () => {
   try {
     pending.value = true
     await signIn({ email: state.email, password: state.password }, signInOptions)
+    trackEvent('Logged In')
     const was_logged = useCookie('was_logged')
     was_logged.value = true
     dialogStore.changeLoginForm(false)

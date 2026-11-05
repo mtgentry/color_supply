@@ -105,6 +105,7 @@ const save = async (hexes) => {
     savedHere.value = { ...savedHere.value, [colorKey(hexes)]: saved }
     colorStore.addRecentPalette(saved) // Shows up at the top of Recent
     colorStore.addFavorite(saved)      // and of Favorites, without a reload
+    trackEvent('Palette Favorited', { palette_id: saved.id, from: 'mix', colors: hexes.length })
     snackbar.add({ type: 'info', text: 'Saved to your favorites' })
   } catch (error) {
     snackbar.add({ type: 'error', text: 'The palette could not be saved' })
@@ -120,6 +121,7 @@ const unfavorite = async (saved) => {
     saved.favorite_count = Math.max(0, (saved.favorite_count || 1) - 1)
     savedHere.value = { ...savedHere.value, [colorKey(saved.colors)]: saved }
     colorStore.removeFavorite(saved)
+    trackEvent('Palette Unfavorited', { palette_id: saved.id, from: 'mix' })
     snackbar.add({ type: 'info', text: 'Removed from your favorites' })
   } catch (error) {
     snackbar.add({ type: 'error', text: 'The palette could not be removed' })

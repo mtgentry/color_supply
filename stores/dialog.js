@@ -9,6 +9,11 @@ export const useDialogStore = defineStore('dialog', () =>{
   const source = ref('login')
   const loginFavorite = ref()
   const changeSignUpForm = (value, persistent=false, influencer, promo) => {
+    if (value && !signUpForm.value) {
+      // source: what prompted it ('favorite', 'promo', or 'login' for the nav and pricing buttons);
+      // forced: the dialog can't be dismissed (shown after hitting a limit)
+      trackEvent('Sign Up Opened', { source: source.value, forced: persistent, promo: !!promo })
+    }
     signUpForm.value = value
     signUpFormPersistent.value = persistent
     signUpInfluencer.value = influencer

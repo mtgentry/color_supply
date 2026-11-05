@@ -17,9 +17,11 @@ export const favorite = async (palette) => {
       if (adding) {
         await fetch(`favorites/`, 'post', { palette: id })
         colorStore.addFavorite(palette)
+        trackEvent('Palette Favorited', { palette_id: id })
       } else {
         await fetch(`favorites/${id}/`, 'delete')
         colorStore.removeFavorite(palette)
+        trackEvent('Palette Unfavorited', { palette_id: id })
       }
     } catch (error) {
       if (adding && error?.status === 400) {
