@@ -1,14 +1,11 @@
 <template lang="pug">
-  div Redirecting...
+  div
 </template>
 
 <script setup>
-onMounted(async () => {
-  await navigateTo({ path: 'https://old.colorsupplyyy.com/app/'}, {external: true })
+// /app used to send visitors to the old Rails tool (old.colorsupplyyy.com/app).
+// The color wheel now lives at /wheel, so old links and bookmarks go there.
+definePageMeta({
+  redirect: '/wheel',
 })
-
 </script>
-
-<style scoped lang="sass">
-
-</style>

@@ -4,7 +4,7 @@
       nuxt-link(to="/palettes")
         img#logo(src="/img/rainbow.svg" height="40" contain)
     template(v-slot:append)
-      div(v-if="status === 'unauthenticated'")
+      div#authButtons(v-if="status === 'unauthenticated'")
         v-btn#login(@click="login") Login
         v-btn#signup.ml-3(@click="handleSignUp" color="primary") Sign Up
       div.centered(v-else)
@@ -26,6 +26,7 @@
                 v-list-item(@click="logout" :ripple="false") Log Out
     v-toolbar-title
       nuxt-link(to="/palettes") Palettes
+      nuxt-link(to="/wheel") Wheel
       nuxt-link(to="/mix") Mix
       nuxt-link(to="/visualize") Visualize
   #mobileAuth(v-if="status === 'unauthenticated'")
@@ -74,7 +75,7 @@ a
 #logo
   height: 26px
   padding: 0 20px
-#avatar
+#avatar, #authButtons
   // 24px from the window's right edge, in line with the palette grid and the Mix / Visualize sidebars
   margin-right: 20px
 .v-toolbar
@@ -89,11 +90,13 @@ a
   display: flex
   align-items: center
 
-  // links are position: fixed, so each needs its own left (17px gaps): Palettes, Mix, Visualize
+  // links are position: fixed, so each needs its own left (17px gaps): Palettes, Wheel, Mix, Visualize
   :nth-child(2)
-    left: 190px
+    left: 195px
   :nth-child(3)
-    left: 236px
+    left: 263px
+  :nth-child(4)
+    left: 309px
 
 .v-toolbar-title
   a
