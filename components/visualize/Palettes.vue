@@ -64,7 +64,7 @@ watch([toggle, status], ([value, auth]) => {
 
 <style scoped lang="sass">
 #paletteResults
-  padding: 12px 24px
+  padding: var(--sidebar-padding)
   .v-col
     padding: 6px 0
     &:first-child
@@ -72,7 +72,6 @@ watch([toggle, status], ([value, auth]) => {
 
   #toggleRow
     margin: 0
-    padding-top: 8px
 
   .v-btn--size-default
     min-width: 0
@@ -101,7 +100,7 @@ watch([toggle, status], ([value, auth]) => {
 
   .v-label
     font-size: 15px
-    letter-spacing: 0.3px
+    letter-spacing: 0.15px
     opacity: 1
 
 #colorRow

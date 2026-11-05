@@ -86,6 +86,10 @@ const deleteAccount = async () => {
 
 :deep(.v-list-item)
   padding-inline: 0
+// Vuetify clips the item's content box, which is shorter than the 18px links,
+// so the bottom of descenders (the g in Billing) was cut off
+:deep(.v-list-item__content)
+  overflow: visible
 
 #content
   background-color: var(--color7)

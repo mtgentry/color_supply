@@ -1,7 +1,7 @@
 <template lang="pug">
   #mix-options(@pointerdown="onPointerDown" @click.capture="onClickCapture")
     MixSliders
-    v-divider.my-5
+    v-divider.section-divider
     VisualizePalettes(select-first)
     Teleport(to="body")
       .palette-ghost(v-if="ghost" :style="{ left: ghost.x + 'px', top: ghost.y + 'px' }")
@@ -101,7 +101,9 @@ onBeforeUnmount(stopDrag)
 <style scoped lang="sass">
 #mix-options
   background-color: var(--color7)
-  padding: 30px 24px
+  padding: var(--sidebar-padding)
+  .section-divider
+    margin: var(--section-gap) 0
   :deep(#paletteResults)
     padding: 0
     .color-row

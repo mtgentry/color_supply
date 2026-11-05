@@ -2,13 +2,13 @@
   #sliders
     #hue
       v-label Hue
-      v-slider(v-model="hue" min="-180" max="180" step="1" @start="begin" @end="commit")
+      v-slider(v-model="hue" hide-details min="-180" max="180" step="1" @start="begin" @end="commit")
     #saturation
       v-label Saturation
-      v-slider(v-model="saturation" min="-100" max="100" step="1" @start="begin" @end="commit")
+      v-slider(v-model="saturation" hide-details min="-100" max="100" step="1" @start="begin" @end="commit")
     #lightness
       v-label Lightness
-      v-slider(v-model="lightness" min="-100" max="100" step="1" @start="begin" @end="commit")
+      v-slider(v-model="lightness" hide-details min="-100" max="100" step="1" @start="begin" @end="commit")
 </template>
 
 <script setup>
@@ -82,12 +82,17 @@ watch(() => selection.value?.ids?.join(','), () => {
 
 <style scoped lang="sass">
 #sliders
-  padding-bottom: 8px
+  // The sliders use hide-details (no empty hint row under each), so the space
+  // between them is set here. The -6px bottom margin trims the slider's empty
+  // space below the thumb, so the section gap below starts at the thumb.
+  margin-bottom: -6px
+  > div + div
+    margin-top: 20px
   .v-label
     color: var(--color2)
     opacity: 1
     font-size: 15px
-    letter-spacing: 0.3px
+    letter-spacing: 0.15px
   #hue
     line-height: 1!important
     :deep(.v-slider-track__background)
