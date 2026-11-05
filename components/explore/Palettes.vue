@@ -56,6 +56,11 @@ const next = ref('palettes/list/')
 const state = ref()
 const last_next = ref()
 const loadingPalette = ref({colors: ['#EEEFF1', ], id: 'none'})
+// The list lives in the color store, shared by /palettes and /favorites, and outlives the page.
+// Start each visit empty, so the loader is on screen and fetches page 1. Otherwise the last
+// visit's list fills the screen, the loader below it never comes into view, and the page shows
+// stale results (e.g. new favorites missing from /favorites until a refresh).
+palettes.value = []
 // true while the grid is faded out for a filter change, until the new first page is in
 const refreshing = ref(false)
 // bumped on every filter change so a response for the old filters is ignored
@@ -192,6 +197,13 @@ watch([mode, style, qty, harmony, colors, wheel_color, colorTab], () => {
     previousPreview.value = 0
     preview.value = 2
   }
+})
+
+// Leaving the page: drop responses still in flight, so a late /palettes page can't land in the
+// shared list after /favorites has started (or the other way round)
+onBeforeUnmount(() => {
+  generation += 1
+  clearTimeout(fadeTimer)
 })
 
 </script>
