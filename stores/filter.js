@@ -29,6 +29,24 @@ export const useFilterStore = defineStore('filter', () =>{
     colors.value = newColors
   }
 
+  // "Palettes Filtered": which filters people use on /palettes. Sent 1s after the
+  // last change, so dragging the QTY slider or ticking several styles is one event.
+  let filterTimer = null
+  watch([style, qty, colors, harmony, colorTab, wheel_color], () => {
+    clearTimeout(filterTimer)
+    filterTimer = setTimeout(() => {
+      trackEvent('Palettes Filtered', {
+        style: style.value.join(', '),
+        qty_min: qty.value[0],
+        qty_max: qty.value[1],
+        color_tab: colorTab.value,
+        // The Color tab filters by picked colors; Wheel and List by a harmony (Wheel around one color)
+        colors: colorTab.value === 'color' ? colors.value.length : null,
+        harmony: colorTab.value === 'color' ? null : harmony.value,
+      })
+    }, 1000)
+  }, { deep: true })
+
   return {
     mode,
     style,

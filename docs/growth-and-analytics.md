@@ -78,14 +78,17 @@ Sent through `composables/trackEvent.js`. Every event also includes `page` (the 
 | Checkout Completed / Checkout Canceled | `pages/manage/plan.vue` (`?status=` on return from Stripe) | `plan` |
 | Wheel Scheme Changed | `stores/wheel.js` | `scheme` |
 | Wheel Palette Selected | `stores/wheel.js` | `scheme`, `slice`, `palette` |
+| Section Time | `plugins/sectionTime.client.js`, for /palettes, /wheel, /mix, /visualize, /favorites | `section`, `seconds` (active time: tab visible, and no more than 60s past the last move, scroll, click or key), `interactions` (clicks + key presses), `ended_by` (navigate / hidden). Sent on leaving the section or hiding/closing the tab (beacon transport); a hidden tab ends the visit and coming back starts a new one. Visits under 1s (redirects) aren't sent. |
+| Palettes Filtered | `stores/filter.js`, 1s after the last filter change | `style`, `qty_min`, `qty_max`, `color_tab` (color / wheel / list), `colors` (count, Color tab), `harmony` (Wheel and List tabs) |
+| Mix Edited | `components/mix/Canvas.vue`, once per visit, on the first change the user makes (the intro's doesn't count) | `squares` |
 
-Verified in local dev: Wheel Scheme Changed, Wheel Palette Selected, Color Copied, Sign Up Opened. Not yet exercised: Sign Up Completed, Logged In, favorites, plan/checkout events.
+Verified in local dev: Section Time, Palettes Filtered, Mix Edited (2026-11-06), Wheel Scheme Changed, Wheel Palette Selected, Color Copied, Sign Up Opened. Not yet exercised: Sign Up Completed, Logged In, favorites, plan/checkout events.
 
 **User properties** (`plugins/amplitudeUser.client.js`, via `setUserProperties` in `composables/trackEvent.js`), updated on load and whenever the session changes: `logged_in`, `plan` (Basic / Hobbyist / Professional / Business / VIP Beta), `plan_interval` (paid plans only), `paid` (false for influencers, who get Professional free), `influencer`.
 
 **User id:** on login the frontend calls `setAnalyticsUser`, which sets the Amplitude user id to `user-<database id>` (e.g. `user-2841`; Amplitude needs 5+ characters). To find who someone is, look up the number in `users_user` or Django admin. Emails and names are never sent. On logout the id is cleared and Amplitude's anonymous id reset, so the next person on that browser isn't counted as the same user. The backend's `UserSettingsSerializer` (the `session/` response) includes `id` for this (read-only); it shipped with this change, so production needs a backend deploy before user ids show up.
 
-Page views are already autocaptured as `[Amplitude] Page Viewed` (property `[Amplitude] Page Path`), so there's no custom page event.
+Page views are already autocaptured as `[Amplitude] Page Viewed` (property `[Amplitude] Page Path`), so there's no custom page event. They say a section was opened, not for how long: use Section Time for that (e.g. median `seconds` grouped by `section`, or the share of visits with `interactions` > 0).
 
 ## Open questions and next steps
 
