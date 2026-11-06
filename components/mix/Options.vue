@@ -7,7 +7,8 @@
     VisualizePalettes(select-first v-model:tab="tab" :extra-tab="narrow ? 'Adjust' : null")
       template(#extra)
         #adjust
-          p.target {{ adjustTarget }}
+          //- Only the hint: with squares selected, the canvas already outlines them
+          p.target(v-if="!selectedCount") All squares. Tap a square to adjust just that one.
           MixSliders
     Teleport(to="body")
       .palette-ghost(v-if="ghost" :style="{ left: ghost.x + 'px', top: ghost.y + 'px' }")
@@ -44,11 +45,6 @@ watch(() => mixStore.selection?.ids?.join(','), () => {
   if (narrow.value && selectedCount.value) tab.value = 'extra'
 })
 watch(narrow, (value) => { if (!value && tab.value === 'extra') tab.value = 'recent' })
-const adjustTarget = computed(() => {
-  const n = selectedCount.value
-  if (!n) return 'All squares. Tap a square to adjust just that one.'
-  return n === 1 ? '1 square selected' : `${n} squares selected`
-})
 
 // A list row's colors, as hexes
 const rowColors = (row) => [...row.querySelectorAll('.color-box')]
