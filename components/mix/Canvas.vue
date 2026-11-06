@@ -8,7 +8,7 @@
       Transition(name="heart")
         .save-heart(
           v-if="heart && !pointerDown"
-          :style="{ left: heart.x + 'px', top: heart.y + 'px' }"
+          :style="{ left: heart.x + 'px', top: heart.y + 1 / zoom + 'px', '--unzoom': 1 / zoom }"
           :class="{ saved: heart.saved }"
           @pointerdown.stop)
           button(
@@ -16,7 +16,6 @@
             :disabled="saving"
             @click.prevent="toggleSave")
             IconsHeart(:stroke="heart.saved ? 'var(--color9)' : 'var(--color3)'" :fill="heart.saved ? 'var(--color9)' : 'transparent'")
-          span.count(v-if="heart.count") {{ heart.count }}
 </template>
 
 <script setup>
@@ -26,6 +25,7 @@
 // one piece of app UI that lives on the canvas: the heart under a selected
 // row, which saves it as a palette (and a favorite) through the API.
 import { createMixEngine } from '~/lib/mix/index.js'
+import gsap from 'gsap'
 
 const el = ref()
 const colorStore = useColorStore()
@@ -88,12 +88,27 @@ const heart = computed(() => {
   const saved = favoriteFor(s.hexes)
   return {
     x: s.bounds.right,
-    y: s.bounds.bottom + 8,
+    y: s.bounds.bottom, // The 1px gap below is added in the template, in screen pixels
     hexes: s.hexes,
-    saved: !!saved,
-    count: saved?.favorite_count || 0
+    saved: !!saved
   }
 })
+
+// The canvas zoom, so the heart can stay the same size on screen as the hearts on
+// Palettes (16px) while it follows the row. The world layer is scaled by the engine's
+// GSAP transform; it's read every frame only while the heart is showing.
+const zoom = ref(1)
+let zoomFrame = null
+const trackZoom = () => {
+  const world = worldEl.value
+  if (world) zoom.value = gsap.getProperty(world, 'scaleX') || 1
+  zoomFrame = requestAnimationFrame(trackZoom)
+}
+watch(() => !!heart.value, (showing) => {
+  cancelAnimationFrame(zoomFrame)
+  if (showing) trackZoom()
+})
+onBeforeUnmount(() => cancelAnimationFrame(zoomFrame))
 
 let pendingSave = null // Colors to save once the user has logged in
 
@@ -106,7 +121,6 @@ const save = async (hexes) => {
     colorStore.addRecentPalette(saved) // Shows up at the top of Recent
     colorStore.addFavorite(saved)      // and of Favorites, without a reload
     trackEvent('Palette Favorited', { palette_id: saved.id, from: 'mix', colors: hexes.length })
-    snackbar.add({ type: 'info', text: 'Saved to your favorites' })
   } catch (error) {
     snackbar.add({ type: 'error', text: 'The palette could not be saved' })
   }
@@ -122,7 +136,6 @@ const unfavorite = async (saved) => {
     savedHere.value = { ...savedHere.value, [colorKey(saved.colors)]: saved }
     colorStore.removeFavorite(saved)
     trackEvent('Palette Unfavorited', { palette_id: saved.id, from: 'mix' })
-    snackbar.add({ type: 'info', text: 'Removed from your favorites' })
   } catch (error) {
     snackbar.add({ type: 'error', text: 'The palette could not be removed' })
   }
@@ -160,6 +173,7 @@ watch(status, (value) => {
 // Suspense can run mounted hooks while the page is still detached (and run
 // them twice), and the view is centered from the element's size
 let sizeWatch = null
+let edited = false // Sent Mix Edited yet, this visit
 const start = () => {
   if (engine || !el.value?.clientWidth) return
   const { query } = useRoute()
@@ -173,9 +187,18 @@ const start = () => {
     debug,
     onChange: (s) => {
       mixStore.setState(s)
+      // Phones: a join or an added palette can run past the narrow canvas; zoom out to show it all
+      if (window.matchMedia('(max-width: 599px)').matches) engine?.fitSquares()
       // The first change to the canvas: the user has got it (the intro's own
       // join, which it plays to show what happens, doesn't count)
-      if (!engine?.isIntroPlaying()) mixStore.markIntroSeen()
+      if (!engine?.isIntroPlaying()) {
+        mixStore.markIntroSeen()
+        // Once per visit: this visitor mixed something, not just looked (Section Time has how long)
+        if (!edited) {
+          edited = true
+          trackEvent('Mix Edited', { squares: s.squares.length })
+        }
+      }
     },
     onSelectionChange: (s) => { selection.value = s; mixStore.selection = s }
   })
@@ -238,13 +261,16 @@ onBeforeUnmount(() => {
   transition: opacity .1s ease-in
 .heart-enter-from
   opacity: 0
-  transform: translateX(-100%) translateY(6px)
+  transform: translateX(-100%) translateY(6px) scale(var(--unzoom, 1))
 .heart-leave-to
   opacity: 0
 
 .save-heart
   position: absolute
-  transform: translateX(-100%) // Right-aligned to the selection's edge
+  // Right-aligned to the selection's edge, and scaled against the canvas zoom so it's
+  // always 16px on screen (the top-right corner stays put while it's scaled)
+  transform-origin: 100% 0
+  transform: translateX(-100%) scale(var(--unzoom, 1))
   z-index: 101 // Above the squares and the selection box
   display: flex
   align-items: center
@@ -266,6 +292,4 @@ onBeforeUnmount(() => {
       cursor: default
   svg
     transition: transform .1s ease-in-out
-  .count
-    margin-top: 1px
 </style>

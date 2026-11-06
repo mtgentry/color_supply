@@ -4,9 +4,13 @@
       v-col(cols="12" :class="{'mb-5': !selectFirst}")
         v-btn-toggle(variant="text" rounded="0" mandatory v-model="toggle"  v-if="selectFirst")
           v-btn.toggle(value="recent").mr-3 Recent
-          v-btn.toggle(value="favorites") Favorites
+          v-btn.toggle(value="favorites" :class="{ 'mr-3': extraTab }") Favorites
+          v-btn.toggle(v-if="extraTab" value="extra") {{ extraTab }}
         v-label(v-else) Recent
-      v-col.pa-0(cols="12" v-if="status === 'unauthenticated' && toggle === 'favorites'")
+      //- The optional third tab's content, from the page (Mix's Adjust tab on phones)
+      v-col.pa-0(cols="12" v-if="toggle === 'extra'")
+        slot(name="extra")
+      v-col.pa-0(cols="12" v-else-if="status === 'unauthenticated' && toggle === 'favorites'")
         VisualizeSignUp
       v-col.centered(cols="12" v-else-if="favoritesLoading")
         v-progress-circular(indeterminate)
@@ -19,11 +23,17 @@ const props = defineProps({
   selectFirst: {
     type: Boolean,
     default: false
+  },
+  // A third tab after Favorites, with this label; its content is the "extra" slot
+  extraTab: {
+    type: String,
+    default: null
   }
 })
 const { status } = useAuth()
 const colorStore = useColorStore()
-const toggle = ref('recent')
+// The open tab: 'recent', 'favorites', or 'extra'. A v-model, so the page can switch tabs
+const toggle = defineModel('tab', { default: 'recent' })
 const { palettes, recentPalettes, palette, boxColors } = storeToRefs(colorStore)
 const pendingDefault = ref(false)
 if (!recentPalettes.value.length) {
@@ -58,7 +68,7 @@ onMounted(() => {
 // Opening Favorites (or logging in while it's open) syncs it with the server, in the background
 watch([toggle, status], ([value, auth]) => {
   if (value === 'recent') recentShown.value = recentPalettes.value
-  else if (auth === 'authenticated') colorStore.loadFavorites()
+  else if (value === 'favorites' && auth === 'authenticated') colorStore.loadFavorites()
 })
 </script>
 

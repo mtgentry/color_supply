@@ -1,8 +1,14 @@
 <template lang="pug">
   #mix-options(@pointerdown="onPointerDown" @click.capture="onClickCapture")
-    MixSliders
-    v-divider.section-divider
-    VisualizePalettes(select-first)
+    template(v-if="!narrow")
+      MixSliders
+      v-divider.section-divider
+    //- On phones the sliders are a third tab, Adjust, after Recent and Favorites
+    VisualizePalettes(select-first v-model:tab="tab" :extra-tab="narrow ? 'Adjust' : null")
+      template(#extra)
+        #adjust
+          p.target {{ adjustTarget }}
+          MixSliders
     Teleport(to="body")
       .palette-ghost(v-if="ghost" :style="{ left: ghost.x + 'px', top: ghost.y + 'px' }")
         .box(v-for="(hex, i) in ghost.colors" :key="i" :style="{ backgroundColor: hex }")
@@ -18,6 +24,31 @@
 import { formatHex } from 'culori'
 
 const mixStore = useMixStore()
+
+// Phones: the page stacks (pages/mix.vue) and the sliders move into an Adjust tab
+const narrow = ref(false)
+let narrowQuery = null
+const onNarrowChange = () => { narrow.value = narrowQuery.matches }
+onMounted(() => {
+  narrowQuery = window.matchMedia('(max-width: 599px)')
+  onNarrowChange()
+  narrowQuery.addEventListener('change', onNarrowChange)
+})
+onBeforeUnmount(() => narrowQuery?.removeEventListener('change', onNarrowChange))
+
+// The list's open tab. Selecting squares on a phone opens Adjust; it stays open when the
+// selection clears, and then adjusts every square, as the sliders do on desktop.
+const tab = ref('recent')
+const selectedCount = computed(() => mixStore.selection?.ids?.length || 0)
+watch(() => mixStore.selection?.ids?.join(','), () => {
+  if (narrow.value && selectedCount.value) tab.value = 'extra'
+})
+watch(narrow, (value) => { if (!value && tab.value === 'extra') tab.value = 'recent' })
+const adjustTarget = computed(() => {
+  const n = selectedCount.value
+  if (!n) return 'All squares. Tap a square to adjust just that one.'
+  return n === 1 ? '1 square selected' : `${n} squares selected`
+})
 
 // A list row's colors, as hexes
 const rowColors = (row) => [...row.querySelectorAll('.color-box')]
@@ -127,9 +158,17 @@ onBeforeUnmount(stopDrag)
         opacity: 0
         transform: translateY(-50%) scale(.7)
         transition: opacity .12s ease-out, transform .12s ease-out
-      &:hover::before
-        opacity: 1
-        transform: translateY(-50%) scale(1)
+      // Not on touch screens, where a tap would leave it stuck on
+      @media (hover: hover)
+        &:hover::before
+          opacity: 1
+          transform: translateY(-50%) scale(1)
+#adjust
+  padding-top: 12px
+  .target
+    font-size: 13px
+    color: var(--color3)
+    margin-bottom: 12px
 .palette-ghost
   position: fixed
   z-index: 10000
