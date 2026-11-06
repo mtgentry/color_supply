@@ -272,6 +272,9 @@ onMounted(() => {
   position: fixed
   bottom: 10px
   right: 30px
+  // phones: no room for the preview beside the palette list, so it's hidden
+  @media (max-width: 599px)
+    display: none
   .v-card-text
     display: flex
     flex-direction: column

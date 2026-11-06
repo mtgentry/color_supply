@@ -20,4 +20,7 @@ const openPreview = () => {
   right: 30px
   cursor: pointer
   z-index: 100
+  // hidden on phones along with the preview it opens (PreviewBox)
+  @media (max-width: 599px)
+    display: none
 </style>

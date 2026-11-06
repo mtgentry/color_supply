@@ -6,7 +6,7 @@
             //- the whole grid fades (see `refreshing`) instead of v-auto-animate growing it item by item,
             //- which pushed the loading placeholders down the page
             v-row.colorRow.grid(:class="{ refreshing }" v-if="palettes.length || loading")
-              v-col.colorCol(:cols="showFilter ? 12 : 6" xs="12" :sm="showFilter && preview === 1 ? 12 : 6" md="4" lg="4" v-for='(palette, index) in palettes' :key='index')
+              v-col.colorCol(:cols="showFilter ? 12 : 6" xs="12" :sm="showFilter && preview === 1 ? 12 : 6" :md="12 / columns" :lg="12 / columns" v-for='(palette, index) in palettes' :key='index')
                 v-container(fluid)
                   v-row
                     v-col.pa-0(cols="12")
@@ -16,8 +16,9 @@
                         IconsHeart.clickable(
                           :fill="palette.favorite ? 'var(--color9)' : 'transparent'",
                           :stroke="palette.favorite ? 'var(--color9)' : 'var(--color3)'",
-                          @click="favorite(palette)")
-                        #count {{ palette.favorite_count }}
+                          @click="onHeart(palette)"
+                          @popped="releaseCount(palette)")
+                        #count {{ shownCount(palette) }}
                         //img(src='/img/icons/dots.svg')
             //- not while refreshing, or it flashes between clearing the old results and loading the new
             v-row(v-else-if="!refreshing")
@@ -29,7 +30,7 @@
               template(#spinner)
                 div
                   v-row.colorRow.loading-row(v-if="palettes.length")
-                    v-col.colorCol(cols="4" v-for='index in 3' :key='index')
+                    v-col.colorCol(:cols="12 / columns" v-for='index in columns' :key='index')
                       ColorsDisplay(:palette='loadingPalette' noSelect readonly)
               template(#complete)
                 div
@@ -42,12 +43,32 @@ import "v3-infinite-loading/lib/style.css"
 import {findClosestColor} from "~/composables/findClosestColor.js";
 const props = defineProps({
   showFilter: Boolean,
-  favorites: Boolean
+  favorites: Boolean,
+  // Palettes per row from 960px up (3 or 4; /favorites lets the user pick). Narrower stays 2 or 1.
+  columns: { type: Number, default: 3 }
 })
 
 const renderKey = ref(0)
 const loading = ref(false)
 const { status } = useAuth()
+
+// Favoriting: the count changes once the heart's "favorited" animation ends (its popped
+// event), not the moment it's tapped. Un-favoriting has no animation, so it changes at once.
+const heldCounts = reactive({}) // palette id -> the count shown until its heart has popped
+const holdTimers = {}
+const releaseCount = (palette) => {
+  clearTimeout(holdTimers[palette.id])
+  delete heldCounts[palette.id]
+}
+const onHeart = (palette) => {
+  if (status.value === 'authenticated' && !palette.favorite) {
+    heldCounts[palette.id] = palette.favorite_count || 0
+    clearTimeout(holdTimers[palette.id])
+    holdTimers[palette.id] = setTimeout(() => releaseCount(palette), 1000) // In case it never pops
+  }
+  favorite(palette)
+}
+const shownCount = (palette) => heldCounts[palette.id] ?? palette.favorite_count
 const filterStore = useFilterStore()
 const colorStore = useColorStore()
 const { mode, style, qty, harmony, colors, wheel_color, colorTab, preview, previousPreview } = storeToRefs(filterStore)
@@ -251,19 +272,20 @@ onBeforeUnmount(() => {
   .loading-row :deep(.color-row)
     animation: placeholder-pulse 1.2s ease-in-out infinite
 
+  // below 960px the filter bar above the grid (pages/palettes.vue) supplies the top space
   .colorRow
-    padding: 32px 4px 16px 12px
+    padding: 0 4px 16px 12px
   .colorCol
     padding: 32px 12px 32px 12px
   @media (min-width: 375px)
     .colorRow
-      padding: 31px 12px 16px 12px
+      padding: 0 12px 16px 12px
     .colorCol
       padding: 18px 12px 3px 12px
 
   @media (min-width: 600px)
     .colorRow
-      padding: 31px 12px 16px 12px
+      padding: 0 12px 16px 12px
     .colorCol
       padding: 18px 12px 3px 12px
 

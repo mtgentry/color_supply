@@ -49,7 +49,6 @@ const save = async (hexes) => {
     changedHere.value = { ...changedHere.value, [colorKey(hexes)]: palette }
     colorStore.addFavorite(palette) // Shows up in Favorites without a reload
     trackEvent('Palette Favorited', { palette_id: palette.id, from: 'wheel', scheme: wheelStore.scheme.name })
-    snackbar.add({ type: 'info', text: 'Saved to your favorites' })
   } catch (error) {
     snackbar.add({ type: 'error', text: 'The palette could not be saved' })
   }
@@ -63,7 +62,6 @@ const unfavorite = async (palette) => {
     changedHere.value = { ...changedHere.value, [colorKey(palette.colors)]: null }
     colorStore.removeFavorite(palette)
     trackEvent('Palette Unfavorited', { palette_id: palette.id, from: 'wheel' })
-    snackbar.add({ type: 'info', text: 'Removed from your favorites' })
   } catch (error) {
     snackbar.add({ type: 'error', text: 'The palette could not be removed' })
   }

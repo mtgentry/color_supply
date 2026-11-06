@@ -31,7 +31,10 @@ export const favorite = async (palette) => {
         return
       }
       flip(!adding)
-      useSnackbar().add({
+      // Not useSnackbar(): it needs a component's setup, and this runs after an await in a click
+      // handler, where it threw "No Snackbar provided!" and the alert never showed.
+      // vue3-snackbar also registers itself globally, which works from anywhere.
+      useNuxtApp().vueApp.config.globalProperties.$snackbar?.add({
         type: 'error',
         text: adding ? 'The palette could not be saved to your favorites' : 'The palette could not be removed from your favorites'
       })

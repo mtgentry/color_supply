@@ -452,6 +452,8 @@ onMounted(() => {
   bottom: -5px
   width: calc(100vw - 188px - 96px)
   margin: 0 32px
+  @media (max-width: 599px)
+    display: none
 
 #explorePreviewNav
   margin: 48px 24px 0 0

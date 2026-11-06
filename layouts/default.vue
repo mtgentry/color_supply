@@ -8,7 +8,7 @@
             .d-flex.centered.flex-row
               span.pr-5 {{alertMessage}}
               v-btn(@click="closeAlert" color="primary" flat  variant="outlined" min-width="45" ) OK
-    v-main(v-auto-animate="{ duration: 200 }" app)
+    v-main(v-auto-animate="{ duration: 200 }" app :style="authStripStyle")
       NavBar
       v-container#content(fluid)
         slot
@@ -50,6 +50,61 @@ const showPromo = () => {
 const promo = ref(showPromo())
 const route = useRoute()
 const status = computed(() => route.query.status)
+
+// Below 960px, signed out, a Sign Up / Login strip (#mobileAuth in NavBar.vue) sits above the nav.
+// Pages scroll inside their own columns, not the window, so v-main (nav and page together) is
+// shifted down by the strip's height and moves back up as far as any column has scrolled:
+// scrolling pushes the strip off and the nav locks in at the top; it returns at the top.
+const AUTH_STRIP = 56 // #mobileAuth height in NavBar.vue
+const { status: authStatus } = useAuth()
+const narrow = ref(false)
+const scrolled = ref(0)
+const scrollTops = new Map() // each scrolled column and how far, so another column at 0 doesn't bring it back
+const onScroll = (e) => {
+  const el = e.target === document ? document.scrollingElement : e.target
+  if (!el?.closest || el.closest('.v-overlay')) return // dialogs and menus don't count
+  if (el.classList.contains('v-application')) {
+    // The app never scrolls (overflow: hidden), but scrollIntoView and focus can still
+    // move it, pushing the nav up under the browser bar on every page after. Put it back.
+    el.scrollTop = 0
+    return
+  }
+  if (getComputedStyle(el).overflowY === 'hidden') {
+    // not user scrolling: focus or scrollIntoView nudging a clipped box (the app itself, which the
+    // shifted v-main now overhangs). Put it back, or the strip ends up partly hidden.
+    if (authStripStyle.value) el.scrollTop = 0
+    return
+  }
+  scrollTops.set(el, el.scrollTop)
+  let max = 0
+  for (const [column, top] of scrollTops) {
+    if (!column.isConnected) scrollTops.delete(column)
+    else max = Math.max(max, top)
+  }
+  scrolled.value = max
+}
+watch(() => route.path, () => {
+  scrollTops.clear()
+  scrolled.value = 0
+})
+const authStripStyle = computed(() => {
+  if (!narrow.value || authStatus.value !== 'unauthenticated') return null
+  // always a transform while the strip is in use (even at 0), so it stays the strip's containing block
+  // no transition: Vuetify's 0.4s one on v-main made it trail behind the scroll
+  return { transform: `translateY(${Math.max(0, AUTH_STRIP - scrolled.value)}px)`, transition: 'none' }
+})
+let narrowQuery
+const onNarrowChange = () => { narrow.value = narrowQuery.matches }
+onMounted(() => {
+  narrowQuery = window.matchMedia('(max-width: 959px)')
+  onNarrowChange()
+  narrowQuery.addEventListener('change', onNarrowChange)
+  document.addEventListener('scroll', onScroll, { capture: true, passive: true })
+})
+onUnmounted(() => {
+  narrowQuery?.removeEventListener('change', onNarrowChange)
+  document.removeEventListener('scroll', onScroll, { capture: true })
+})
 const alertMessage = computed(() => {
   if (status.value === 'success') {
     return `Success! Your subscription plan has been changed to ${data.value.plan.name}`
@@ -201,7 +256,8 @@ strong
     max-width: 70%;
   }
 
-  .v-btn {
+  /* only the alert's button: unscoped, this moved every button on the site at these widths */
+  .v-alert .v-btn {
     margin-left: 20px !important;
     margin-top: 5px;
     align-items: center;

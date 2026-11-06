@@ -10,7 +10,7 @@
       div.centered(v-else)
         v-menu(open-on-hover open-delay="0" offset="10")
           template(v-slot:activator="{ props }")
-            img#avatar.clickable(src="/img/icons/user.svg" height="40" v-bind="props")
+            img#avatar.clickable(src="/img/icons/user.svg" height="32" v-bind="props")
           v-card#popup(elevation="0")
             v-card-text
               div#name {{data.name }}
@@ -177,18 +177,23 @@ a
   @media (min-width: 960px)
     display: flex
 
+// below 960px, signed out: a strip above the nav. It's position: fixed inside v-main, which
+// layouts/default.vue translates down by the strip's height at the top of a page and back up
+// as the page scrolls, so the strip is pushed off and the nav locks in at the top.
+// Height (12 + 32 + 12) must match AUTH_STRIP in layouts/default.vue
 #mobileAuth
   display: none
-  @media (max-width: 960px)
+  @media (max-width: 959px)
     position: fixed
-    bottom: 0
+    top: -56px
+    left: 0
+    height: 56px
     display: flex
+    align-items: center
     justify-content: space-between
     z-index: 1000
     width: 100vw
-    padding: 80px 0px 18px 0px
-    background-image: url('/img/white-gradient.svg')
-    background-size: cover
+    background-color: rgb(var(--v-theme-surface))
   .half
     width: 50%
     padding-right: 24px
