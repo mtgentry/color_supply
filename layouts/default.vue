@@ -83,7 +83,15 @@ const onScroll = (e) => {
   }
   scrolled.value = max
 }
+// Once scrolled away, the strip stays away: moving to another page (Palettes -> Wheel -> Mix)
+// starts it hidden instead of bringing it back each time. For the rest of the visit (tab).
+const STRIP_DISMISSED_KEY = 'authStripDismissed'
+const stripDismissed = ref(false)
 watch(() => route.path, () => {
+  if (scrolled.value >= AUTH_STRIP && !stripDismissed.value) {
+    stripDismissed.value = true
+    sessionStorage.setItem(STRIP_DISMISSED_KEY, '1')
+  }
   scrollTops.clear()
   scrolled.value = 0
 })
@@ -91,11 +99,13 @@ const authStripStyle = computed(() => {
   if (!narrow.value || authStatus.value !== 'unauthenticated') return null
   // always a transform while the strip is in use (even at 0), so it stays the strip's containing block
   // no transition: Vuetify's 0.4s one on v-main made it trail behind the scroll
-  return { transform: `translateY(${Math.max(0, AUTH_STRIP - scrolled.value)}px)`, transition: 'none' }
+  const shift = stripDismissed.value ? 0 : Math.max(0, AUTH_STRIP - scrolled.value)
+  return { transform: `translateY(${shift}px)`, transition: 'none' }
 })
 let narrowQuery
 const onNarrowChange = () => { narrow.value = narrowQuery.matches }
 onMounted(() => {
+  stripDismissed.value = sessionStorage.getItem(STRIP_DISMISSED_KEY) === '1'
   narrowQuery = window.matchMedia('(max-width: 959px)')
   onNarrowChange()
   narrowQuery.addEventListener('change', onNarrowChange)
