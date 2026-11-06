@@ -34,10 +34,15 @@ export const useWheelStore = defineStore('wheel', () => {
     trackEvent('Wheel Palette Selected', { scheme: scheme.value.name, slice: slice.value, palette: index })
   }
 
-  // Up/down moves within a column of the two-column grid, wrapping around
-  const movePalette = (direction) => {
+  // Up/down moves within a column of the two-column grid, wrapping around.
+  // With columns = 1 (the side rail, one palette per row) it steps one at a time.
+  const movePalette = (direction, { columns = 2 } = {}) => {
     const count = palettes.value.length
     if (!count) return
+    if (columns === 1) {
+      paletteIndex.value = (paletteIndex.value + direction + count) % count
+      return
+    }
     let next = paletteIndex.value + direction * 2
     if (next < 0) next = count - 1 - ((count - 1 - paletteIndex.value) % 2)
     else if (next >= count) next = paletteIndex.value % 2
