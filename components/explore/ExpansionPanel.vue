@@ -6,7 +6,8 @@
           div {{ title }}
       template(v-slot:actions="{ expanded }")
         img(:src="expanded ? '/img/icons/carat_open.svg' : '/img/icons/carat_closed.svg'")
-    v-expansion-panel-text
+    //- Opened and closed with GSAP (PanelText.vue) in place of v-expansion-panel-text
+    ExplorePanelText
       slot
 </template>
 

@@ -92,11 +92,12 @@ watch([toggle, status], ([value, auth]) => {
     height: 20px!important
     padding: 0!important
     color: var(--color4)
-    font-size: 15px!important
+    // 14px, as the slider labels and the Palettes filter's options
+    font-size: 14px!important
     font-style: normal!important
     font-weight: 400!important
     line-height: normal!important
-    letter-spacing: 0.15px!important
+    letter-spacing: 0.28px!important
 
     &.v-btn--active
       color: var(--color2)

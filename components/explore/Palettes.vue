@@ -23,7 +23,11 @@
             //- not while refreshing, or it flashes between clearing the old results and loading the new
             v-row(v-else-if="!refreshing")
               v-col(cols="12")
-                div.text-center No palettes found
+                //- Picked colors must all be in a palette, so several can match nothing: offer to drop the last one
+                .text-center(v-if="tooManyColors")
+                  | No palettes have all of these colors.
+                  button.drop-color(type="button" @click="filterStore.toggleColor(colors[colors.length - 1])") Remove {{ lastColorName }}
+                div.text-center(v-else) No palettes found
             InfiniteLoading#infinite(@infinite="load" :key="renderKey" distance="200" target="#palettes")
               //- placeholders only while loading more on scroll; a filter change is covered by the grid fade
               //- always render the wrapper div: an empty slot makes Vue fall back to the library's spinning wheel
@@ -72,6 +76,15 @@ const shownCount = (palette) => heldCounts[palette.id] ?? palette.favorite_count
 const filterStore = useFilterStore()
 const colorStore = useColorStore()
 const { mode, style, qty, harmony, colors, wheel_color, colorTab, preview, previousPreview } = storeToRefs(filterStore)
+
+// No results with two or more colors picked (the filter wants all of them)
+const COLOR_NAMES = {
+  '#CC3333': 'Red', '#E87E30': 'Orange', '#F6D659': 'Yellow', '#339966': 'Green',
+  '#336699': 'Blue', '#663366': 'Purple', '#DC758C': 'Pink', '#9B836C': 'Brown',
+  '#000000': 'Black', '#8C8C8C': 'Gray', '#C0C0C0': 'Silver', '#FFFFFF': 'White',
+}
+const tooManyColors = computed(() => colorTab.value === 'color' && colors.value.length > 1)
+const lastColorName = computed(() => COLOR_NAMES[colors.value[colors.value.length - 1]?.toUpperCase()] || 'the last color')
 const { palettes, recentPalettes } = storeToRefs(colorStore)
 const next = ref('palettes/list/')
 const state = ref()
@@ -230,6 +243,13 @@ onBeforeUnmount(() => {
 </script>
 
 <style scoped lang="sass">
+.drop-color
+  display: block
+  margin: 12px auto 0
+  color: var(--color1)
+  font-size: 14px
+  &:hover
+    text-decoration: underline
 #paletteRow
   display: flex
   flex-direction: row

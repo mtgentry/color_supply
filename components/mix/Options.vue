@@ -131,6 +131,8 @@ onBeforeUnmount(stopDrag)
   padding: var(--sidebar-padding)
   .section-divider
     margin: var(--section-gap) 0
+    border-color: var(--section-rule)
+    opacity: 1
   :deep(#paletteResults)
     padding: 0
     .color-row

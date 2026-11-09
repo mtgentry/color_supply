@@ -88,11 +88,13 @@ watch(() => selection.value?.ids?.join(','), () => {
   margin-bottom: -6px
   > div + div
     margin-top: 20px
+  // As the Palettes filter's options (Fresh, Manga...): the headings above stand out, these don't
   .v-label
-    color: var(--color2)
+    color: var(--color3)
     opacity: 1
-    font-size: 15px
-    letter-spacing: 0.15px
+    font-size: 14px
+    font-weight: 400
+    letter-spacing: 0.28px
   #hue
     line-height: 1!important
     :deep(.v-slider-track__background)

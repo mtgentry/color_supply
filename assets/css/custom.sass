@@ -14,7 +14,10 @@
   // Sidebar spacing shared by Mix and Visualize: padding around the content,
   // and the space between sections (split evenly around a divider)
   --sidebar-padding: 24px
-  --section-gap: 32px
+  --section-gap: 24px
+  // The rule between sidebar sections, on every page (Palettes filter, Mix):
+  // 1px of this, with --section-gap above and below
+  --section-rule: #E6E8EB
 
 $xl: 2560px
 $lg: 1902px
@@ -252,3 +255,4 @@ a:visited
   border: var(--color2) 1px solid!important
   background-color: var(--color7)!important
   color: var(--color2)!important
+

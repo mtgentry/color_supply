@@ -8,7 +8,8 @@
         v-btn#login(@click="login") Login
         v-btn#signup.ml-3(@click="handleSignUp" color="primary") Sign Up
       div.centered(v-else)
-        v-menu(open-on-hover open-delay="0" offset="10")
+        //- menuTransition: a GSAP fade (composables/gsapTransitions.js)
+        v-menu(open-on-hover open-delay="0" offset="10" :transition="menuTransition")
           template(v-slot:activator="{ props }")
             img#avatar.clickable(src="/img/icons/user.svg" height="32" v-bind="props")
           v-card#popup(elevation="0")
@@ -79,7 +80,8 @@ a
   // 24px from the window's right edge, in line with the palette grid and the Mix / Visualize sidebars
   margin-right: 20px
 .v-toolbar
-  border-bottom: var(--color5) 1px solid
+  // The same gray as the rules between sidebar sections (--color5 read heavier than them)
+  border-bottom: var(--section-rule) 1px solid
 #login
   border: var(--color3) 1px solid
 #signup

@@ -93,6 +93,21 @@ watch(style, (value, oldValue) => {
 :deep(.v-expansion-panel-title)
   padding: 16px 24px 16px 2px
 
+// The rule between sections, the same as Mix's sidebar (--section-rule, --section-gap in
+// assets/css/custom.sass). The options' rows already end in ~12px of space, so 12px more
+// below them, and the heading after the rule starts --section-gap down.
+:deep(.v-expansion-panel:not(:first-child)::after)
+  border-color: var(--section-rule)
+  opacity: 1
+:deep(.v-expansion-panel:not(:last-child) .v-expansion-panel-text__wrapper)
+  padding-bottom: 12px!important
+:deep(.v-expansion-panel:not(:first-child) .v-expansion-panel-title)
+  padding-top: var(--section-gap)
+// ...which puts more padding above the heading than below, so the chevron (centered in the
+// title) would sit high: move it down by half the difference
+:deep(.v-expansion-panel:not(:first-child) .v-expansion-panel-title__icon)
+  top: calc(50% + (var(--section-gap) - 16px) / 2)
+
 :deep(.v-slider-thumb__label)
   top: calc(var(--v-slider-thumb-size) * 1.4)!important
 
@@ -179,7 +194,8 @@ watch(style, (value, oldValue) => {
     margin-inline: unset
 :deep(.v-tabs)
   position: absolute
-  top: 11px
+  // Centered on the COLOR heading: its text is centered --section-gap + 8px down, the tabs are 24px tall
+  top: calc(var(--section-gap) + 8px - 12px)
   left: 75px
   z-index: 1
 :deep(.v-tabs--density-default)

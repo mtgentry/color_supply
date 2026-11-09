@@ -1,7 +1,8 @@
 <template lang="pug">
   //- Shared shell for the login + sign-up dialogs, so both use one set of styles.
   //- Put the form (AuthLogin / AuthSignUp with source="explore") in the default slot.
-  v-dialog(max-width="448" :model-value="modelValue" @update:model-value="v => emit('update:modelValue', v)" :persistent="persistent")
+  //- dialogTransition: a GSAP rise (composables/gsapTransitions.js)
+  v-dialog(max-width="448" :transition="dialogTransition" :model-value="modelValue" @update:model-value="v => emit('update:modelValue', v)" :persistent="persistent")
     v-card.auth-card
       v-btn.close-btn(v-if="!persistent" icon="mdi-close" variant="text" size="small" aria-label="Close" @click="emit('update:modelValue', false)")
       v-card-text

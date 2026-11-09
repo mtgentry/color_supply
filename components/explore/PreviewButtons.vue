@@ -5,7 +5,7 @@
         :fill="!palette.colors ? 'var(--color5)' : palette?.favorite ? 'var(--color9)' : 'transparent'")
     v-btn.pa-0(flat)
       IconsPositions(:fill='changeColorForBackground(props.background)')
-      v-menu(activator='parent')
+      v-menu(activator='parent' :transition="menuTransition")
         v-list.pa-0
           v-list-item
             h2 Position
