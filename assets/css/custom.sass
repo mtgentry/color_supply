@@ -184,6 +184,15 @@ a:visited
 .v-slider.v-input--horizontal .v-slider-track__tick--first
   margin-left: 2px !important
 
+// Slider thumbs' halo (Vuetify's ::before) animates only while the thumb is hovered or focused.
+// On first load Vuetify's theme variables arrive a moment after the slider renders, so the halo
+// started out twice the thumb's size and opaque, and its 0.3s transition showed it shrinking away.
+.v-slider .v-slider-thumb__surface::before
+  transition: none
+.v-slider .v-slider-thumb--focused .v-slider-thumb__surface::before,
+.v-slider .v-slider-thumb:hover .v-slider-thumb__surface::before
+  transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1)
+
 
 // hide the scroll that appears over the filters in /palettes 
 .v-application
