@@ -10,6 +10,22 @@
     //  svg.mr-1(xmlns='http://www.w3.org/2000/svg' width='12' height='16' viewbox='0 0 12 16' fill='none')
     //    path(d='M9.56855 11.0178C8.9248 11.0178 8.33862 11.2754 7.90319 11.6953L4.59216 9.14186C4.76516 8.79962 4.86298 8.41131 4.86298 8C4.86298 7.58871 4.76516 7.2004 4.59215 6.85816L7.90335 4.30473C8.33875 4.72455 8.92478 4.98215 9.56847 4.98215C10.9092 4.98215 12 3.86464 12 2.49104C12 1.11743 10.9092 0 9.56847 0C8.22773 0 7.13702 1.11752 7.13702 2.49112C7.13702 2.90236 7.23482 3.29063 7.40779 3.63283L4.09655 6.1863C3.66117 5.76652 3.07518 5.50896 2.43153 5.50896C1.09079 5.50896 0 6.6264 0 8C0 9.37368 1.09079 10.4911 2.43153 10.4911C3.07524 10.4911 3.66128 10.2335 4.09668 9.81365L7.40773 12.3671C7.23475 12.7093 7.13694 13.0976 7.13694 13.5089C7.13694 14.8826 8.22764 16 9.56839 16C10.9091 16 11.9999 14.8826 11.9999 13.5089C11.9999 12.1355 10.9092 11.0179 9.56855 11.0178ZM9.56847 0.842105C10.456 0.842105 11.178 1.58183 11.178 2.49112C11.178 3.40033 10.456 4.14005 9.56847 4.14005C8.68101 4.14005 7.95898 3.40033 7.95898 2.49104C7.95898 1.58183 8.68101 0.842105 9.56847 0.842105ZM2.43153 9.64901C1.54399 9.64901 0.821962 8.90921 0.821962 8C0.821962 7.09079 1.54399 6.35107 2.43153 6.35107C3.31899 6.35107 4.04102 7.09079 4.04102 8C4.04102 8.90921 3.31899 9.64901 2.43153 9.64901ZM9.56839 15.1579C8.68093 15.1579 7.9589 14.4181 7.9589 13.5089C7.9589 12.5997 8.6809 11.8599 9.56843 11.8599C10.456 11.8601 11.178 12.5997 11.178 13.5089C11.178 14.4181 10.4559 15.1579 9.56839 15.1579Z' :fill="palette ? 'var(--color4)' : 'var(--color5)'")
     //  | Share
+    //- White and black in the scene (the blocks artboard): a menu of two switches
+    v-btn.neutrals(v-if="neutralsMenu" flat aria-label="White and black")
+      svg(width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true" :class="{ off: !neutrals.white && !neutrals.black }")
+        circle(cx="9" cy="9" r="8" :stroke="changeColorForBackground(props.background)")
+        path(d="M9 1a8 8 0 0 1 0 16z" :fill="changeColorForBackground(props.background)")
+      v-menu(activator="parent" location="bottom end" offset="6" :close-on-content-click="false" :transition="menuTransition")
+        v-list.neutrals-menu.pa-0
+          v-list-item.title
+            h2 Add to scene
+          v-list-item(v-for="option in NEUTRAL_OPTIONS" :key="option.name"
+            role="menuitemcheckbox" :aria-checked="neutrals[option.name]"
+            @click="toggleNeutral(option.name)")
+            .row
+              span.swatch(:style="{ backgroundColor: option.color }")
+              span.label {{ option.label }}
+              span.switch(:class="{ on: neutrals[option.name] }" aria-hidden="true")
     v-btn(flat :disabled="!palette.colors" @click="favorite(palette)")
       IconsHeart(:stroke="!palette.colors ?  'var(--color5)' : palette?.favorite ? 'var(--color9)' : changeColorForBackground(props.background)"
         :fill="!palette.colors ? 'var(--color5)' : palette?.favorite ? 'var(--color9)' : 'transparent'")
@@ -21,7 +37,14 @@ const props = defineProps({
     type: String,
     default: 'white',
   },
+  // Show the white-and-black menu (the blocks artboard has neutrals; the fruit doesn't)
+  neutralsMenu: Boolean,
 })
+const { neutrals, toggleNeutral } = useSceneNeutrals()
+const NEUTRAL_OPTIONS = [
+  { name: 'white', label: 'White', color: '#FFFFFF' },
+  { name: 'black', label: 'Black', color: '#000000' },
+]
 const colorStore = useColorStore()
 const { shufflePalette } = colorStore
 const { palette, info } = storeToRefs(colorStore)
@@ -44,4 +67,57 @@ const { palette, info } = storeToRefs(colorStore)
     background-color: transparent!important
     border-radius: 100%
     border: unset
+  .neutrals svg.off
+    opacity: .5
+
+// The menu is teleported out of #actions, so these aren't nested under it
+.neutrals-menu
+  min-width: 200px
+  .title
+    min-height: 45px
+    h2
+      font-size: 1.0625rem
+      font-weight: 500
+      line-height: normal
+      letter-spacing: 0.34px
+  .row
+    display: flex
+    align-items: center
+    gap: 10px
+    min-height: 44px
+    border-top: 1px solid var(--color5)
+    font-size: 0.875rem
+    cursor: pointer
+  .swatch
+    width: 16px
+    height: 16px
+    border-radius: 50%
+    box-shadow: inset 0 0 0 1px rgba(0, 0, 0, .2)
+  .label
+    flex: 1
+  // A small on/off switch
+  .switch
+    position: relative
+    width: 30px
+    height: 18px
+    border-radius: 9px
+    background: var(--color5)
+    transition: background-color .15s
+    &::after
+      content: ''
+      position: absolute
+      top: 2px
+      left: 2px
+      width: 14px
+      height: 14px
+      border-radius: 50%
+      background: #FFFFFF
+      transition: transform .15s
+    &.on
+      background: var(--color1)
+      &::after
+        transform: translateX(12px)
+  @media (prefers-reduced-motion: reduce)
+    .switch, .switch::after
+      transition: none
 </style>

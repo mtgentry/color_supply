@@ -27,20 +27,14 @@ const apple = ref("white")
 const dot5 = ref("white")
 
 const colorStore = useColorStore()
-const {palette, boxColors} = storeToRefs(colorStore)
+const {boxColors} = storeToRefs(colorStore)
 const {shufflePalette} = colorStore
 
+// The page (pages/visualize.vue) copies a clicked palette's colors into boxColors
 onMounted(() => {
-  changeColors(palette.value.colors)
+  changeColors(boxColors.value)
 })
 
-watch(palette, (palette, oldPalette) => {
-    if (palette.colors !== oldPalette?.colors) {
-      boxColors.value = palette.colors
-    }
-  },
-  { deep: true }
-)
 watch(boxColors, (boxColors) => {
     changeColors(boxColors)
   },
@@ -152,20 +146,41 @@ const svgEl = ref(null)
 const pathEl = ref(null)
 const transform = ref('')
 
-onMounted(() => {
+// The fruit at its drawn size, a little left of and above center; scaled down
+// to fit a column too small for it (phones, tablets)
+const place = () => {
+  if (!svgEl.value || !pathEl.value) return
   const svgBox = svgEl.value.getBoundingClientRect()
   const pathBox = pathEl.value.getBBox()
+  if (!svgBox.width || !pathBox.width) return
+  const scale = Math.min(1, (svgBox.width * 0.9) / pathBox.width, (svgBox.height * 0.85) / pathBox.height)
 
-  const translateX = (svgBox.width - pathBox.width) / 2.2
-  const translateY = (svgBox.height - pathBox.height) / 2 - 50
+  if (scale === 1) {
+    const translateX = (svgBox.width - pathBox.width) / 2.2
+    const translateY = (svgBox.height - pathBox.height) / 2 - 50
+    transform.value = `translate(${translateX}, ${translateY})`
+  } else {
+    // Scaled down: centered
+    const translateX = (svgBox.width - pathBox.width * scale) / 2 - pathBox.x * scale
+    const translateY = (svgBox.height - pathBox.height * scale) / 2 - pathBox.y * scale
+    transform.value = `translate(${translateX}, ${translateY}) scale(${scale})`
+  }
+}
 
-  transform.value = `translate(${translateX}, ${translateY})`
-});
+let observer
+onMounted(() => {
+  place()
+  observer = new ResizeObserver(place)
+  observer.observe(svgEl.value)
+})
+onBeforeUnmount(() => observer?.disconnect())
 
 </script>
 
 <style scoped lang="sass">
+// The column's height (pages/visualize.vue)
 svg
-  height: calc(100vh - 65px)
+  display: block
+  height: 100%
   width: 100%
 </style>

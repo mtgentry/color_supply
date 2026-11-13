@@ -15,7 +15,7 @@
       v-col.centered(cols="12" v-else-if="favoritesLoading")
         v-progress-circular(indeterminate)
       v-col#colorRow(cols="12" :key="index" v-for="(palette, index) in visualizePalettes" v-else)
-        ColorsDisplay(:palette='palette' rounded)
+        ColorsDisplay(:palette='palette' rounded :scroll-to-selected='scrollToSelected')
 </template>
 
 <script setup>
@@ -23,6 +23,11 @@ const props = defineProps({
   selectFirst: {
     type: Boolean,
     default: false
+  },
+  // Scroll the selected palette into view (Mix turns it off: its sidebar starts at the top)
+  scrollToSelected: {
+    type: Boolean,
+    default: true
   },
   // A third tab after Favorites, with this label; its content is the "extra" slot
   extraTab: {
