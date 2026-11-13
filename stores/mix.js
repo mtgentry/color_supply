@@ -13,6 +13,9 @@ export const useMixStore = defineStore('mix', () => {
   // Hexes of the main palette (the row with the most squares), left to right
   const mainPalette = computed(() => state.value?.mainPalette || [])
 
+  // The main palette while a slider is still moving (state has it once it settles), else null
+  const liveMainPalette = ref(null)
+
   const setState = (next) => {
     state.value = next
     localStorage.setItem(STATE_KEY, JSON.stringify(next))
@@ -32,5 +35,5 @@ export const useMixStore = defineStore('mix', () => {
     localStorage.setItem(INTRO_KEY, '1')
   }
 
-  return { state, mainPalette, setState, engine, selection, introSeen, markIntroSeen }
+  return { state, mainPalette, liveMainPalette, setState, engine, selection, introSeen, markIntroSeen }
 })

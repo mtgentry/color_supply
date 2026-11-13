@@ -11,8 +11,11 @@
                   v-row
                     v-col.pa-0(cols="12")
                       ColorsDisplay(:palette='palette')
-                    v-col#actions(cols="12")
-                      .info
+                    //- No heart and count on /favorites: every palette there is already a favorite
+                    v-col#actions(cols="12" v-if="!favorites || showScores")
+                      //- /lightness only: how clearly the colors step from dark to light, 1..10
+                      .contrast-score(v-if="showScores" title="Lightness contrast, 1 to 10") {{ contrastScore(palette.colors)?.toFixed(1) }}
+                      .info(v-if="!favorites")
                         IconsHeart.clickable(
                           :fill="palette.favorite ? 'var(--color9)' : 'transparent'",
                           :stroke="palette.favorite ? 'var(--color9)' : 'var(--color3)'",
@@ -43,8 +46,13 @@
 
 <script setup>
 import InfiniteLoading from "v3-infinite-loading"
+const showScores = useLightnessScores()
+const rankByContrast = useLightnessRank() // /lightness: by contrast, 'high' or 'low' first
+const CONTRAST_ORDERING = { high: '-contrast', low: 'contrast' }
+const revisedOnly = useLightnessRevised() // /lightness: only the palettes even_out_lightness changed
 import "v3-infinite-loading/lib/style.css"
 import {findClosestColor} from "~/composables/findClosestColor.js";
+import { REVISED_IDS } from "~/lib/lightness/revised.js";
 const props = defineProps({
   showFilter: Boolean,
   favorites: Boolean,
@@ -170,7 +178,9 @@ const load = async ($state) => {
     style: style.value,
     qty: harmony_arg ? undefined : qty.value,
     harmony: harmony_arg,
-    colors: color_arg
+    colors: color_arg,
+    ordering: CONTRAST_ORDERING[rankByContrast.value],
+    ids: revisedOnly.value ? REVISED_IDS.join(',') : undefined
   })
   // filters changed while this was in flight: drop it (the watcher already reset `loading`)
   if (requestGeneration !== generation) {
@@ -211,7 +221,7 @@ const load = async ($state) => {
   }
 }
 
-watch([mode, style, qty, harmony, colors, wheel_color, colorTab], () => {
+watch([mode, style, qty, harmony, colors, wheel_color, colorTab, rankByContrast, revisedOnly], () => {
   generation += 1
   // fade the current results out, then reset; the remounted loader fetches page 1 and load() fades it in
   refreshing.value = true
@@ -259,6 +269,13 @@ onBeforeUnmount(() => {
     display: flex
     justify-content: flex-end
     padding: 8px 0 0 0
+  .contrast-score
+    margin-right: auto // Left; the heart and count stay right
+    align-self: center
+    margin-top: 1px // On the count's line (#count sits 1px down)
+    padding-left: 3px
+    font-size: 14px
+    color: var(--color3)
   .info
     color: var(--color3)
     display: flex

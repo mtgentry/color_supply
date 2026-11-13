@@ -2,6 +2,11 @@
   #mix-canvas-wrap
     #mix-canvas(ref="el" @pointerdown.capture="onCanvasPointerDown")
     a.reset(href="#" @click.prevent="reset" @pointerdown.stop) Reset
+    //- Temporary: hue spreads to try out (lib/mix/spreads). Hidden until Shift+S;
+    //- v-show, so the switches keep their state while hidden
+    .spreads(v-show="showSpreads")
+      MixSpread(v-for="s in SPREADS" :key="s.id" :label="s.label" :description="s.description" :move="s.move")
+      MixLuminosity
     Teleport(v-if="worldEl" :to="worldEl")
       //- Under the selection's right end, like the heart under the palettes on Explore.
       //- It arrives once the selection is committed (pointer released), with a short rise.
@@ -26,6 +31,9 @@
 // row, which saves it as a palette (and a favorite) through the API.
 import { createMixEngine } from '~/lib/mix/index.js'
 import gsap from 'gsap'
+import MixSpread from '~/components/mix/Spread.vue'
+import MixLuminosity from '~/components/mix/Luminosity.vue'
+import { SPREADS } from '~/lib/mix/spreads/index.js'
 
 const el = ref()
 const colorStore = useColorStore()
@@ -187,6 +195,7 @@ const start = () => {
     debug,
     onChange: (s) => {
       mixStore.setState(s)
+      mixStore.liveMainPalette = null // The store has the settled colors now
       // Phones: a join or an added palette can run past the narrow canvas; zoom out to show it all
       if (window.matchMedia('(max-width: 599px)').matches) engine?.fitSquares()
       // The first change to the canvas: the user has got it (the intro's own
@@ -200,7 +209,8 @@ const start = () => {
         }
       }
     },
-    onSelectionChange: (s) => { selection.value = s; mixStore.selection = s }
+    onSelectionChange: (s) => { selection.value = s; mixStore.selection = s },
+    onRecolor: () => { mixStore.liveMainPalette = engine?.mainPalette() || null } // For the hue dial, while a slider moves
   })
   mixStore.setState(engine.getState()) // So the sidebar shows the palette right away
   mixStore.engine = markRaw(engine)    // So the sidebar can drop palettes on it
@@ -209,7 +219,17 @@ const start = () => {
   sizeWatch = null
 }
 
+// Shift+S shows or hides the spread switches (hidden on every visit), unless typing in a field
+const showSpreads = ref(false)
+const onKeyDown = (e) => {
+  if (!e.shiftKey || e.metaKey || e.ctrlKey || e.altKey || e.repeat || e.key.toLowerCase() !== 's') return
+  const t = e.target
+  if (t?.closest?.('input, textarea, select, [contenteditable=""], [contenteditable="true"]')) return
+  showSpreads.value = !showSpreads.value
+}
+
 onMounted(() => {
+  window.addEventListener('keydown', onKeyDown)
   window.addEventListener('pointerup', pointerUp)
   window.addEventListener('pointercancel', pointerUp)
   start()
@@ -219,6 +239,7 @@ onMounted(() => {
 })
 
 onBeforeUnmount(() => {
+  window.removeEventListener('keydown', onKeyDown)
   window.removeEventListener('pointerup', pointerUp)
   window.removeEventListener('pointercancel', pointerUp)
   sizeWatch?.disconnect()
@@ -254,6 +275,13 @@ onBeforeUnmount(() => {
   &:hover
     color: var(--color2)
     text-decoration: underline
+
+// Temporary: the spread switches, top left
+.spreads
+  position: absolute
+  top: 12px
+  left: 16px
+  z-index: 2
 
 .heart-enter-active
   transition: opacity .2s ease-out, transform .2s ease-out

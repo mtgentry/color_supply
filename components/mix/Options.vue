@@ -1,10 +1,11 @@
 <template lang="pug">
   #mix-options(@pointerdown="onPointerDown" @click.capture="onClickCapture")
     template(v-if="!narrow")
+      MixHueDial
       MixSliders
       v-divider.section-divider
     //- On phones the sliders are a third tab, Adjust, after Recent and Favorites
-    VisualizePalettes(select-first v-model:tab="tab" :extra-tab="narrow ? 'Adjust' : null")
+    VisualizePalettes(select-first :scroll-to-selected="false" v-model:tab="tab" :extra-tab="narrow ? 'Adjust' : null")
       template(#extra)
         #adjust
           //- Only the hint: with squares selected, the canvas already outlines them
@@ -23,6 +24,7 @@
 // with pointer events delegated from the list, so the shared list
 // components aren't changed.
 import { formatHex } from 'culori'
+import MixHueDial from '~/components/mix/HueDial.vue' // Temporary
 
 const mixStore = useMixStore()
 

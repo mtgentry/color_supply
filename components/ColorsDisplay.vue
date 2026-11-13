@@ -1,11 +1,12 @@
 <template lang="pug">
   .color-row(@click='selectPalette' :class='{clickable: !props.readonly, active: isSelected, round: props.rounded}' ref='colorRow' :palette="palette.id")
-    .color-box(v-for='(color, index) in palette.colors' :key='index' :style='{backgroundColor: color}')
+    .color-box(v-for='(color, index) in palette.colors' :key='index' :style='{backgroundColor: lightnessView ? lightnessGray(color) : color}')
 
 </template>
 
 <script setup>
 const colorRow = ref()
+const lightnessView = useLightnessView() // Grays instead of colors on /lightness
 const props = defineProps({
   palette: Object,
   rounded: {
@@ -19,6 +20,11 @@ const props = defineProps({
   noSelect: {
     type: Boolean,
     default: false,
+  },
+  // Scroll the row into view when it's the selected palette
+  scrollToSelected: {
+    type: Boolean,
+    default: true,
   },
 })
 const filterStore = useFilterStore()
@@ -39,7 +45,7 @@ const selectPalette = () => {
 const isSelected = computed(() => {
   if (props.noSelect) return false
   let selected = paletteHighlighted.value && storePalette.value?.id === props.palette.id
-  if (selected) {
+  if (selected && props.scrollToSelected) {
     colorRow.value?.scrollIntoView({ behavior: 'smooth', block: "center"});
   }
   return selected

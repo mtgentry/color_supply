@@ -27,8 +27,12 @@ const hue = ref(0)
 const saturation = ref(0)
 const lightness = ref(0)
 
-// The colors the current adjustment started from: [{ id, oklch }]
+// The colors the current adjustment started from: [{ id, oklch }]. Kept across
+// drags, so every drag is measured from the same colors and moving a slider
+// back to where it was gives those colors back exactly.
 let from = []
+// The hexes the sliders last set, by id, to tell their own changes from others
+let lastSet = new Map()
 
 const targetIds = () => {
   const engine = mixStore.engine
@@ -37,11 +41,11 @@ const targetIds = () => {
   return selected.length ? selected : engine.getState().squares.map((s) => s.id)
 }
 
-// Snapshots the targets' colors as the drag starts (called on @start, and
-// after the selection changes, so a wheel/keyboard change has a baseline too)
+// Snapshots the targets' colors, once per adjustment (the first move after the
+// selection changes or the canvas changes some other way)
 const begin = () => {
   const engine = mixStore.engine
-  if (!engine) return
+  if (!engine || from.length) return
   const ids = new Set(targetIds())
   from = engine.getState().squares
     .filter((s) => ids.has(s.id))
@@ -53,6 +57,8 @@ const apply = (settled) => {
   if (!engine || !from.length) return
   const delta = { hue: hue.value, saturation: saturation.value, lightness: lightness.value }
   engine.setColors(from.map(({ id, oklch }) => ({ id, oklch: adjust(oklch, delta) })), { settled })
+  const ids = new Set(from.map((f) => f.id))
+  lastSet = new Map(engine.getState().squares.filter((s) => ids.has(s.id)).map((s) => [s.id, s.hex]))
 }
 
 // Slider released: the colors are final (reported once, saved)
@@ -63,8 +69,22 @@ const commit = () => {
   apply(true)
 }
 
+let resetting = false // Moving the sliders back to center isn't an adjustment
+
+// Starts over from center: the next move takes a new snapshot
+const reset = () => {
+  from = []
+  lastSet = new Map()
+  resetting = true
+  hue.value = 0
+  saturation.value = 0
+  lightness.value = 0
+  nextTick(() => { resetting = false })
+}
+
 watch([hue, saturation, lightness], () => {
-  if (!from.length) begin()
+  if (resetting) return
+  begin()
   apply(false)
   // Keyboard and wheel changes don't fire @end: settle once they stop
   clearTimeout(commitTimer)
@@ -72,11 +92,16 @@ watch([hue, saturation, lightness], () => {
 })
 
 // A new selection: keep what was done, start over from center
-watch(() => selection.value?.ids?.join(','), () => {
-  from = []
-  hue.value = 0
-  saturation.value = 0
-  lightness.value = 0
+watch(() => selection.value?.ids?.join(','), reset)
+
+// The canvas changed some other way (a join, a dropped palette, a square removed
+// or added to the targets): the snapshot is out of date, so start over too
+watch(() => mixStore.state, (state) => {
+  if (!from.length || !state) return
+  const targets = new Set(targetIds())
+  const sameTargets = targets.size === from.length && from.every((f) => targets.has(f.id))
+  const untouched = state.squares.every((s) => !lastSet.has(s.id) || lastSet.get(s.id) === s.hex)
+  if (!sameTargets || !untouched) reset()
 })
 </script>
 
@@ -87,7 +112,7 @@ watch(() => selection.value?.ids?.join(','), () => {
   // space below the thumb, so the section gap below starts at the thumb.
   margin-bottom: -6px
   > div + div
-    margin-top: 20px
+    margin-top: 6px
   // As the Palettes filter's options (Fresh, Manga...): the headings above stand out, these don't
   .v-label
     color: var(--color3)
@@ -95,6 +120,7 @@ watch(() => selection.value?.ids?.join(','), () => {
     font-size: 14px
     font-weight: 400
     letter-spacing: 0.28px
+    overflow: visible // Vuetify's hidden cuts off the g in Lightness (the line is only 14px tall)
   #hue
     line-height: 1!important
     :deep(.v-slider-track__background)
