@@ -1,0 +1,52 @@
+# robots.txt for colorsupplyyy.com
+#
+# Welcome: search engines (Google, Bing, Apple, DuckDuckGo), link previews
+# (Facebook, X, LinkedIn, Slack, Discord, Pinterest, iMessage), and AI search
+# bots that fetch pages to answer questions and link back (ChatGPT search,
+# Perplexity, Claude search). They're covered by the * group below.
+#
+# Not welcome: SEO tool crawlers, search engines for markets we don't serve,
+# and crawlers that collect pages to train AI models (they send no visitors).
+# Google-Extended only opts out of Gemini training; Google Search and AI
+# Overviews use Googlebot, which stays allowed.
+#
+# This is a request that reputable crawlers honor; it doesn't block anyone.
+
+User-agent: *
+# Account and one-off pages, and internal test pages
+Disallow: /manage/
+Disallow: /reset
+Disallow: /password
+Disallow: /promo
+Disallow: /private_invite
+Disallow: /favorites
+Disallow: /experiments/
+Disallow: /layout_2
+Disallow: /lightness
+Disallow: /wheel-lab
+Disallow: /wheel_test
+
+# SEO tool crawlers
+User-agent: AhrefsBot
+User-agent: SemrushBot
+User-agent: MJ12bot
+User-agent: DotBot
+User-agent: BLEXBot
+User-agent: DataForSeoBot
+User-agent: serpstatbot
+User-agent: Barkrowler
+# Search engines for markets we don't serve
+User-agent: Bytespider
+User-agent: PetalBot
+User-agent: Sogou web spider
+User-agent: Baiduspider
+# AI training crawlers
+User-agent: GPTBot
+User-agent: ClaudeBot
+User-agent: CCBot
+User-agent: Google-Extended
+User-agent: Applebot-Extended
+User-agent: meta-externalagent
+User-agent: cohere-training-data-crawler
+User-agent: Diffbot
+Disallow: /
