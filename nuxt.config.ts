@@ -41,7 +41,27 @@ export default defineNuxtConfig({
         { src: 'https://cdn.amplitude.com/libs/plugin-autocapture-browser-0.9.0-min.js.gz'},
         {
           hid: 'amplitude',
-          innerHTML: `window.amplitude.add(window.sessionReplay.plugin({sampleRate: 1})).promise.then(function() {window.amplitude.add(window.amplitudeAutocapturePlugin.plugin());window.amplitude.init('d5a19edbf9faf9ec5d29d4b3ec8c5441');});`,
+          // Amplitude starts only for people, not bots (docs/growth-and-analytics.md):
+          // never for a browser that says it's a crawler or automated, and otherwise only
+          // once someone touches, clicks, moves the mouse, presses a key or scrolls. Link
+          // previews and crawlers never do, so they never become users. Events tracked
+          // before that wait in the SDK's queue and are sent once it starts.
+          innerHTML: `(function () {
+            var BOT = /bot|crawl|spider|slurp|archiver|facebookexternalhit|embedly|preview|headless|lighthouse|pagespeed|gtmetrix|pingdom|prerender|phantom|puppeteer|playwright|selenium|python|curl|wget|httpclient|java\\/|go-http/i;
+            if (navigator.webdriver || BOT.test(navigator.userAgent || '')) return;
+            var EVENTS = ['pointerdown', 'pointermove', 'touchstart', 'keydown', 'scroll', 'wheel'];
+            var started = false;
+            function start() {
+              if (started) return;
+              started = true;
+              EVENTS.forEach(function (type) { window.removeEventListener(type, start, true); });
+              window.amplitude.add(window.sessionReplay.plugin({sampleRate: 1})).promise.then(function () {
+                window.amplitude.add(window.amplitudeAutocapturePlugin.plugin());
+                window.amplitude.init('d5a19edbf9faf9ec5d29d4b3ec8c5441');
+              });
+            }
+            EVENTS.forEach(function (type) { window.addEventListener(type, start, { capture: true, passive: true }); });
+          })();`,
           type: 'text/javascript',
           charset: 'utf-8'
         },

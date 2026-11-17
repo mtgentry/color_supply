@@ -62,6 +62,14 @@ In the frontend:
 - No visible path to upgrading: no Pricing/Upgrade link in the nav; `/pricing` only offers free signup; plan selection is only reachable from the avatar menu ("Basic Plan" button → `/manage/plan`).
 - The Basic product has no `order` metadata, so plan sorting is unreliable (the API returned Business first).
 
+## Bot traffic (2026-11-17)
+
+Before this date, over half of Amplitude's "users" weren't people. In the week of Nov 9, ~2,200 of ~2,800 page viewers did nothing else (46 had any Section Time, 4 clicked), and never got the `logged_in` user property, which real page loads set within a second. They were mostly link previews (933 iOS in-app/WebView: iMessage, Slack and the like rendering a thumbnail), crawlers that run JavaScript (bingbot, Sogou, QQ), Apple Mail's link preloading, and headless browsers. Each counted as a new user who never returned, roughly doubling new users and dragging retention down.
+
+Since the bot filter shipped, Amplitude starts only for people (the inline script in `nuxt.config.ts`): never when the browser says it's a crawler or automated (user agent, `navigator.webdriver`), and otherwise only on the first touch, click, mouse move, key press or scroll. Events tracked before that (page view, Section Time, user properties) wait in the SDK's queue and are sent once it starts; a visit with no interaction sends nothing. Heap still loads for everyone.
+
+Older data can't be deleted. For charts that span the change, segment to real visitors with the user property `logged_in` is not `(none)`.
+
 ## Custom Amplitude events (added 2026-11-05)
 
 Sent through `composables/trackEvent.js`. Every event also includes `page` (the URL path). In local dev, events are logged to the console as `[trackEvent]` instead, because Amplitude only loads in production. Keep emails and names out of event properties.
@@ -81,6 +89,10 @@ Sent through `composables/trackEvent.js`. Every event also includes `page` (the 
 | Section Time | `plugins/sectionTime.client.js`, for /palettes, /wheel, /mix, /visualize, /favorites | `section`, `seconds` (active time: tab visible, and no more than 60s past the last move, scroll, click or key), `interactions` (clicks + key presses), `ended_by` (navigate / hidden). Sent on leaving the section or hiding/closing the tab (beacon transport); a hidden tab ends the visit and coming back starts a new one. Visits under 1s (redirects) aren't sent. |
 | Palettes Filtered | `stores/filter.js`, 1s after the last filter change | `style`, `qty_min`, `qty_max`, `color_tab` (color / wheel / list), `colors` (count, Color tab), `harmony` (Wheel and List tabs) |
 | Mix Edited | `components/mix/Canvas.vue`, once per visit, on the first change the user makes (the intro's doesn't count) | `squares` |
+| Mix Hex Entered | `components/mix/HexField.vue`, when a typed or pasted color is applied to the selected square (Enter or leaving the field, only if it changed) | `value` (the hex) |
+| Mix Spread | `components/mix/Spread.vue`, a spread switch (hidden until Shift+S) | `spread` (its label), `colors` (count before) |
+
+Verified on production (2026-11-17, scripted visit): page views on each in-app navigation, sessions, Section Time (navigate and hidden), Wheel Scheme Changed, Palettes Filtered; the device id persists across visits (returning visitors are recognized). Wheel Palette Selected fires on clicks only, not on the up/down keys.
 
 Verified in local dev: Section Time, Palettes Filtered, Mix Edited (2026-11-06), Wheel Scheme Changed, Wheel Palette Selected, Color Copied, Sign Up Opened. Not yet exercised: Sign Up Completed, Logged In, favorites, plan/checkout events.
 
