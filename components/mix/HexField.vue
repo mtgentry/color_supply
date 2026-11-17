@@ -134,16 +134,16 @@ const copy = () => clipboard(hex.value, snackbar)
     font-size: 14px
     font-weight: 400
     letter-spacing: 0.28px
-    margin-bottom: var(--gap-item, 8px) // Spacing tokens: assets/css/spacing.sass
+    margin-bottom: 8px
 
 .row
   display: flex
   align-items: center
-  gap: var(--gap-item, 10px)
-  height: var(--control-md, 44px)
-  padding: 0 var(--gap-tight, 6px) 0 var(--gap-item, 8px)
+  gap: 10px
+  height: 44px
+  padding: 0 6px 0 8px
   border: 1px solid var(--color5)
-  border-radius: var(--radius-md, 8px)
+  border-radius: 8px
   background: var(--color7)
   transition: border-color .15s
   &:focus-within
@@ -153,9 +153,9 @@ const copy = () => clipboard(hex.value, snackbar)
 
 .swatch
   flex: none
-  width: var(--swatch, 26px)
-  height: var(--swatch, 26px)
-  border-radius: var(--radius-sm, 5px)
+  width: 26px
+  height: 26px
+  border-radius: 5px
   box-shadow: inset 0 0 0 1px rgba(0, 0, 0, .12)
 
 input
@@ -175,9 +175,9 @@ input
   display: flex
   align-items: center
   justify-content: center
-  width: var(--control-sm, 32px)
-  height: var(--control-sm, 32px)
-  border-radius: var(--radius-sm, 6px)
+  width: 32px
+  height: 32px
+  border-radius: 6px
   color: var(--color3)
   cursor: pointer
   &:hover
@@ -188,14 +188,14 @@ input
     outline-offset: 1px
 
 .hint
-  margin: var(--gap-tight, 6px) 0 0
+  margin: 6px 0 0
   font-size: 12px
   color: var(--color4)
   &.error
     color: #D23B2F
 
 .section-divider // As under the sliders (components/mix/Options.vue)
-  margin: var(--gap-section, var(--section-gap)) 0
+  margin: var(--section-gap) 0
   border-color: var(--section-rule)
   opacity: 1
 </style>

@@ -30,7 +30,7 @@ const colors = computed(() => hexes.value.map((hex) => {
   display: flex
   justify-content: center
 .section-divider // As under the sliders (components/mix/Options.vue)
-  margin: var(--gap-section, var(--section-gap)) 0
+  margin: var(--section-gap) 0
   border-color: var(--section-rule)
   opacity: 1
 </style>

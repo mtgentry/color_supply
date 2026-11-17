@@ -22,8 +22,8 @@ useHead({ title: 'Mix' })
   padding: 0
   overflow-y: auto
   background-color: var(--color7)
-  min-width: var(--panel, 12rem) // Spacing tokens: assets/css/spacing.sass
-  max-width: var(--panel, 17.375rem)
+  min-width: 12rem
+  max-width: 17.375rem
 
 // Phones: the canvas on top at full width, Recent / Favorites scrolling below it.
 // The sliders are a sheet there (components/mix/Options.vue).

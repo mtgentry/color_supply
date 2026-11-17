@@ -137,10 +137,9 @@ onBeforeUnmount(stopDrag)
 <style scoped lang="sass">
 #mix-options
   background-color: var(--color7)
-  // Spacing tokens (assets/css/spacing.sass; the fallbacks are today's values)
-  padding: var(--inset, var(--sidebar-padding))
+  padding: var(--sidebar-padding)
   .section-divider
-    margin: var(--gap-section, var(--section-gap)) 0
+    margin: var(--section-gap) 0
     border-color: var(--section-rule)
     opacity: 1
   :deep(#paletteResults)
@@ -181,11 +180,11 @@ onBeforeUnmount(stopDrag)
     transition: none
 
 #adjust
-  padding-top: var(--gap-group, 12px)
+  padding-top: 12px
   .target
     font-size: 13px
     color: var(--color3)
-    margin-bottom: var(--gap-item, 12px)
+    margin-bottom: 12px
 .palette-ghost
   position: fixed
   z-index: 10000
