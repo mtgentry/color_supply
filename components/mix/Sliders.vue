@@ -112,7 +112,7 @@ watch(() => mixStore.state, (state) => {
   // space below the thumb, so the section gap below starts at the thumb.
   margin-bottom: -6px
   > div + div
-    margin-top: 6px
+    margin-top: var(--gap-item, 6px) // Spacing tokens: assets/css/spacing.sass
   // As the Palettes filter's options (Fresh, Manga...): the headings above stand out, these don't
   .v-label
     color: var(--color3)

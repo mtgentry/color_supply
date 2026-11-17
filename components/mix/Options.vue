@@ -1,7 +1,12 @@
 <template lang="pug">
   #mix-options(@pointerdown="onPointerDown" @click.capture="onClickCapture")
     template(v-if="!narrow")
-      MixHueDial
+      //- One square selected: its hex, in place of the hue dial
+      Transition(name="swap" mode="out-in")
+        div(v-if="selectedCount === 1" key="hex")
+          MixHexField
+        div(v-else key="dial")
+          MixHueDial
       MixSliders
       v-divider.section-divider
     //- On phones the sliders are a third tab, Adjust, after Recent and Favorites
@@ -10,6 +15,7 @@
         #adjust
           //- Only the hint: with squares selected, the canvas already outlines them
           p.target(v-if="!selectedCount") All squares. Tap a square to adjust just that one.
+          MixHexField(v-if="selectedCount === 1")
           MixSliders
     Teleport(to="body")
       .palette-ghost(v-if="ghost" :style="{ left: ghost.x + 'px', top: ghost.y + 'px' }")
@@ -25,6 +31,7 @@
 // components aren't changed.
 import { formatHex } from 'culori'
 import MixHueDial from '~/components/mix/HueDial.vue' // Temporary
+import MixHexField from '~/components/mix/HexField.vue'
 
 const mixStore = useMixStore()
 
@@ -130,9 +137,10 @@ onBeforeUnmount(stopDrag)
 <style scoped lang="sass">
 #mix-options
   background-color: var(--color7)
-  padding: var(--sidebar-padding)
+  // Spacing tokens (assets/css/spacing.sass; the fallbacks are today's values)
+  padding: var(--inset, var(--sidebar-padding))
   .section-divider
-    margin: var(--section-gap) 0
+    margin: var(--gap-section, var(--section-gap)) 0
     border-color: var(--section-rule)
     opacity: 1
   :deep(#paletteResults)
@@ -163,12 +171,21 @@ onBeforeUnmount(stopDrag)
         &:hover::before
           opacity: 1
           transform: translateY(-50%) scale(1)
+// The hex field and the hue dial trade places with a quick fade
+.swap-enter-active, .swap-leave-active
+  transition: opacity .12s ease
+.swap-enter-from, .swap-leave-to
+  opacity: 0
+@media (prefers-reduced-motion: reduce)
+  .swap-enter-active, .swap-leave-active
+    transition: none
+
 #adjust
-  padding-top: 12px
+  padding-top: var(--gap-group, 12px)
   .target
     font-size: 13px
     color: var(--color3)
-    margin-bottom: 12px
+    margin-bottom: var(--gap-item, 12px)
 .palette-ghost
   position: fixed
   z-index: 10000
